@@ -53,7 +53,7 @@ These tools have new major versions (React Router 8, MSW 3, Vitest 5, TypeScript
 
 ## Tasks
 
-- [ ] 0.1 Create the Vite React TypeScript project in the repo root as described. `npm run dev` shows the Vite start page.
+- [x] 0.1 Create the Vite React TypeScript project in the repo root as described. `npm run dev` shows the Vite start page.
 - [ ] 0.2 `.gitignore` (node_modules, dist, .env.local, test-results, playwright-report). First commit.
 - [ ] 0.3 TypeScript in strict mode. Path alias `@/` → `src/`. Script `typecheck`.
 - [ ] 0.4 ESLint and Prettier with scripts `lint` and `format`. Lint must fail on `any` and on unused variables.

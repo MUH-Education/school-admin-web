@@ -1,15 +1,89 @@
-import { createBrowserRouter } from 'react-router'
-import { HomePage } from './HomePage'
+import { createBrowserRouter, Outlet, type RouteObject } from 'react-router'
+import type { Permission } from '@/auth/types'
+import { AdminShell } from './AdminShell'
+import { CannotOpenPage, RequireLogin, RequirePermission } from './guards'
+import { Landing } from './Landing'
 import { NotFoundPage } from './NotFoundPage'
+import { Placeholder, TripPlaceholder } from './Placeholder'
 import { Root } from './Root'
 
-export const routes = [
+/** A page that needs a permission and is built in a later phase. */
+function placeholder(
+  path: string,
+  title: string,
+  permission: Permission,
+  phase: number,
+): RouteObject {
+  return {
+    path,
+    element: (
+      <RequirePermission permission={permission}>
+        <Placeholder title={title} phase={phase} />
+      </RequirePermission>
+    ),
+  }
+}
+
+export const routes: RouteObject[] = [
   {
-    path: '/',
     Component: Root,
     children: [
-      { index: true, Component: HomePage },
-      { path: '*', Component: NotFoundPage },
+      {
+        path: 'login',
+        lazy: async () => ({ Component: (await import('@/auth/LoginPage')).LoginPage }),
+      },
+      {
+        element: (
+          <RequireLogin>
+            <Outlet />
+          </RequireLogin>
+        ),
+        children: [
+          { index: true, element: <Landing /> },
+          {
+            path: 'trip/*',
+            element: (
+              <RequirePermission permission="TRIPS_RECORD">
+                <TripPlaceholder />
+              </RequirePermission>
+            ),
+          },
+          {
+            Component: AdminShell,
+            children: [
+              placeholder('bus-status', 'Bus status', 'BUS_STATUS_VIEW', 4),
+              placeholder('bus-status/routes/:routeId', 'One bus', 'BUS_STATUS_VIEW', 4),
+              placeholder('routes', 'Routes and load', 'ROUTES_VIEW', 2),
+              placeholder('vehicles', 'Vehicles and staff', 'VEHICLES_VIEW', 2),
+              placeholder('vehicles/new', 'Add a vehicle', 'VEHICLES_EDIT', 2),
+              placeholder('vehicles/:id', 'One vehicle', 'VEHICLES_VIEW', 2),
+              placeholder('students', 'Students', 'STUDENTS_VIEW', 3),
+              placeholder('students/:id', 'One student', 'STUDENTS_VIEW', 3),
+              placeholder('admissions/new', 'New admission', 'ADMISSIONS_CREATE', 3),
+              placeholder('enquiries', 'Enquiries', 'ENQUIRIES_VIEW', 7),
+              placeholder('enquiries/new', 'Add an enquiry', 'ENQUIRIES_EDIT', 7),
+              placeholder('enquiries/:id', 'One enquiry', 'ENQUIRIES_VIEW', 7),
+              placeholder('messages', 'Messages', 'MESSAGES_VIEW', 6),
+              placeholder('analytics', 'Analytics', 'ANALYTICS_VIEW', 9),
+              {
+                path: 'users',
+                lazy: async () => {
+                  const { UsersPage } = await import('@/features/users/pages/UsersPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="USERS_MANAGE">
+                        <UsersPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
+              { path: 'cannot-open', Component: CannotOpenPage },
+              { path: '*', Component: NotFoundPage },
+            ],
+          },
+        ],
+      },
     ],
   },
 ]

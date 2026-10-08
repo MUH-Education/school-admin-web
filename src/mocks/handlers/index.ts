@@ -1,4 +1,6 @@
 import type { RequestHandler } from 'msw'
+import { authHandlers } from './auth'
+import { userHandlers } from './users'
 
-/** Feature handlers are added here, one list per feature. */
-export const handlers: RequestHandler[] = []
+/** One list per feature is added here. */
+export const handlers: RequestHandler[] = [...authHandlers, ...userHandlers]

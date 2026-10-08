@@ -59,6 +59,14 @@ This file is the memory of the web project. When something is decided, write one
 | 8 Oct 2026 | 0 | A small Vite plugin deletes `mockServiceWorker.js` from `dist/` after the build. | `public/` copies it into `dist/`. It must not ship. |
 | 8 Oct 2026 | 0 | Playwright reads optional `PW_CHROMIUM_PATH` to use an installed Chromium. | Lets the e2e test run where `playwright install` is not possible. |
 | 8 Oct 2026 | 1 | `User`, `Role` and the `GET /roles` and `GET /users` row shapes are my guess (`Role = { role, permissions[] }`; `User` = id, name, phone, role, active, route). | `docs/backend/api.md` gives no JSON for them. Confirm with the backend repo in task 1.21. |
+| 8 Oct 2026 | 1 | `GET /staff?type=ATTENDANT` returning `{ id, name, type, route }[]` is my guess. | `docs/backend/api.md` only says `GET /staff` lists staff. Confirm in task 1.21. |
+| 8 Oct 2026 | 1 | The users table shows "Mobile number" where the design shows "Username". | Login is by phone (A4). The design was drawn before that. |
+| 8 Oct 2026 | 1 | In the role table, Messages and Analytics show "View" for the owner too (design: "Full"). | No permission separates "see" from "change" on those pages, and the web app keeps no copy of the role table (B9). |
+| 8 Oct 2026 | 1 | The login page is English only for now. The "हिंदी" button comes with the attendant app (phase 5). | Hindi text lives in `hi.json`, built in phase 5. |
+| 8 Oct 2026 | 1 | The mock has 8 sample users (the 5 from the doc plus Ramesh, Mahender, Kuldeep) and mock phones `+91981234000N`. | The Users design shows 8 people. |
+| 8 Oct 2026 | 1 | Unknown addresses show "Page not found" inside the admin shell, so a person who is not logged in goes to `/login` first. | One guard for everything except `/login`. |
+| 8 Oct 2026 | 1 | After "Log out" the login page does not return to the old page. After a 401 it does. | Logging out is on purpose; a 401 is not. |
+| 8 Oct 2026 | 1 | `Dialog` is built by hand (focus trap, Escape) instead of the `<dialog>` tag. | jsdom has no `showModal()`, so tests could not check it. No new library. |
 
 ## E. Differences from the first plan document
 

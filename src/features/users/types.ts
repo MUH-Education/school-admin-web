@@ -36,3 +36,12 @@ export interface Role {
 
 /** Business errors the Users dialogs show with the server's message. */
 export type UserErrorCode = 'PHONE_ALREADY_USED' | 'LAST_OWNER' | 'CANNOT_DISABLE_SELF'
+
+/** One person from GET /staff?type=ATTENDANT, for the "Which attendant?" choice. */
+export interface AttendantOption {
+  id: number
+  name: string
+  type: 'ATTENDANT'
+  /** Route name today, for example "Route 4". Null when not on a route. */
+  route: string | null
+}

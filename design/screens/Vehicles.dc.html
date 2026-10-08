@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vehicles and staff</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D6E8B}a:hover{color:#16222E}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #EEF1F4; color: #16222E; font-family: 'Archivo', system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.4">
+
+<nav aria-label="Main menu" style="flex: 1 1 232px; box-sizing: border-box; background: #16222E; padding: 24px 16px 28px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 0 12px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #E0A45C">School admin</div>
+<div style="font-size: 17px; font-weight: 700; line-height: 1.25; color: #FFFFFF">MUH Jain Global School</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Transport</div>
+<a href="Main.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Bus status</a>
+<a href="RoutesLoad.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Routes and load</a>
+<a href="Vehicles.dc.html" aria-current="page" style="display: block; padding: 13px 12px; font-size: 14.5px; font-weight: 600; color: #FFFFFF; background: #1D6E8B; text-decoration: none">Vehicles and staff</a>
+<a href="#" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Messages</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Admissions</div>
+<a href="Enquiries.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Enquiries</a>
+<a href="Admission.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">New admission</a>
+<a href="Students.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Students</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Reports</div>
+<a href="Analytics.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Analytics</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Settings</div>
+<a href="Roles.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Users and roles</a>
+</div>
+<div style="margin-top: auto; padding: 16px 12px 0; border-top: 1px solid #34424F; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 14px; font-weight: 600; color: #FFFFFF">Sourabh</div>
+<div style="font-size: 12.5px; color: #8FA0AF">Owner · sees everything</div>
+</div>
+</nav>
+
+<main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 32px 40px 56px; display: flex; flex-direction: column; gap: 24px">
+
+<header style="display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: flex-end; justify-content: space-between; border-bottom: 2px solid #16222E; padding-bottom: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8A5A14">Transport · 9 vehicles, 19 people</div>
+<h1 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1">Vehicles and staff</h1>
+<p style="margin: 0; font-size: 14px; color: #5A6B7A; max-width: 620px">Every vehicle, who drives it, who rides with the children, and when its papers end. Open a vehicle to change its driver or attendant.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button type="button" style="min-height: 44px; padding: 0 18px; border: 1px solid #1D6E8B; background: #FFFFFF; color: #1D6E8B; font: inherit; font-weight: 600; cursor: pointer">Add a person</button>
+<button type="button" style="min-height: 44px; padding: 0 18px; border: 1px solid #1D6E8B; background: #1D6E8B; color: #FFFFFF; font: inherit; font-weight: 600; cursor: pointer">Add a vehicle</button>
+</div>
+</header>
+
+<section aria-label="Papers that need attention" style="background: #FFFFFF; border: 1px solid #D3DBE2; border-top: 3px solid #B4332B; padding: 16px 20px 18px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 600">3 papers need attention</h2>
+<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+<li><strong style="color: #B4332B">Bus 9:</strong> fitness certificate ended on 30 September 2026. It should not carry children until this is renewed.</li>
+<li><strong style="color: #8A5A14">Van 6:</strong> insurance ends on 28 October 2026, in 21 days.</li>
+<li><strong style="color: #8A5A14">Driver Krishan:</strong> driving licence ends on 2 November 2026, in 26 days.</li>
+</ul>
+</section>
+
+<section aria-label="Vehicles" style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 600">Vehicles</h2>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #D3DBE2">
+<div style="min-width: 960px">
+<div style="display: grid; grid-template-columns: 70px 130px 96px 56px 84px minmax(100px, 1fr) minmax(100px, 1fr) minmax(170px, 1.5fr) 52px; gap: 0 16px; align-items: end; padding: 12px 16px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">
+<div>Vehicle</div>
+<div>Number</div>
+<div>Type</div>
+<div>Seats</div>
+<div>Route</div>
+<div>Driver</div>
+<div>Attendant</div>
+<div>Papers</div>
+<div></div>
+</div>
+<sc-for list="{{ vehicles }}" as="v" hint-placeholder-count="9">
+<div style="display: grid; grid-template-columns: 70px 130px 96px 56px 84px minmax(100px, 1fr) minmax(100px, 1fr) minmax(170px, 1.5fr) 52px; gap: 0 16px; align-items: center; padding: 13px 16px; border-top: 1px solid #D3DBE2; font-size: 14px">
+<div style="font-weight: 600">{{v.name}}</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12.5px; color: #5A6B7A">{{v.number}}</div>
+<div>{{v.type}}</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px">{{v.seats}}</div>
+<div>{{v.route}}</div>
+<div>{{v.driver}}</div>
+<div>{{v.attendant}}</div>
+<div style="display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: {{v.pWeight}}; color: {{v.pColor}}"><span style="flex: none; width: 8px; height: 8px; background: {{v.pDot}}"></span>{{v.papers}}</div>
+<div><a href="{{v.href}}" style="font-weight: 600">Open</a></div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section aria-label="Drivers and attendants" style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; justify-content: space-between">
+<h2 style="margin: 0; font-size: 15px; font-weight: 600">Drivers, attendants and helpers</h2>
+<div style="font-size: 12.5px; color: #5A6B7A">Showing 8 of 19 people</div>
+</div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #D3DBE2">
+<div style="min-width: 960px">
+<div style="display: grid; grid-template-columns: minmax(110px, 1fr) 96px 120px minmax(150px, 1.2fr) minmax(130px, 1.1fr) minmax(130px, 1.1fr) 110px 44px; gap: 0 16px; align-items: end; padding: 12px 16px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">
+<div>Name</div>
+<div>Work</div>
+<div>Phone</div>
+<div>Licence number</div>
+<div>Licence valid till</div>
+<div>Works on</div>
+<div>Phone app login</div>
+<div></div>
+</div>
+<sc-for list="{{ people }}" as="p" hint-placeholder-count="8">
+<div style="display: grid; grid-template-columns: minmax(110px, 1fr) 96px 120px minmax(150px, 1.2fr) minmax(130px, 1.1fr) minmax(130px, 1.1fr) 110px 44px; gap: 0 16px; align-items: center; padding: 13px 16px; border-top: 1px solid #D3DBE2; font-size: 14px">
+<div style="font-weight: 600">{{p.name}}</div>
+<div>{{p.work}}</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12.5px; color: #5A6B7A">{{p.phone}}</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12.5px; color: #5A6B7A">{{p.licence}}</div>
+<div style="font-size: 13.5px; font-weight: {{p.lWeight}}; color: {{p.lColor}}">{{p.valid}}</div>
+<div style="color: {{p.wColor}}">{{p.worksOn}}</div>
+<div style="color: #5A6B7A">{{p.login}}</div>
+<div><a href="#" style="font-weight: 600">Edit</a></div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="font-size: 12.5px; color: #5A6B7A">Only attendants get a phone app login, because they tap the children. Drivers do not need one.</div>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1600}}'>
+class Component extends DCLogic {
+renderVals() {
+const INK = '#16222E', SOFT = '#5A6B7A', GOOD = '#2E7D5B', WARN = '#8A5A14', WARNDOT = '#C8873A', BAD = '#B4332B';
+const veh = (name, number, type, seats, route, driver, attendant, papers, level, href) => ({
+name, number, type, seats, route, driver, attendant, papers,
+pColor: level === 'bad' ? BAD : (level === 'warn' ? WARN : INK),
+pDot: level === 'bad' ? BAD : (level === 'warn' ? WARNDOT : GOOD),
+pWeight: level === 'ok' ? 400 : 600,
+href: href || '#'
+});
+const vehicles = [
+veh('Van 1', 'HR 23 XX 1101', 'Small van', 14, 'Route 1', 'Rajpal', 'Ramesh', 'All valid', 'ok'),
+veh('Van 2', 'HR 23 XX 1102', 'Small van', 14, 'Route 2', 'Mahavir', 'Suresh', 'All valid', 'ok'),
+veh('Van 3', 'HR 23 XX 1103', 'Small van', 14, 'Route 3', 'Om Prakash', 'Mahender', 'All valid', 'ok'),
+veh('Van 4', 'HR 23 XX 1104', 'Small van', 14, 'Route 4', 'Jagdish', 'Balwan', 'All valid', 'ok', 'VehicleDetail.dc.html'),
+veh('Van 5', 'HR 23 XX 1105', 'Small van', 14, 'Route 5', 'Sukhdev', 'Sunita', 'All valid', 'ok'),
+veh('Van 6', 'HR 23 XX 1106', 'Small van', 14, 'Route 6', 'Baljeet', 'Rajbir', 'Insurance ends 28 Oct', 'warn'),
+veh('Van 7', 'HR 23 XX 1107', 'Small van', 14, 'Route 7', 'Krishan', 'Kamla', 'All valid', 'ok'),
+veh('Bus 8', 'HR 23 XX 2108', 'Mid bus', 26, 'Route 8', 'Ranbir', 'Satpal', 'All valid', 'ok'),
+veh('Bus 9', 'HR 23 XX 2109', 'Mid bus', 26, 'Route 9', 'Dilbag', 'Dharampal', 'Fitness ended 30 Sep', 'bad')
+];
+const person = (name, work, phone, licence, valid, worksOn, login, warn) => ({
+name, work, phone, licence, valid, worksOn, login,
+lColor: warn ? WARN : (valid === '—' ? SOFT : INK),
+lWeight: warn ? 600 : 400,
+wColor: worksOn === 'Free, not on any vehicle' ? WARN : INK
+});
+const people = [
+person('Rajpal', 'Driver', '98XXX XX101', 'HR23 2014 XXXX412', '14 Mar 2029', 'Van 1 · Route 1', 'No login', false),
+person('Jagdish', 'Driver', '98XXX XX104', 'HR23 2011 XXXX087', '8 Jul 2028', 'Van 4 · Route 4', 'No login', false),
+person('Krishan', 'Driver', '94XXX XX107', 'HR23 2016 XXXX530', '2 Nov 2026, in 26 days', 'Van 7 · Route 7', 'No login', true),
+person('Surender', 'Driver', '97XXX XX110', 'HR23 2018 XXXX265', '21 Jan 2030', 'Free, not on any vehicle', 'No login', false),
+person('Balwan', 'Attendant', '97XXX XX204', '—', '—', 'Van 4 · Route 4', 'Yes', false),
+person('Sunita', 'Attendant', '90XXX XX205', '—', '—', 'Van 5 · Route 5', 'Yes', false),
+person('Kamla', 'Attendant', '99XXX XX207', '—', '—', 'Van 7 · Route 7', 'Yes', false),
+person('Dharampal', 'Attendant', '98XXX XX209', '—', '—', 'Bus 9 · Route 9', 'Yes', false)
+];
+return { vehicles, people };
+}
+}
+</script>
+</body>
+</html>

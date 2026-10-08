@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bus status</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D6E8B}a:hover{color:#16222E}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #EEF1F4; color: #16222E; font-family: 'Archivo', system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.4">
+
+<nav aria-label="Main menu" style="flex: 1 1 232px; box-sizing: border-box; background: #16222E; padding: 24px 16px 28px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 0 12px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #E0A45C">School admin</div>
+<div style="font-size: 17px; font-weight: 700; line-height: 1.25; color: #FFFFFF">MUH Jain Global School</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Transport</div>
+<a href="Main.dc.html" aria-current="page" style="display: block; padding: 13px 12px; font-size: 14.5px; font-weight: 600; color: #FFFFFF; background: #1D6E8B; text-decoration: none">Bus status</a>
+<a href="RoutesLoad.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Routes and load</a>
+<a href="Vehicles.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Vehicles and staff</a>
+<a href="#" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Messages</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Admissions</div>
+<a href="Enquiries.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Enquiries</a>
+<a href="Admission.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">New admission</a>
+<a href="Students.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Students</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Reports</div>
+<a href="Analytics.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Analytics</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Settings</div>
+<a href="Roles.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Users and roles</a>
+</div>
+<div style="margin-top: auto; padding: 16px 12px 0; border-top: 1px solid #34424F; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 14px; font-weight: 600; color: #FFFFFF">Sourabh</div>
+<div style="font-size: 12.5px; color: #8FA0AF">Owner · sees everything</div>
+</div>
+</nav>
+
+<main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 32px 40px 56px; display: flex; flex-direction: column; gap: 24px">
+
+<header style="display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: flex-end; justify-content: space-between; border-bottom: 2px solid #16222E; padding-bottom: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8A5A14">Transport · Wednesday 7 October 2026</div>
+<h1 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1">Bus status</h1>
+<p style="margin: 0; font-size: 14px; color: #5A6B7A; max-width: 560px">Where every bus is right now. The position comes from the attendant's taps at each stop.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start">
+<div style="display: flex; flex-wrap: wrap; border: 1px solid #16222E">
+<button type="button" aria-pressed="true" style="min-height: 44px; padding: 0 16px; border: none; background: #16222E; color: #FFFFFF; font: inherit; font-weight: 600; cursor: pointer">Morning pickup</button>
+<button type="button" aria-pressed="false" style="min-height: 44px; padding: 0 16px; border: none; border-left: 1px solid #16222E; background: #FFFFFF; color: #16222E; font: inherit; cursor: pointer">At school</button>
+<button type="button" aria-pressed="false" style="min-height: 44px; padding: 0 16px; border: none; border-left: 1px solid #16222E; background: #FFFFFF; color: #16222E; font: inherit; cursor: pointer">Evening drop</button>
+</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #5A6B7A">Live · updated 7:48 am</div>
+</div>
+</header>
+
+<section aria-label="Summary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: 1px; background: #D3DBE2; border: 1px solid #D3DBE2">
+<div style="background: #FFFFFF; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">On the way</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">5 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of 9 buses</span></div>
+</div>
+<div style="background: #FFFFFF; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Reached school</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">2 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">buses</span></div>
+</div>
+<div style="background: #FFFFFF; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Children boarded</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">118 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of 255</span></div>
+</div>
+<div style="background: #FFFFFF; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Marked absent</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">9</div>
+</div>
+<div style="background: #FFFFFF; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Needs attention</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600; color: #B4332B">2 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">buses</span></div>
+</div>
+</section>
+
+<section aria-label="Needs attention" style="background: #FFFFFF; border: 1px solid #D3DBE2; border-top: 3px solid #B4332B; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 600">Needs attention now</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 320px">
+<div style="font-size: 14px; font-weight: 600; color: #B4332B">Route 3 has no taps yet</div>
+<div style="font-size: 13.5px; color: #16222E">The first stop, Pirthala, was due at 7:15. That is 33 minutes ago. Attendant: Mahender.</div>
+</div>
+<button type="button" style="min-height: 44px; padding: 0 16px; border: 1px solid #B4332B; background: #FFFFFF; color: #B4332B; font: inherit; font-weight: 600; cursor: pointer">Call attendant</button>
+</div>
+<div style="height: 1px; background: #D3DBE2"></div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 320px">
+<div style="font-size: 14px; font-weight: 600; color: #8A5A14">Route 5 is running 16 minutes late</div>
+<div style="font-size: 13.5px; color: #16222E">Samain was due at 7:24 and was tapped at 7:40. Four stops are still left.</div>
+</div>
+<button type="button" style="min-height: 44px; padding: 0 16px; border: 1px solid #16222E; background: #FFFFFF; color: #16222E; font: inherit; font-weight: 600; cursor: pointer">Call attendant</button>
+</div>
+</section>
+
+<section aria-label="All buses" style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; justify-content: space-between">
+<h2 style="margin: 0; font-size: 15px; font-weight: 600">All 9 buses</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12.5px; color: #5A6B7A">
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; background: #1D6E8B"></span>Stop done</span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #1D6E8B; background: #FFFFFF"></span>Next stop</span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span>Later</span>
+</div>
+</div>
+
+<article style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center">
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 3px">
+<div style="font-size: 16px; font-weight: 600">Route 1</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #5A6B7A">Small van · 14 seats</div>
+<div style="font-size: 12.5px; color: #5A6B7A">Attendant: Ramesh</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; align-items: flex-start">
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Lalauda</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:21</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Dangra</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:30</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Dharsul</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:44</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #1D6E8B; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Kulan</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:52</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Tohana town</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:00</div></div>
+<div style="flex: none; width: 64px; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span></div><div style="font-size: 12.5px; line-height: 1.2; color: #5A6B7A">School</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:10</div></div>
+</div>
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 5px; align-items: flex-start">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1D6E8B"><span style="width: 8px; height: 8px; background: #1D6E8B"></span>On the way</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 20px; font-weight: 600">14 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of 24 boarded</span></div>
+<div style="font-size: 12.5px; color: #5A6B7A">1 absent · <a href="#">View children</a></div>
+</div>
+</article>
+
+<article style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center">
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 3px">
+<div style="font-size: 16px; font-weight: 600">Route 2</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #5A6B7A">Small van · 14 seats</div>
+<div style="font-size: 12.5px; color: #5A6B7A">Attendant: Suresh</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; align-items: flex-start">
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Chander Kalan</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:06</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Nangla</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:15</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Indachhoi</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:25</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Kanheri</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:37</div></div>
+<div style="flex: none; width: 64px; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #2E7D5B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2">School</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:46</div></div>
+</div>
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 5px; align-items: flex-start">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #2E7D5B"><span style="width: 8px; height: 8px; background: #2E7D5B"></span>Reached school 7:46</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 20px; font-weight: 600">25 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of 27 boarded</span></div>
+<div style="font-size: 12.5px; color: #5A6B7A">2 absent · <a href="#">View children</a></div>
+</div>
+</article>
+
+<article style="background: #FFFFFF; border: 1px solid #B4332B; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center">
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 3px">
+<div style="font-size: 16px; font-weight: 600">Route 3</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #5A6B7A">Small van · 14 seats</div>
+<div style="font-size: 12.5px; color: #5A6B7A">Attendant: Mahender</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; align-items: flex-start">
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #B4332B; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Pirthala</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #B4332B">due 7:15</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Diwana</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:24</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Gajuwala</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:33</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Balianwala</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:44</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Tohana town</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:55</div></div>
+<div style="flex: none; width: 64px; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span></div><div style="font-size: 12.5px; line-height: 1.2; color: #5A6B7A">School</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:10</div></div>
+</div>
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 5px; align-items: flex-start">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #B4332B"><span style="width: 8px; height: 8px; background: #B4332B"></span>No taps yet</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 20px; font-weight: 600">0 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of 22 boarded</span></div>
+<div style="font-size: 12.5px; color: #5A6B7A">33 minutes behind · <a href="#">View children</a></div>
+</div>
+</article>
+
+<article style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center">
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 3px">
+<div style="font-size: 16px; font-weight: 600">Route 4</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #5A6B7A">Small van · 14 seats</div>
+<div style="font-size: 12.5px; color: #5A6B7A">Attendant: Balwan</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; align-items: flex-start">
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Sadhanwas</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:26</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Jakhal</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:42</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #1D6E8B; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Kanheri</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:55</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Tohana town</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:02</div></div>
+<div style="flex: none; width: 64px; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span></div><div style="font-size: 12.5px; line-height: 1.2; color: #5A6B7A">School</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:10</div></div>
+</div>
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 5px; align-items: flex-start">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1D6E8B"><span style="width: 8px; height: 8px; background: #1D6E8B"></span>On the way</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 20px; font-weight: 600">11 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of 19 boarded</span></div>
+<div style="font-size: 12.5px; color: #5A6B7A">1 absent · <a href="BusDetail.dc.html">View children</a></div>
+</div>
+</article>
+
+<article style="background: #FFFFFF; border: 1px solid #C8873A; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center">
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 3px">
+<div style="font-size: 16px; font-weight: 600">Route 5</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #5A6B7A">Small van · 14 seats</div>
+<div style="font-size: 12.5px; color: #5A6B7A">Attendant: Sunita</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; align-items: flex-start">
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Akanwali</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:25</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Samain</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #8A5A14">7:40, late</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #1D6E8B; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Jamalpur</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:34</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Rattakhera</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:42</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Hindalwala</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:50</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Kanheri</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:00</div></div>
+<div style="flex: none; width: 64px; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span></div><div style="font-size: 12.5px; line-height: 1.2; color: #5A6B7A">School</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:10</div></div>
+</div>
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 5px; align-items: flex-start">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #8A5A14"><span style="width: 8px; height: 8px; background: #C8873A"></span>Late by 16 minutes</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 20px; font-weight: 600">8 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of 26 boarded</span></div>
+<div style="font-size: 12.5px; color: #5A6B7A">0 absent · <a href="#">View children</a></div>
+</div>
+</article>
+
+<article style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center">
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 3px">
+<div style="font-size: 16px; font-weight: 600">Route 6</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #5A6B7A">Small van · 14 seats</div>
+<div style="font-size: 12.5px; color: #5A6B7A">Attendant: Rajbir</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; align-items: flex-start">
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Dulat</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:22</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Thuian</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:33</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Hansawala</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:45</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #1D6E8B; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Tohana town</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:56</div></div>
+<div style="flex: none; width: 64px; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span></div><div style="font-size: 12.5px; line-height: 1.2; color: #5A6B7A">School</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:10</div></div>
+</div>
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 5px; align-items: flex-start">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1D6E8B"><span style="width: 8px; height: 8px; background: #1D6E8B"></span>On the way</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 20px; font-weight: 600">15 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of 21 boarded</span></div>
+<div style="font-size: 12.5px; color: #5A6B7A">2 absent · <a href="#">View children</a></div>
+</div>
+</article>
+
+<article style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center">
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 3px">
+<div style="font-size: 16px; font-weight: 600">Route 7</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #5A6B7A">Small van · 14 seats</div>
+<div style="font-size: 12.5px; color: #5A6B7A">Attendant: Kamla</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; align-items: flex-start">
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Bhimewala</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">6:56</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Karandi</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:05</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Meond</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:13</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Shakkarpura</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:22</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Kanheri</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:31</div></div>
+<div style="flex: none; width: 64px; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #2E7D5B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2">School</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:41</div></div>
+</div>
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 5px; align-items: flex-start">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #2E7D5B"><span style="width: 8px; height: 8px; background: #2E7D5B"></span>Reached school 7:41</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 20px; font-weight: 600">23 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of 25 boarded</span></div>
+<div style="font-size: 12.5px; color: #5A6B7A">2 absent · <a href="#">View children</a></div>
+</div>
+</article>
+
+<article style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center">
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 3px">
+<div style="font-size: 16px; font-weight: 600">Route 8</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #5A6B7A">Mid bus · 26 seats</div>
+<div style="font-size: 12.5px; color: #5A6B7A">Attendant: Satpal</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; align-items: flex-start">
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Kulan</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:16</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #1D6E8B"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Nathuwal</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:27</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; background: #1D6E8B"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Laluwal</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">7:43</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #1D6E8B; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Chandpura</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:52</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Tohana town</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:00</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Kanheri</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:05</div></div>
+<div style="flex: none; width: 64px; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span></div><div style="font-size: 12.5px; line-height: 1.2; color: #5A6B7A">School</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:10</div></div>
+</div>
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 5px; align-items: flex-start">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1D6E8B"><span style="width: 8px; height: 8px; background: #1D6E8B"></span>On the way</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 20px; font-weight: 600">22 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of 46 boarded</span></div>
+<div style="font-size: 12.5px; color: #5A6B7A">1 absent · <a href="#">View children</a></div>
+</div>
+</article>
+
+<article style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center">
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 3px">
+<div style="font-size: 16px; font-weight: 600">Route 9</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #5A6B7A">Mid bus · 26 seats</div>
+<div style="font-size: 12.5px; color: #5A6B7A">Attendant: Dharampal</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; align-items: flex-start">
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #1D6E8B; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; font-weight: 600; line-height: 1.2; padding-right: 8px">Bus Stand</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:50</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Railway Road</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 7:56</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Model Town</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:02</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Chandigarh Road</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:08</div></div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span><span style="flex: 1; height: 2px; background: #D3DBE2"></span></div><div style="font-size: 12.5px; line-height: 1.2; padding-right: 8px; color: #5A6B7A">Kanheri</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:14</div></div>
+<div style="flex: none; width: 64px; display: flex; flex-direction: column; gap: 7px"><div style="display: flex; align-items: center"><span style="flex: none; width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #A9B5C0; background: #FFFFFF"></span></div><div style="font-size: 12.5px; line-height: 1.2; color: #5A6B7A">School</div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">due 8:20</div></div>
+</div>
+<div style="flex: 0 1 190px; display: flex; flex-direction: column; gap: 5px; align-items: flex-start">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #5A6B7A"><span style="width: 8px; height: 8px; box-sizing: border-box; border: 2px solid #5A6B7A"></span>Not started · starts 7:50</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 20px; font-weight: 600">0 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of 45 boarded</span></div>
+<div style="font-size: 12.5px; color: #5A6B7A">0 absent · <a href="#">View children</a></div>
+</div>
+</article>
+
+</section>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1640}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

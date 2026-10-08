@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Enquiry list</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D6E8B}a:hover{color:#16222E}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #EEF1F4; color: #16222E; font-family: 'Archivo', system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.4">
+
+<nav aria-label="Main menu" style="flex: 1 1 232px; box-sizing: border-box; background: #16222E; padding: 24px 16px 28px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 0 12px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #E0A45C">School admin</div>
+<div style="font-size: 17px; font-weight: 700; line-height: 1.25; color: #FFFFFF">MUH Jain Global School</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Transport</div>
+<a href="Main.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Bus status</a>
+<a href="RoutesLoad.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Routes and load</a>
+<a href="Vehicles.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Vehicles and staff</a>
+<a href="#" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Messages</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Admissions</div>
+<a href="Enquiries.dc.html" aria-current="page" style="display: block; padding: 13px 12px; font-size: 14.5px; font-weight: 600; color: #FFFFFF; background: #1D6E8B; text-decoration: none">Enquiries</a>
+<a href="Admission.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">New admission</a>
+<a href="Students.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Students</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Reports</div>
+<a href="Analytics.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Analytics</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Settings</div>
+<a href="Roles.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Users and roles</a>
+</div>
+<div style="margin-top: auto; padding: 16px 12px 0; border-top: 1px solid #34424F; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 14px; font-weight: 600; color: #FFFFFF">Sourabh</div>
+<div style="font-size: 12.5px; color: #8FA0AF">Owner · sees everything</div>
+</div>
+</nav>
+
+<main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 32px 40px 56px; display: flex; flex-direction: column; gap: 24px">
+
+<header style="display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: flex-end; justify-content: space-between; border-bottom: 2px solid #16222E; padding-bottom: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8A5A14">Admissions · Session 2027–28</div>
+<h1 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1">Enquiries</h1>
+<p style="margin: 0; font-size: 14px; color: #5A6B7A; max-width: 560px">Every parent who asked about admission, and what to do next for each one.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #16222E">4 of 29 admitted so far · 14%</div>
+<a href="AddEnquiry.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; background: #1D6E8B; color: #FFFFFF; font-size: 15px; font-weight: 600; text-decoration: none">Add enquiry</a>
+</div>
+</header>
+
+<section aria-label="Filter by stage" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr)); gap: 1px; background: #D3DBE2; border: 1px solid #D3DBE2">
+<button type="button" aria-pressed="true" style="border: none; text-align: left; background: #16222E; color: #FFFFFF; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; font: inherit; cursor: pointer"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #C9D3DC">All</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">29</span></button>
+<button type="button" aria-pressed="false" style="border: none; text-align: left; background: #FFFFFF; color: #16222E; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; font: inherit; cursor: pointer"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">New</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">6</span></button>
+<button type="button" aria-pressed="false" style="border: none; text-align: left; background: #FFFFFF; color: #16222E; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; font: inherit; cursor: pointer"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Contacted</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">9</span></button>
+<button type="button" aria-pressed="false" style="border: none; text-align: left; background: #FFFFFF; color: #16222E; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; font: inherit; cursor: pointer"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Visited</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">5</span></button>
+<button type="button" aria-pressed="false" style="border: none; text-align: left; background: #FFFFFF; color: #16222E; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; font: inherit; cursor: pointer"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Applied</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">3</span></button>
+<button type="button" aria-pressed="false" style="border: none; text-align: left; background: #FFFFFF; color: #16222E; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; font: inherit; cursor: pointer"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Admitted</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600; color: #2E7D5B">4</span></button>
+<button type="button" aria-pressed="false" style="border: none; text-align: left; background: #FFFFFF; color: #16222E; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; font: inherit; cursor: pointer"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Lost</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">2</span></button>
+</section>
+
+<section aria-label="Overdue follow-ups" style="background: #FFFFFF; border: 1px solid #D3DBE2; border-top: 3px solid #C8873A; padding: 14px 20px; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 320px; min-width: 0">
+<div style="font-size: 14px; font-weight: 600">4 follow-ups are overdue</div>
+<div style="font-size: 13.5px; color: #5A6B7A">These parents were promised a call and did not get one. Call them today.</div>
+</div>
+<button type="button" style="min-height: 44px; padding: 0 16px; border: 1px solid #16222E; background: #FFFFFF; color: #16222E; font: inherit; font-weight: 600; cursor: pointer">Show only overdue</button>
+</section>
+
+<section aria-label="Enquiry table" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: flex-end">
+<div style="flex: 2 1 260px; max-width: 420px; display: flex; flex-direction: column; gap: 4px">
+<label for="enq-search" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Search name or phone</label>
+<input id="enq-search" type="search" placeholder="e.g. Rajesh or 98120" style="box-sizing: border-box; width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit">
+</div>
+<div style="flex: 1 1 170px; max-width: 240px; display: flex; flex-direction: column; gap: 4px">
+<label for="enq-village" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Village</label>
+<select id="enq-village" style="box-sizing: border-box; width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit"><option>All villages</option><option>Jakhal</option><option>Kanheri</option><option>Tohana town</option></select>
+</div>
+<div style="flex: 1 1 170px; max-width: 240px; display: flex; flex-direction: column; gap: 4px">
+<label for="enq-source" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Source</label>
+<select id="enq-source" style="box-sizing: border-box; width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit"><option>All sources</option><option>Walk-in</option><option>Referral</option><option>Facebook</option><option>WhatsApp</option><option>Hoarding</option><option>Bus enquiry</option></select>
+</div>
+</div>
+
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #D3DBE2">
+<div style="min-width: 940px">
+<div style="display: grid; grid-template-columns: 64px minmax(150px, 1.3fr) 120px minmax(100px, 1fr) 76px minmax(96px, 0.9fr) 112px minmax(170px, 1.4fr) 52px; gap: 0 16px; align-items: end; padding: 14px 18px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">
+<div>Date</div>
+<div>Parent</div>
+<div>Phone</div>
+<div>Village</div>
+<div>Class</div>
+<div>Source</div>
+<div>Status</div>
+<div>Next step</div>
+<div></div>
+</div>
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="10">
+<div style="display: grid; grid-template-columns: 64px minmax(150px, 1.3fr) 120px minmax(100px, 1fr) 76px minmax(96px, 0.9fr) 112px minmax(170px, 1.4fr) 52px; gap: 0 16px; align-items: center; padding: 14px 18px; border-top: 1px solid #D3DBE2; font-size: 14px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12.5px; color: #5A6B7A">{{r.date}}</div>
+<div style="font-weight: 600">{{r.name}}</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12.5px; color: #5A6B7A">{{r.phone}}</div>
+<div>{{r.village}}</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12.5px">{{r.cls}}</div>
+<div>{{r.source}}</div>
+<div style="display: flex; align-items: center; gap: 7px; font-weight: 600; font-size: 13px"><span style="flex: none; width: 8px; height: 8px; background: {{r.dot}}"></span>{{r.status}}</div>
+<div style="font-size: 13.5px; font-weight: {{r.nextWeight}}; color: {{r.nextColor}}">{{r.next}}</div>
+<div><a href="#">Open</a></div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="font-size: 12.5px; color: #5A6B7A">Showing 10 of 29 enquiries, newest first.</div>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1200}}'>
+class Component extends DCLogic {
+renderVals() {
+const INK = '#16222E', SOFT = '#5A6B7A', BAD = '#B4332B';
+const DOT = { New: '#1D6E8B', Contacted: '#7F8E9B', Visited: '#C8873A', Applied: '#16222E', Admitted: '#2E7D5B', Lost: '#B4332B' };
+const row = (date, name, phone, village, cls, source, status, next, overdue) => ({
+date, name, phone, village, cls, source, status, next,
+dot: DOT[status],
+nextColor: overdue ? BAD : (next === '—' ? SOFT : INK),
+nextWeight: overdue ? 600 : 400
+});
+const rows = [
+row('6 Oct', 'Rajesh Kumar', '98XXX XX412', 'Jakhal', '1', 'Walk-in', 'New', 'Call by 7 Oct', false),
+row('6 Oct', 'Sunita Devi', '94XXX XX087', 'Kanheri', 'Nursery', 'Referral', 'New', 'Call by 7 Oct', false),
+row('5 Oct', 'Manoj Sharma', '97XXX XX530', 'Tohana town', '6', 'Facebook', 'Contacted', 'School visit on 9 Oct', false),
+row('3 Oct', 'Gurpreet Singh', '98XXX XX265', 'Dharsul', 'LKG', 'Hoarding', 'Contacted', 'Overdue since 5 Oct', true),
+row('2 Oct', 'Kavita Rani', '90XXX XX918', 'Samain', '3', 'WhatsApp', 'Visited', 'Overdue since 4 Oct', true),
+row('30 Sep', 'Vikram Punia', '99XXX XX304', 'Akanwali', '9', 'Referral', 'Visited', 'Call by 8 Oct', false),
+row('29 Sep', 'Anita Goyal', '98XXX XX771', 'Tohana town', 'UKG', 'Walk-in', 'Applied', 'Documents due 10 Oct', false),
+row('27 Sep', 'Sandeep Nain', '94XXX XX156', 'Kulan', '4', 'Bus enquiry', 'Admitted', '—', false),
+row('25 Sep', 'Meena Kumari', '97XXX XX649', 'Jakhal', 'Nursery', 'Facebook', 'Lost', 'Reason: fee too high', false),
+row('24 Sep', 'Jagdish Beniwal', '98XXX XX023', 'Dangra', '7', 'Referral', 'Contacted', 'Overdue since 1 Oct', true)
+];
+return { rows };
+}
+}
+</script>
+</body>
+</html>

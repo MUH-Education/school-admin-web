@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Add an enquiry</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D6E8B}a:hover{color:#16222E}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #EEF1F4; color: #16222E; font-family: 'Archivo', system-ui, -apple-system, sans-serif; font-size: 15px; line-height: 1.45">
+
+<nav aria-label="Main menu" style="flex: 1 1 232px; box-sizing: border-box; background: #16222E; padding: 24px 16px 28px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 0 12px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #E0A45C">School admin</div>
+<div style="font-size: 17px; font-weight: 700; line-height: 1.25; color: #FFFFFF">MUH Jain Global School</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Transport</div>
+<a href="Main.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Bus status</a>
+<a href="RoutesLoad.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Routes and load</a>
+<a href="Vehicles.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Vehicles and staff</a>
+<a href="#" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Messages</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Admissions</div>
+<a href="Enquiries.dc.html" aria-current="page" style="display: block; padding: 13px 12px; font-size: 14.5px; font-weight: 600; color: #FFFFFF; background: #1D6E8B; text-decoration: none">Enquiries</a>
+<a href="Admission.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">New admission</a>
+<a href="Students.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Students</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Reports</div>
+<a href="Analytics.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Analytics</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Settings</div>
+<a href="Roles.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Users and roles</a>
+</div>
+<div style="margin-top: auto; padding: 16px 12px 0; border-top: 1px solid #34424F; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 14px; font-weight: 600; color: #FFFFFF">Sourabh</div>
+<div style="font-size: 12.5px; color: #8FA0AF">Owner · sees everything</div>
+</div>
+</nav>
+
+<main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 32px 40px 64px; display: flex; flex-direction: column; gap: 28px">
+
+<header style="display: flex; flex-direction: column; gap: 8px; border-bottom: 2px solid #16222E; padding-bottom: 18px">
+<div style="font-size: 14px"><a href="Enquiries.dc.html">Enquiries</a> <span style="color: #5A6B7A">/ Add enquiry</span></div>
+<h1 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1">Add an enquiry</h1>
+<p style="margin: 0; font-size: 15px; color: #5A6B7A; max-width: 620px">Fill this when a parent visits or calls. Only the fields marked * are needed. The rest can be added later.</p>
+</header>
+
+<form style="max-width: 920px; display: flex; flex-direction: column; gap: 24px; margin: 0">
+
+<section aria-label="Parent" style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 28px 32px 32px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0; font-size: 19px; font-weight: 600">1. Parent</h2>
+<p style="margin: 0; font-size: 14px; color: #5A6B7A">The person we will call back.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 24px 32px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ae-name" style="font-size: 15px; font-weight: 600">Parent name *</label>
+<input id="ae-name" type="text" style="box-sizing: border-box; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ae-phone" style="font-size: 15px; font-weight: 600">Phone number *</label>
+<input id="ae-phone" type="tel" placeholder="10 digits" style="box-sizing: border-box; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ae-relation" style="font-size: 15px; font-weight: 600">Relation to the child</label>
+<select id="ae-relation" style="box-sizing: border-box; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px"><option>Father</option><option>Mother</option><option>Grandparent</option><option>Other</option></select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ae-village" style="font-size: 15px; font-weight: 600">Village or locality *</label>
+<input id="ae-village" type="text" placeholder="e.g. Jakhal" style="box-sizing: border-box; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px">
+</div>
+</div>
+</section>
+
+<section aria-label="Child" style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 28px 32px 32px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0; font-size: 19px; font-weight: 600">2. Child</h2>
+<p style="margin: 0; font-size: 14px; color: #5A6B7A">Who the admission is for.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 24px 32px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ae-child" style="font-size: 15px; font-weight: 600">Child's name</label>
+<input id="ae-child" type="text" style="box-sizing: border-box; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ae-class" style="font-size: 15px; font-weight: 600">Class wanted *</label>
+<select id="ae-class" style="box-sizing: border-box; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px"><option>Choose a class</option><option>Nursery</option><option>LKG</option><option>UKG</option><option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option></select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ae-age" style="font-size: 15px; font-weight: 600">Child's age</label>
+<input id="ae-age" type="text" placeholder="e.g. 6 years" style="box-sizing: border-box; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ae-school" style="font-size: 15px; font-weight: 600">School the child goes to now</label>
+<input id="ae-school" type="text" style="box-sizing: border-box; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px">
+</div>
+</div>
+</section>
+
+<section aria-label="How they found us" style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 28px 32px 32px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0; font-size: 19px; font-weight: 600">3. How they heard about us</h2>
+<p style="margin: 0; font-size: 14px; color: #5A6B7A">This tells you which marketing works.</p>
+</div>
+<fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 10px">
+<legend style="padding: 0; margin-bottom: 10px; font-size: 15px; font-weight: 600">Source *</legend>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 12px">
+<label for="ae-src-walk" style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 16px; border: 2px solid #1D6E8B; background: #E3EEF3; font-size: 16px; font-weight: 600; cursor: pointer"><input id="ae-src-walk" type="radio" name="ae-source" checked style="width: 20px; height: 20px; margin: 0">Walk-in</label>
+<label for="ae-src-ref" style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 16px; border: 1px solid #7F8E9B; background: #FFFFFF; font-size: 16px; cursor: pointer"><input id="ae-src-ref" type="radio" name="ae-source" style="width: 20px; height: 20px; margin: 0">Referral</label>
+<label for="ae-src-fb" style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 16px; border: 1px solid #7F8E9B; background: #FFFFFF; font-size: 16px; cursor: pointer"><input id="ae-src-fb" type="radio" name="ae-source" style="width: 20px; height: 20px; margin: 0">Facebook</label>
+<label for="ae-src-wa" style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 16px; border: 1px solid #7F8E9B; background: #FFFFFF; font-size: 16px; cursor: pointer"><input id="ae-src-wa" type="radio" name="ae-source" style="width: 20px; height: 20px; margin: 0">WhatsApp</label>
+<label for="ae-src-hoard" style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 16px; border: 1px solid #7F8E9B; background: #FFFFFF; font-size: 16px; cursor: pointer"><input id="ae-src-hoard" type="radio" name="ae-source" style="width: 20px; height: 20px; margin: 0">Hoarding</label>
+<label for="ae-src-bus" style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 16px; border: 1px solid #7F8E9B; background: #FFFFFF; font-size: 16px; cursor: pointer"><input id="ae-src-bus" type="radio" name="ae-source" style="width: 20px; height: 20px; margin: 0">Bus enquiry</label>
+</div>
+</fieldset>
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 428px">
+<label for="ae-referrer" style="font-size: 15px; font-weight: 600">Referred by which parent</label>
+<input id="ae-referrer" type="text" placeholder="Only when the source is Referral" style="box-sizing: border-box; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px">
+<div style="font-size: 13.5px; color: #5A6B7A">That parent gets the referral fee credit if the child is admitted.</div>
+</div>
+</section>
+
+<section aria-label="Follow-up" style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 28px 32px 32px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0; font-size: 19px; font-weight: 600">4. Follow-up</h2>
+<p style="margin: 0; font-size: 14px; color: #5A6B7A">When to call back, and anything to remember.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 24px 32px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ae-next" style="font-size: 15px; font-weight: 600">Call back on *</label>
+<input id="ae-next" type="date" style="box-sizing: border-box; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ae-bus" style="font-size: 15px; font-weight: 600">Does the child need the school bus</label>
+<select id="ae-bus" style="box-sizing: border-box; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px"><option>Not asked yet</option><option>Yes</option><option>No</option></select>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ae-note" style="font-size: 15px; font-weight: 600">Note</label>
+<textarea id="ae-note" rows="4" placeholder="e.g. Asked about the bus from Jakhal and the fee for two children" style="box-sizing: border-box; width: 100%; padding: 12px 16px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px; line-height: 1.5; resize: vertical"></textarea>
+</div>
+</section>
+
+<div style="display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center">
+<button type="button" style="min-height: 52px; padding: 0 28px; border: 1px solid #1D6E8B; background: #1D6E8B; color: #FFFFFF; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer">Save enquiry</button>
+<button type="button" style="min-height: 52px; padding: 0 24px; border: 1px solid #1D6E8B; background: #FFFFFF; color: #1D6E8B; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer">Save and add another</button>
+<a href="Enquiries.dc.html" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 12px; font-size: 16px">Cancel</a>
+</div>
+
+</form>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1840}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

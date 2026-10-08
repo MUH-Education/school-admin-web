@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Student profile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D6E8B}a:hover{color:#16222E}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #EEF1F4; color: #16222E; font-family: 'Archivo', system-ui, -apple-system, sans-serif; font-size: 14.5px; line-height: 1.45">
+
+<nav aria-label="Main menu" style="flex: 1 1 232px; box-sizing: border-box; background: #16222E; padding: 24px 16px 28px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 0 12px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #E0A45C">School admin</div>
+<div style="font-size: 17px; font-weight: 700; line-height: 1.25; color: #FFFFFF">MUH Jain Global School</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Transport</div>
+<a href="Main.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Bus status</a>
+<a href="RoutesLoad.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Routes and load</a>
+<a href="Vehicles.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Vehicles and staff</a>
+<a href="#" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Messages</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Admissions</div>
+<a href="Enquiries.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Enquiries</a>
+<a href="Admission.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">New admission</a>
+<a href="Students.dc.html" aria-current="page" style="display: block; padding: 13px 12px; font-size: 14.5px; font-weight: 600; color: #FFFFFF; background: #1D6E8B; text-decoration: none">Students</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Reports</div>
+<a href="Analytics.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Analytics</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Settings</div>
+<a href="Roles.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Users and roles</a>
+</div>
+<div style="margin-top: auto; padding: 16px 12px 0; border-top: 1px solid #34424F; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 14px; font-weight: 600; color: #FFFFFF">Sourabh</div>
+<div style="font-size: 12.5px; color: #8FA0AF">Owner · sees everything</div>
+</div>
+</nav>
+
+<main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 32px 40px 56px; display: flex; flex-direction: column; gap: 24px">
+
+<header style="display: flex; flex-direction: column; gap: 16px; border-bottom: 2px solid #16222E; padding-bottom: 20px">
+<div style="font-size: 14px"><a href="Students.dc.html">Students</a> <span style="color: #5A6B7A">/ Ishaan Sharma</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px 24px; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start">
+<div aria-hidden="true" style="width: 104px; height: 104px; background: #E3EEF3; border: 1px solid #1D6E8B; color: #1D6E8B; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 600">IS</div>
+</div>
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1">Ishaan Sharma</h1>
+<div style="font-size: 15px; color: #5A6B7A">Class 4 A · Admission number A-2026-118 · Joined 1 April 2026</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; padding-top: 6px">
+<button type="button" style="min-height: 44px; padding: 0 16px; border: 1px solid #1D6E8B; background: #FFFFFF; color: #1D6E8B; font: inherit; font-weight: 600; cursor: pointer">Add a photo</button>
+<span style="display: inline-flex; align-items: center; font-size: 13px; color: #5A6B7A">No photo yet. Only school staff can see the photo.</span>
+</div>
+</div>
+</div>
+</header>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+
+<div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+
+<section aria-label="Student details" style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between">
+<h2 style="margin: 0; font-size: 17px; font-weight: 600">Student details</h2>
+<button type="button" style="min-height: 44px; padding: 0 16px; border: 1px solid #1D6E8B; background: #FFFFFF; color: #1D6E8B; font: inherit; font-weight: 600; cursor: pointer">Edit</button>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 16px 24px">
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; color: #5A6B7A">Date of birth</span><span style="font-size: 15px">12 March 2017</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; color: #5A6B7A">Gender</span><span style="font-size: 15px">Boy</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; color: #5A6B7A">Class and section</span><span style="font-size: 15px">4 A</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; color: #5A6B7A">Village or locality</span><span style="font-size: 15px">Tohana town</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; color: #5A6B7A">Address</span><span style="font-size: 15px">Model Town</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; color: #5A6B7A">Father's occupation</span><span style="font-size: 15px">Government employee</span></div>
+</div>
+</section>
+
+<section aria-label="Parents and phone numbers" style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0; font-size: 17px; font-weight: 600">Parents and phone numbers</h2>
+<p style="margin: 0; font-size: 13.5px; color: #5A6B7A">A child can have many numbers: father, mother, grandfather, uncle.</p>
+</div>
+<div style="border: 1px solid #D3DBE2">
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; justify-content: space-between; padding: 12px 16px">
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 15px; font-weight: 600">Sanjay Sharma <span style="font-weight: 400; color: #5A6B7A">· Father</span></span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px">98XXX XX340 <span style="font-family: 'Archivo', system-ui, sans-serif; color: #5A6B7A">· gets bus SMS</span></span></div>
+<button type="button" style="min-height: 44px; padding: 0 14px; border: 1px solid #D3DBE2; background: #FFFFFF; color: #1D6E8B; font: inherit; font-weight: 600; cursor: pointer">Edit</button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid #D3DBE2">
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 15px; font-weight: 600">Pooja Sharma <span style="font-weight: 400; color: #5A6B7A">· Mother</span></span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px">97XXX XX615 <span style="font-family: 'Archivo', system-ui, sans-serif; color: #5A6B7A">· gets bus SMS</span></span></div>
+<button type="button" style="min-height: 44px; padding: 0 14px; border: 1px solid #D3DBE2; background: #FFFFFF; color: #1D6E8B; font: inherit; font-weight: 600; cursor: pointer">Edit</button>
+</div>
+</div>
+
+<div style="border: 2px solid #1D6E8B; background: #F4F8FA; padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 16px">
+<h3 style="margin: 0; font-size: 15.5px; font-weight: 600">Add a phone number</h3>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 16px 20px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="sp-g-name" style="font-size: 14px; font-weight: 600">Name</label>
+<input id="sp-g-name" type="text" value="Ramkumar Sharma" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="sp-g-relation" style="font-size: 14px; font-weight: 600">Relation to the child</label>
+<select id="sp-g-relation" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px"><option>Grandfather</option><option>Father</option><option>Mother</option><option>Grandmother</option><option>Uncle or aunt</option><option>Other</option></select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="sp-g-phone" style="font-size: 14px; font-weight: 600">Phone number</label>
+<input id="sp-g-phone" type="tel" value="94XXX XX208" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 16px">
+</div>
+</div>
+<label for="sp-g-sms" style="display: flex; align-items: center; gap: 12px; min-height: 44px; font-size: 15px; cursor: pointer"><input id="sp-g-sms" type="checkbox" checked style="width: 20px; height: 20px; margin: 0">Send bus SMS to this number too</label>
+<div style="display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center">
+<button type="button" style="min-height: 48px; padding: 0 22px; border: 1px solid #1D6E8B; background: #1D6E8B; color: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Save number</button>
+<button type="button" style="min-height: 48px; padding: 0 18px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 15px; cursor: pointer">Cancel</button>
+</div>
+<div style="font-size: 13.5px; color: #5A6B7A">If this number is already saved for a brother or sister, both children are joined to it. You do not type it twice.</div>
+</div>
+</section>
+
+</div>
+
+<div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+
+<section aria-label="Transport" style="background: #FFFFFF; border: 2px solid #1D6E8B; padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0; font-size: 17px; font-weight: 600">Transport</h2>
+<p style="margin: 0; font-size: 14.5px"><strong>Now:</strong> does not use the bus, since admission on 1 April 2026.</p>
+<p style="margin: 0; font-size: 13.5px; color: #5A6B7A">Use this same box to start the bus, change the route or stop, or stop the bus.</p>
+</div>
+<fieldset style="margin: 0; padding: 0; border: none">
+<legend style="padding: 0; margin-bottom: 10px; font-size: 14px; font-weight: 600">Change to</legend>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<label for="sp-bus-yes" style="display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 20px 0 16px; border: 2px solid #1D6E8B; background: #E3EEF3; font-size: 16px; font-weight: 600; cursor: pointer"><input id="sp-bus-yes" type="radio" name="sp-bus" checked style="width: 20px; height: 20px; margin: 0">Uses the bus</label>
+<label for="sp-bus-no" style="display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 20px 0 16px; border: 1px solid #7F8E9B; background: #FFFFFF; font-size: 16px; cursor: pointer"><input id="sp-bus-no" type="radio" name="sp-bus" style="width: 20px; height: 20px; margin: 0">No bus</label>
+</div>
+</fieldset>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 16px 20px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="sp-route" style="font-size: 14px; font-weight: 600">Route</label>
+<select id="sp-route" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px"><option>Route 9 · Tohana town</option><option>Route 1</option><option>Route 4</option><option>Route 6</option><option>Route 8</option></select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="sp-stop" style="font-size: 14px; font-weight: 600">Stop</label>
+<select id="sp-stop" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px"><option>Model Town · 8:02</option><option>Bus Stand · 7:50</option><option>Railway Road · 7:56</option><option>Chandigarh Road · 8:08</option></select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="sp-from" style="font-size: 14px; font-weight: 600">Start from</label>
+<input id="sp-from" type="date" value="2026-11-02" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="sp-busfee" style="font-size: 14px; font-weight: 600">Bus fee for the rest of this year (₹)</label>
+<input id="sp-busfee" type="text" inputmode="numeric" value="4,000" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 16px">
+<div style="font-size: 13px; color: #5A6B7A">The full year is ₹8,800. You decide the amount for the months left.</div>
+</div>
+</div>
+<div style="border: 1px solid #B4332B; padding: 12px 16px; font-size: 14px"><strong style="color: #B4332B">Route 9 is already full.</strong> It has 45 children on 26 seats. Ishaan will be number 46.</div>
+<div style="background: #EEF1F4; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 14px; font-weight: 600">When you save, three things happen</div>
+<ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; font-size: 14px">
+<li>From 2 November, Ishaan is on the Route 9 attendant's list.</li>
+<li>His parents start getting the bus SMS.</li>
+<li>₹4,000 is added to the fees still to pay.</li>
+</ol>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center">
+<button type="button" style="min-height: 48px; padding: 0 22px; border: 1px solid #1D6E8B; background: #1D6E8B; color: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Save change</button>
+<button type="button" style="min-height: 48px; padding: 0 18px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit; font-size: 15px; cursor: pointer">Cancel</button>
+</div>
+</section>
+
+<section aria-label="Fees this year" style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between">
+<h2 style="margin: 0; font-size: 17px; font-weight: 600">Fees this year</h2>
+<button type="button" style="min-height: 44px; padding: 0 16px; border: 1px solid #1D6E8B; background: #FFFFFF; color: #1D6E8B; font: inherit; font-weight: 600; cursor: pointer">Record a payment</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+<div style="display: flex; justify-content: space-between; gap: 12px"><span>School fee for the year</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace">₹30,000</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span>Paid so far</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace">₹22,500</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="font-weight: 600">Still to pay</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 600">₹7,500</span></div>
+</div>
+<div style="font-size: 13.5px; color: #5A6B7A">Next payment: ₹7,500 on 1 January 2027. Bus fee: not used yet.</div>
+</section>
+
+<section aria-label="Change history" style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0; font-size: 17px; font-weight: 600">Change history</h2>
+<p style="margin: 0; font-size: 13.5px; color: #5A6B7A">Every change is kept, with who made it. Nothing is lost when you edit.</p>
+</div>
+<div style="display: flex; flex-direction: column">
+<div style="display: grid; grid-template-columns: 104px minmax(0, 1fr) 84px; gap: 0 14px; padding: 9px 0; border-top: 1px solid #D3DBE2; font-size: 14px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12.5px; color: #5A6B7A">12 Aug 2026</span><span>Section changed from B to A</span><span style="color: #5A6B7A">Neelam</span></div>
+<div style="display: grid; grid-template-columns: 104px minmax(0, 1fr) 84px; gap: 0 14px; padding: 9px 0; border-top: 1px solid #D3DBE2; font-size: 14px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12.5px; color: #5A6B7A">3 Jun 2026</span><span>Mother's phone number added</span><span style="color: #5A6B7A">Priya</span></div>
+<div style="display: grid; grid-template-columns: 104px minmax(0, 1fr) 84px; gap: 0 14px; padding: 9px 0; border-top: 1px solid #D3DBE2; font-size: 14px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12.5px; color: #5A6B7A">1 Apr 2026</span><span>Admitted to Class 4, no bus</span><span style="color: #5A6B7A">Priya</span></div>
+</div>
+</section>
+
+</div>
+
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1560}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

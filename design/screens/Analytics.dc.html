@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Analytics</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D6E8B}a:hover{color:#16222E}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #EEF1F4; color: #16222E; font-family: 'Archivo', system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.4">
+
+<nav aria-label="Main menu" style="flex: 1 1 232px; box-sizing: border-box; background: #16222E; padding: 24px 16px 28px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 0 12px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #E0A45C">School admin</div>
+<div style="font-size: 17px; font-weight: 700; line-height: 1.25; color: #FFFFFF">MUH Jain Global School</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Transport</div>
+<a href="Main.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Bus status</a>
+<a href="RoutesLoad.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Routes and load</a>
+<a href="Vehicles.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Vehicles and staff</a>
+<a href="#" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Messages</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Admissions</div>
+<a href="Enquiries.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Enquiries</a>
+<a href="Admission.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">New admission</a>
+<a href="Students.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Students</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Reports</div>
+<a href="Analytics.dc.html" aria-current="page" style="display: block; padding: 13px 12px; font-size: 14.5px; font-weight: 600; color: #FFFFFF; background: #1D6E8B; text-decoration: none">Analytics</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0AF; padding: 0 12px 6px">Settings</div>
+<a href="Roles.dc.html" style="display: block; padding: 13px 12px; font-size: 14.5px; color: #C9D3DC; text-decoration: none">Users and roles</a>
+</div>
+<div style="margin-top: auto; padding: 16px 12px 0; border-top: 1px solid #34424F; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 14px; font-weight: 600; color: #FFFFFF">Sourabh</div>
+<div style="font-size: 12.5px; color: #8FA0AF">Owner · sees everything</div>
+</div>
+</nav>
+
+<main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 32px 40px 56px; display: flex; flex-direction: column; gap: 24px">
+
+<header style="display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: flex-end; justify-content: space-between; border-bottom: 2px solid #16222E; padding-bottom: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8A5A14">Reports · Students, families and fees</div>
+<h1 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1">Analytics</h1>
+<p style="margin: 0; font-size: 14px; color: #5A6B7A; max-width: 620px">Choose filters. Every graph and the list at the bottom follow the same filters. Nothing is typed here. The data comes from the admission form and fee payments.</p>
+</div>
+<button type="button" style="min-height: 44px; padding: 0 18px; border: 1px solid #16222E; background: #FFFFFF; color: #16222E; font: inherit; font-weight: 600; cursor: pointer">Download as Excel</button>
+</header>
+
+<section aria-label="Filters" style="background: #FFFFFF; border: 1px solid #D3DBE2; padding: 16px 20px 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr)); gap: 14px 16px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="an-session" style="font-size: 13px; font-weight: 600">Session</label>
+<select id="an-session" style="box-sizing: border-box; width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit"><option>2026–27</option><option>2025–26</option></select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="an-class" style="font-size: 13px; font-weight: 600">Class</label>
+<select id="an-class" style="box-sizing: border-box; width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit"><option>All classes</option><option>Nursery to UKG</option><option>Class 1 to 5</option><option>Class 6 to 8</option><option>Class 9 to 10</option><option>Class 11 to 12</option></select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="an-village" style="font-size: 13px; font-weight: 600">Village</label>
+<select id="an-village" style="box-sizing: border-box; width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit"><option>All villages</option><option>Tohana town</option><option>Jakhal</option><option>Kanheri</option></select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="an-route" style="font-size: 13px; font-weight: 600">Bus route</label>
+<select id="an-route" style="box-sizing: border-box; width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit"><option>All, with and without bus</option><option>Only bus children</option><option>No bus</option><option>Route 1</option><option>Route 4</option></select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="an-occupation" style="font-size: 13px; font-weight: 600">Father's occupation</label>
+<select id="an-occupation" style="box-sizing: border-box; width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit"><option>All occupations</option><option>Farmer, small</option><option>Farmer, large</option><option>Government employee</option><option>Shopkeeper or trader</option></select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="an-status" style="font-size: 13px; font-weight: 600">Fee payment</label>
+<select id="an-status" style="box-sizing: border-box; width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid #7F8E9B; background: #FFFFFF; color: #16222E; font: inherit"><option>All</option><option>On time</option><option>Delayed</option><option>Defaulted</option></select>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; font-size: 13.5px"><span style="font-weight: 600">Showing all 290 students.</span><span style="color: #5A6B7A">Example: choose "Jakhal" and "Delayed" to see who in Jakhal is late with fees.</span></div>
+</section>
+
+<section aria-label="Summary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: 1px; background: #D3DBE2; border: 1px solid #D3DBE2">
+<div style="background: #FFFFFF; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Students</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">290</div>
+</div>
+<div style="background: #FFFFFF; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Using the bus</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">255 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">· 88%</span></div>
+</div>
+<div style="background: #FFFFFF; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">School fee collected</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">89% <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of due</span></div>
+</div>
+<div style="background: #FFFFFF; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Bus fee collected</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600">95% <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">of due</span></div>
+</div>
+<div style="background: #FFFFFF; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">Fee pending</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; font-weight: 600; color: #B4332B">80 <span style="font-size: 13px; font-weight: 400; color: #5A6B7A">students</span></div>
+</div>
+</section>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch">
+
+<section aria-label="Fee collected each month" style="flex: 1 1 420px; min-width: 0; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D3DBE2; padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 600">Fee collected each month</h2>
+<div style="font-size: 12.5px; color: #5A6B7A">Share of that month's fee that has been paid so far</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: #16222E">
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; background: #1479A6"></span>School fee</span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; background: #C27C1C"></span>Bus fee</span>
+</div>
+</div>
+<div style="display: flex; gap: 10px">
+<div aria-hidden="true" style="flex: none; width: 36px; height: 211px; margin: -5.5px 0; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; line-height: 1; color: #5A6B7A"><span>100%</span><span>50%</span><span>0%</span></div>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<div style="position: relative; height: 200px; border-bottom: 1px solid #A9B5C0">
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 1px; background: #E3E8ED"></div>
+<div style="position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #E3E8ED"></div>
+<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; align-items: flex-end; justify-content: space-around; gap: 8px; padding: 0 8px">
+<sc-for list="{{ months }}" as="m" hint-placeholder-count="6">
+<div style="flex: 1 1 0; max-width: 72px; height: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 2px">
+<div title="{{m.tipS}}" style="width: 20px; height: {{m.sH}}; background: #1479A6"></div>
+<div title="{{m.tipB}}" style="width: 20px; height: {{m.bH}}; background: #C27C1C"></div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; justify-content: space-around; gap: 8px; padding: 0 8px">
+<sc-for list="{{ months }}" as="m" hint-placeholder-count="6">
+<div style="flex: 1 1 0; max-width: 72px; text-align: center; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">{{m.name}}</div>
+</sc-for>
+</div>
+</div>
+</div>
+<div style="font-size: 13px; color: #16222E">September so far: school fee <strong>79%</strong>, bus fee <strong>87%</strong>. April is almost fully paid: 96% and 99%.</div>
+</section>
+
+<section aria-label="Payment by father's occupation" style="flex: 1 1 420px; min-width: 0; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D3DBE2; padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 600">Fee payment by father's occupation</h2>
+<div style="font-size: 12.5px; color: #5A6B7A">Which kinds of families pay on time</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: #16222E">
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; background: #1479A6"></span>On time</span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; background: #C27C1C"></span>Delayed</span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; background: #A8332B"></span>Defaulted</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 11px">
+<sc-for list="{{ occupations }}" as="o" hint-placeholder-count="8">
+<div style="display: flex; flex-direction: column; gap: 5px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px"><span style="font-size: 13px; font-weight: 500">{{o.name}}</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #5A6B7A">{{o.total}} students · {{o.pct}} on time</span></div>
+<div title="{{o.tip}}" style="display: flex; gap: 2px; height: 12px; background: #EEF1F4"><div style="width: {{o.onW}}; background: #1479A6"></div><div style="width: {{o.lateW}}; background: #C27C1C"></div><div style="width: {{o.badW}}; background: #A8332B"></div></div>
+</div>
+</sc-for>
+</div>
+</section>
+
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch">
+
+<section aria-label="Students in each class" style="flex: 1 1 420px; min-width: 0; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D3DBE2; padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 600">Students in each class</h2>
+<div style="font-size: 12.5px; color: #5A6B7A">232 of 290 children are below Class 9</div>
+</div>
+<div style="display: flex; gap: 10px">
+<div aria-hidden="true" style="flex: none; width: 24px; height: 191px; margin: -5.5px 0; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; line-height: 1; color: #5A6B7A"><span>30</span><span>15</span><span>0</span></div>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<div style="position: relative; height: 180px; border-bottom: 1px solid #A9B5C0">
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 1px; background: #E3E8ED"></div>
+<div style="position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #E3E8ED"></div>
+<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; align-items: flex-end; gap: 2px; padding: 0 4px">
+<sc-for list="{{ classes }}" as="c" hint-placeholder-count="15">
+<div style="flex: 1 1 0; height: 100%; display: flex; align-items: flex-end; justify-content: center">
+<div title="{{c.tip}}" style="width: 100%; max-width: 24px; height: {{c.h}}; background: #1479A6"></div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; gap: 2px; padding: 0 4px">
+<sc-for list="{{ classes }}" as="c" hint-placeholder-count="15">
+<div style="flex: 1 1 0; text-align: center; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #5A6B7A">{{c.name}}</div>
+</sc-for>
+</div>
+</div>
+</div>
+<div style="font-size: 13px; color: #16222E">Largest class: LKG with <strong>26</strong>. Smallest: Class 12 with <strong>11</strong>.</div>
+</section>
+
+<section aria-label="Students by village" style="flex: 1 1 420px; min-width: 0; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D3DBE2; padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 600">Students by village</h2>
+<div style="font-size: 12.5px; color: #5A6B7A">Top 8 of 84 villages. Shows where to advertise and where a bus pays.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 9px">
+<sc-for list="{{ villages }}" as="v" hint-placeholder-count="8">
+<div style="display: flex; align-items: center; gap: 12px; font-size: 13px">
+<div style="flex: none; width: 100px">{{v.name}}</div>
+<div style="flex: 1; min-width: 0; height: 12px; background: #EEF1F4"><div title="{{v.tip}}" style="width: {{v.w}}; height: 100%; background: #1479A6"></div></div>
+<div style="flex: none; width: 28px; text-align: right; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12.5px">{{v.n}}</div>
+</div>
+</sc-for>
+</div>
+<div style="font-size: 13px; color: #5A6B7A">The other 76 villages have 110 students together.</div>
+</section>
+
+</div>
+
+<section aria-label="Students and families" style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; justify-content: space-between">
+<h2 style="margin: 0; font-size: 15px; font-weight: 600">Students and families in this filter</h2>
+<div style="font-size: 12.5px; color: #5A6B7A">Showing 9 of 290. Click a column name to sort.</div>
+</div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #D3DBE2">
+<div style="min-width: 940px">
+<div style="display: grid; grid-template-columns: minmax(120px, 1.1fr) 68px minmax(100px, 1fr) minmax(170px, 1.5fr) 84px 116px 116px 96px; gap: 0 16px; align-items: end; padding: 12px 16px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6B7A">
+<div>Student</div>
+<div>Class</div>
+<div>Village</div>
+<div>Father's occupation</div>
+<div>Bus</div>
+<div>School fee</div>
+<div>Bus fee</div>
+<div style="text-align: right">Pending</div>
+</div>
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="9">
+<div style="display: grid; grid-template-columns: minmax(120px, 1.1fr) 68px minmax(100px, 1fr) minmax(170px, 1.5fr) 84px 116px 116px 96px; gap: 0 16px; align-items: center; padding: 12px 16px; border-top: 1px solid #D3DBE2; font-size: 13.5px">
+<div style="font-weight: 600">{{r.name}}</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12.5px">{{r.cls}}</div>
+<div>{{r.village}}</div>
+<div>{{r.occupation}}</div>
+<div>{{r.bus}}</div>
+<div style="display: flex; align-items: center; gap: 7px"><span style="flex: none; width: 8px; height: 8px; background: {{r.sDot}}"></span>{{r.school}}</div>
+<div style="display: flex; align-items: center; gap: 7px"><span style="flex: none; width: 8px; height: 8px; background: {{r.bDot}}"></span>{{r.busFee}}</div>
+<div style="text-align: right; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; font-weight: {{r.pWeight}}">{{r.pending}}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1880}}'>
+class Component extends DCLogic {
+renderVals() {
+const BLUE = '#1479A6', AMBER = '#C27C1C', RED = '#A8332B', NONE = 'transparent';
+
+const months = [['Apr', 96, 99], ['May', 94, 98], ['Jun', 91, 97], ['Jul', 89, 96], ['Aug', 85, 93], ['Sep', 79, 87]].map((m) => ({
+name: m[0], sH: m[1] + '%', bH: m[2] + '%',
+tipS: 'School fee, ' + m[0] + ': ' + m[1] + '% collected',
+tipB: 'Bus fee, ' + m[0] + ': ' + m[2] + '% collected'
+}));
+
+const occ = (name, on, late, bad) => {
+const total = on + late + bad;
+const w = (n) => (n === 0 ? '0%' : ((n / total) * 100).toFixed(1) + '%');
+return { name, total, pct: Math.round((on / total) * 100) + '%', onW: w(on), lateW: w(late), badW: w(bad), tip: name + ': ' + on + ' on time, ' + late + ' delayed, ' + bad + ' defaulted' };
+};
+const occupations = [
+occ('Farmer, small (under 5 acres)', 46, 27, 9),
+occ('Farmer, large (5+ acres)', 44, 8, 2),
+occ('Government employee', 41, 3, 0),
+occ('Shopkeeper or trader', 26, 10, 2),
+occ('Private job', 17, 8, 2),
+occ('Ex-serviceman or defence', 22, 0, 0),
+occ('Labour, daily wage', 5, 5, 4),
+occ('Family abroad', 9, 0, 0)
+];
+
+const classes = [['Nur', 24], ['LKG', 26], ['UKG', 25], ['1', 24], ['2', 23], ['3', 22], ['4', 21], ['5', 20], ['6', 17], ['7', 16], ['8', 14], ['9', 18], ['10', 16], ['11', 13], ['12', 11]].map((c) => ({
+name: c[0], h: ((c[1] / 30) * 100).toFixed(1) + '%', tip: (c[0].length > 2 ? c[0] : 'Class ' + c[0]) + ': ' + c[1] + ' students'
+}));
+
+const villages = [['Tohana town', 48], ['Jakhal', 31], ['Kanheri', 26], ['Dharsul', 19], ['Samain', 17], ['Akanwali', 15], ['Kulan', 13], ['Dangra', 11]].map((v) => ({
+name: v[0], n: v[1], w: ((v[1] / 48) * 100).toFixed(1) + '%', tip: v[0] + ': ' + v[1] + ' students'
+}));
+
+const DOT = { 'On time': BLUE, 'Delayed': AMBER, 'Defaulted': RED, '—': NONE };
+const row = (name, cls, village, occupation, bus, school, busFee, pending) => ({
+name, cls, village, occupation, bus, school, busFee,
+sDot: DOT[school], bDot: DOT[busFee],
+pending: pending === 0 ? '₹0' : '₹' + pending.toLocaleString('en-IN'),
+pWeight: pending === 0 ? 400 : 600
+});
+const rows = [
+row('Rohit', '10 A', 'Kanheri', 'Labour, daily wage', 'Route 4', 'Defaulted', 'Delayed', 18300),
+row('Mohit', '5 A', 'Sadhanwas', 'Farmer, small', 'Route 4', 'Delayed', 'Delayed', 9100),
+row('Kirti', '9 A', 'Sadhanwas', 'Shopkeeper or trader', 'Route 4', 'Delayed', 'On time', 7500),
+row('Aryan', '3 B', 'Jakhal', 'Farmer, large', 'Route 4', 'On time', 'On time', 0),
+row('Siya', '11 B', 'Jakhal', 'Farmer, large', 'Route 4', 'On time', 'On time', 0),
+row('Riya', 'Nursery', 'Tohana town', 'Government employee', 'Route 4', 'On time', 'On time', 0),
+row('Tanvi', 'UKG', 'Jakhal', 'Private job', 'Route 4', 'On time', 'On time', 0),
+row('Deepak', '11 A', 'Sadhanwas', 'Ex-serviceman or defence', 'Route 4', 'On time', 'On time', 0),
+row('Kavya', '2 A', 'Kanheri', 'Teacher or professional', 'No bus', 'On time', '—', 0)
+];
+
+return { months, occupations, classes, villages, rows };
+}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+# 8. Decisions and open questions
+
+This file is the memory of the web project. When something is decided, write one line here with the date.
+
+## A. Decided by the owner
+
+| # | Decision | Date |
+|---|---|---|
+| A1 | The frontend is React. | 7 Oct 2026 |
+| A2 | The web app is built at the same time as the backend. | 7 Oct 2026 |
+| A3 | The look is the approved design canvas (19 screens). | 7 Oct 2026 |
+| A4 | Login is phone number and OTP. No passwords. | 7 Oct 2026 |
+| A5 | No parent app and no parent pages. | 7 Oct 2026 |
+| A6 | The attendant app is in Hindi, with big buttons. | 7 Oct 2026 |
+
+## B. Decided while planning (change any of these if you disagree)
+
+| # | Decision | Why | Cost to change later |
+|---|---|---|---|
+| B1 | One React project holds the admin web app and the attendant app. | Same login, same API client, one build, one deploy. | Medium |
+| B2 | A separate Git repo from the backend. | Two Claude Code sessions can work without touching each other's files. | Low |
+| B3 | TypeScript, not plain JavaScript. | The compiler catches a wrong field name before the browser does. Claude Code writes it anyway. | High |
+| B4 | Vite, React Router (data mode), TanStack Query. No Redux. | The standard small set. Server data is cached in one place. | High |
+| B5 | Tailwind CSS with our own tokens. No ready-made UI kit. | The design is custom (square, flat). A kit would fight it. | High |
+| B6 | No chart library. Bars are built by hand. | The four charts are simple. One less dependency. | Low |
+| B7 | A mock API (MSW) with sample data that matches the designs. | The web app does not wait for the backend. | Low |
+| B8 | The backend's API document is the contract. This repo keeps a copy in `docs/backend/`. | One source of truth. | — |
+| B9 | The web app has no copy of the role table. It reads `permissions` from the login answer. | A role change on the server needs no web release. | — |
+| B10 | The token is kept in `localStorage`. | The attendant must stay logged in for 30 days. | Low |
+| B11 | The admin web app is English only. Only the attendant app and the login page have Hindi. | Half the work. Office staff read English screens. | Medium |
+| B12 | Only the attendant app works offline. The admin web app needs the internet. | Offline for 20 admin screens is a big cost with no need. | Medium |
+| B13 | Offline taps are kept in IndexedDB and sent by the app's own loop, not by Background Sync. | Works the same on every Android browser and is easy to test. | Low |
+| B14 | Filters and paging live in the URL. | A link can be shared. Back button works. | — |
+| B15 | Forms are roomy: one or two columns, 48px inputs, never squeezed into a side panel. | The owner asked for this after the first enquiry design. | — |
+| B16 | The built files are served from inside the Spring Boot jar. | One address, one deploy, no CORS. | Low |
+| B17 | Unit and page tests with Vitest; only a few Playwright flows. | Fast tests that run on every task. | Low |
+| B18 | "Save as draft" on New admission is left out. | The backend has no drafts. | Low |
+
+## C. Open questions for the owner
+
+| # | Question | Needed by | Until answered |
+|---|---|---|---|
+| C1 | The M1 Login design shows username and password. Should the design canvas be updated to phone and OTP? | Phase 1 | Build phone and OTP in the look of M1. |
+| C2 | "Call attendant" on Bus status needs the attendant's phone number. The API does not give it. Add `attendantPhone` to the bus status answer in the backend? | Phase 4 | Show the attendant's name only. |
+| C3 | "ऑफ़िस को फ़ोन करें" needs the office phone number. Add a setting `school.office_phone` in the backend? | Phase 5 | Read it from `VITE_OFFICE_PHONE`. |
+| C4 | Screens with no design (Login, Messages, One enquiry, small dialogs): is a plain version in the same style enough? | Phases 1, 6, 7 | Yes, plain. |
+| C5 | Where does the owner set the school fee per class? The API exists; no screen is designed. | Phase 8 | A small page "Fee setup" under Settings, owner only. |
+| C6 | Will the web app be served from inside the backend jar (B16), or from its own address? | Phase 10 | Inside the jar. |
+| C7 | Which Android phones do the attendants have (model, Android version)? | Phase 5 | Test on Chrome on a low-cost Android. |
+
+## D. Decisions made while building
+
+| Date | Phase | Decision | Why |
+|---|---|---|---|
+| | | | |
+
+## E. Differences from the first plan document
+
+The first plan ("School Transport App — Build Plan") said the React app has 8 office screens and 2 attendant screens, with username and password login. Now: 15 office screens and 5 attendant pages, phone and OTP login, and the screens are fixed by the design canvas.

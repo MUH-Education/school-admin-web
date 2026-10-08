@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Colours: docs/03-design-system.md */
+  --color-paper: #eef1f4;
+  --color-panel: #ffffff;
+  --color-ink: #16222e;
+  --color-ink-soft: #5a6b7a;
+  --color-rule: #d3dbe2;
+  --color-rule-strong: #7f8e9b;
+  --color-rule-mid: #a9b5c0;
+  --color-canal: #1d6e8b;
+  --color-canal-soft: #e3eef3;
+  --color-canal-tint: #f4f8fa;
+  --color-dust: #c8873a;
+  --color-dust-text: #8a5a14;
+  --color-dust-light: #e0a45c;
+  --color-dust-soft: #fbf1e2;
+  --color-good: #2e7d5b;
+  --color-good-soft: #edf5f0;
+  --color-bad: #b4332b;
+  --color-bad-soft: #f8eceb;
+  --color-side-text: #c9d3dc;
+  --color-side-label: #8fa0af;
+  --color-side-rule: #34424f;
+  --color-chart-1: #1479a6;
+  --color-chart-2: #c27c1c;
+  --color-chart-3: #a8332b;
+  --color-chart-grid: #e3e8ed;
+
+  /* Fonts */
+  --font-sans: 'Archivo', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-hindi: 'Mukta', 'Noto Sans Devanagari', system-ui, sans-serif;
+
+  /* Square corners everywhere */
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius-4xl: 0;
+}
+
+@layer base {
+  body {
+    @apply bg-paper text-ink font-sans;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}

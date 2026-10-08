@@ -52,7 +52,12 @@ This file is the memory of the web project. When something is decided, write one
 
 | Date | Phase | Decision | Why |
 |---|---|---|---|
-| | | | |
+| 8 Oct 2026 | 0 | Stay on TypeScript 6.0 for now (7.0 is out). | typescript-eslint 8 does not accept TypeScript 7 yet; `npm install` fails. Move up when it does. |
+| 8 Oct 2026 | 0 | MSW 2.15 is the newest MSW on npm, not 3. | Nothing newer exists. Imports are `msw`, `msw/node`, `msw/browser`. |
+| 8 Oct 2026 | 0 | Removed `oxlint` that the Vite template added. | The plan says ESLint. |
+| 8 Oct 2026 | 0 | `dev` uses `vite --mode mock`; `dev:real` uses `--mode real`. Mode files `.env.mock`, `.env.real`, `.env.production` set `VITE_API_MODE`. | The production build is always `real`, so MSW is never in `dist/`. |
+| 8 Oct 2026 | 0 | A small Vite plugin deletes `mockServiceWorker.js` from `dist/` after the build. | `public/` copies it into `dist/`. It must not ship. |
+| 8 Oct 2026 | 0 | Playwright reads optional `PW_CHROMIUM_PATH` to use an installed Chromium. | Lets the e2e test run where `playwright install` is not possible. |
 
 ## E. Differences from the first plan document
 

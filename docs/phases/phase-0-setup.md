@@ -54,22 +54,22 @@ These tools have new major versions (React Router 8, MSW 3, Vitest 5, TypeScript
 ## Tasks
 
 - [x] 0.1 Create the Vite React TypeScript project in the repo root as described. `npm run dev` shows the Vite start page.
-- [ ] 0.2 `.gitignore` (node_modules, dist, .env.local, test-results, playwright-report). First commit.
-- [ ] 0.3 TypeScript in strict mode. Path alias `@/` → `src/`. Script `typecheck`.
-- [ ] 0.4 ESLint and Prettier with scripts `lint` and `format`. Lint must fail on `any` and on unused variables.
-- [ ] 0.5 Tailwind: add the Vite plugin, `@import "tailwindcss"` in `src/styles/index.css`, and **every token** from `docs/03-design-system.md` under `@theme` (colours, the three font families). Set the default radius to 0.
-- [ ] 0.6 Fonts: load Archivo, IBM Plex Mono and Mukta from Google Fonts in `index.html` with `display=swap`. Body uses `font-sans`, `bg-paper`, `text-ink`, 14px.
-- [ ] 0.7 Make the folder structure from `docs/02-architecture.md` (empty folders with a short `README.md` or an `index.ts` each).
-- [ ] 0.8 `src/lib/format.ts` with `formatInr`, `formatDate`, `formatTime`, `formatLoad`, `daysFromToday`, `maskPhone`, and their unit tests (the examples in `docs/02-architecture.md`).
-- [ ] 0.9 Vitest with jsdom and Testing Library. Script `test`. One sample component test passes.
-- [ ] 0.10 MSW: `src/mocks/browser.ts`, `src/mocks/server.ts`, an empty `handlers/index.ts`. `main.tsx` starts the worker only when `VITE_API_MODE` is `mock`. Vitest starts the server in its setup file. One test proves a mocked `GET /api/v1/ping` answers.
-- [ ] 0.11 `src/api/client.ts` and `errors.ts` as described in `docs/06-api-and-mocks.md`, with tests: adds the token header; turns `{error, message, fields}` into `ApiError`; network failure → code `NETWORK`.
-- [ ] 0.12 Router skeleton: `/` shows a page "School admin" with one `Panel`-like box, a mono number and a primary button, all from tokens. Unknown URL shows "Page not found".
-- [ ] 0.13 `vite.config.ts`: proxy `/api` → `http://localhost:8080`. Scripts `dev` (mock) and `dev:real`. `.env.example` with the two variables.
-- [ ] 0.14 The "Sample data" label, shown only in mock mode.
-- [ ] 0.15 Playwright: config that starts `npm run dev` and one test that opens `/` and sees "School admin". Script `e2e`.
-- [ ] 0.16 GitHub Actions workflow: on every push run `lint`, `typecheck`, `test`, `build`.
-- [ ] 0.17 `README.md`: how to run, test and build, in 10 lines.
+- [x] 0.2 `.gitignore` (node_modules, dist, .env.local, test-results, playwright-report). First commit.
+- [x] 0.3 TypeScript in strict mode. Path alias `@/` → `src/`. Script `typecheck`.
+- [x] 0.4 ESLint and Prettier with scripts `lint` and `format`. Lint must fail on `any` and on unused variables.
+- [x] 0.5 Tailwind: add the Vite plugin, `@import "tailwindcss"` in `src/styles/index.css`, and **every token** from `docs/03-design-system.md` under `@theme` (colours, the three font families). Set the default radius to 0.
+- [x] 0.6 Fonts: load Archivo, IBM Plex Mono and Mukta from Google Fonts in `index.html` with `display=swap`. Body uses `font-sans`, `bg-paper`, `text-ink`, 14px.
+- [x] 0.7 Make the folder structure from `docs/02-architecture.md` (empty folders with a short `README.md` or an `index.ts` each).
+- [x] 0.8 `src/lib/format.ts` with `formatInr`, `formatDate`, `formatTime`, `formatLoad`, `daysFromToday`, `maskPhone`, and their unit tests (the examples in `docs/02-architecture.md`).
+- [x] 0.9 Vitest with jsdom and Testing Library. Script `test`. One sample component test passes.
+- [x] 0.10 MSW: `src/mocks/browser.ts`, `src/mocks/server.ts`, an empty `handlers/index.ts`. `main.tsx` starts the worker only when `VITE_API_MODE` is `mock`. Vitest starts the server in its setup file. One test proves a mocked `GET /api/v1/ping` answers.
+- [x] 0.11 `src/api/client.ts` and `errors.ts` as described in `docs/06-api-and-mocks.md`, with tests: adds the token header; turns `{error, message, fields}` into `ApiError`; network failure → code `NETWORK`.
+- [x] 0.12 Router skeleton: `/` shows a page "School admin" with one `Panel`-like box, a mono number and a primary button, all from tokens. Unknown URL shows "Page not found".
+- [x] 0.13 `vite.config.ts`: proxy `/api` → `http://localhost:8080`. Scripts `dev` (mock) and `dev:real`. `.env.example` with the two variables.
+- [x] 0.14 The "Sample data" label, shown only in mock mode.
+- [x] 0.15 Playwright: config that starts `npm run dev` and one test that opens `/` and sees "School admin". Script `e2e`.
+- [x] 0.16 GitHub Actions workflow: on every push run `lint`, `typecheck`, `test`, `build`.
+- [x] 0.17 `README.md`: how to run, test and build, in 10 lines.
 
 ## Tests that must pass
 

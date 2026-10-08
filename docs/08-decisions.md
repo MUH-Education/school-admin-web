@@ -58,6 +58,7 @@ This file is the memory of the web project. When something is decided, write one
 | 8 Oct 2026 | 0 | `dev` uses `vite --mode mock`; `dev:real` uses `--mode real`. Mode files `.env.mock`, `.env.real`, `.env.production` set `VITE_API_MODE`. | The production build is always `real`, so MSW is never in `dist/`. |
 | 8 Oct 2026 | 0 | A small Vite plugin deletes `mockServiceWorker.js` from `dist/` after the build. | `public/` copies it into `dist/`. It must not ship. |
 | 8 Oct 2026 | 0 | Playwright reads optional `PW_CHROMIUM_PATH` to use an installed Chromium. | Lets the e2e test run where `playwright install` is not possible. |
+| 8 Oct 2026 | 1 | `User`, `Role` and the `GET /roles` and `GET /users` row shapes are my guess (`Role = { role, permissions[] }`; `User` = id, name, phone, role, active, route). | `docs/backend/api.md` gives no JSON for them. Confirm with the backend repo in task 1.21. |
 
 ## E. Differences from the first plan document
 

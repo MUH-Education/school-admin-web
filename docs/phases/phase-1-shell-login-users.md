@@ -44,7 +44,7 @@ This phase also builds most of the shared components. Later phases reuse them.
 
 Mock first:
 
-- [ ] 1.1 Types for auth and users (`User`, `Role`, `Permission`, `LoginResponse`).
+- [x] 1.1 Types for auth and users (`User`, `Role`, `Permission`, `LoginResponse`).
 - [ ] 1.2 Mock data: the five sample users from `docs/06-api-and-mocks.md`, and the role table.
 - [ ] 1.3 Mock handlers for the nine calls above, with the rules: code `000000`, role checks, the three business errors.
 

@@ -9,6 +9,8 @@ interface FieldProps {
   compact?: boolean
   /** 17px label, for the phone login page. */
   large?: boolean
+  /** The roomy forms: the hint is 13.5px. */
+  roomy?: boolean
   children: ReactNode
 }
 
@@ -19,6 +21,7 @@ export function Field({
   error,
   compact = false,
   large = false,
+  roomy = false,
   children,
 }: FieldProps) {
   const id = useId()
@@ -37,7 +40,7 @@ export function Field({
         </label>
         {children}
         {hint && (
-          <p id={hintId} className="text-[13px] text-ink-soft">
+          <p id={hintId} className={`text-ink-soft ${roomy ? 'text-[13.5px]' : 'text-[13px]'}`}>
             {hint}
           </p>
         )}

@@ -6,10 +6,13 @@ interface Crumb {
   to?: string
 }
 
-/** "Students / Ishaan Sharma" */
-export function Breadcrumb({ items }: { items: Crumb[] }) {
+/** "Students / Ishaan Sharma". `roomy` is the 14px size of the Add an enquiry design. */
+export function Breadcrumb({ items, roomy = false }: { items: Crumb[]; roomy?: boolean }) {
   return (
-    <nav aria-label="Breadcrumb" className="text-[13px] text-ink-soft">
+    <nav
+      aria-label="Breadcrumb"
+      className={`text-ink-soft ${roomy ? 'text-[14px]' : 'text-[13px]'}`}
+    >
       <ol className="flex flex-wrap gap-x-2">
         {items.map((item, index) => (
           <li key={item.label} className="flex gap-2">

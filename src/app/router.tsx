@@ -221,7 +221,20 @@ export const routes: RouteObject[] = [
                   }
                 },
               },
-              placeholder('enquiries/new', 'Add an enquiry', 'ENQUIRIES_EDIT', 7),
+              {
+                path: 'enquiries/new',
+                lazy: async () => {
+                  const { AddEnquiryPage } =
+                    await import('@/features/enquiries/pages/AddEnquiryPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="ENQUIRIES_EDIT">
+                        <AddEnquiryPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
               placeholder('enquiries/:id', 'One enquiry', 'ENQUIRIES_VIEW', 7),
               {
                 path: 'messages',

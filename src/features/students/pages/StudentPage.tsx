@@ -12,6 +12,7 @@ import { useStudent } from '../api'
 import { DetailsBox } from '../components/DetailsBox'
 import { PhonesBox } from '../components/PhonesBox'
 import { StudentHeader } from '../components/StudentHeader'
+import { TransportBox } from '../components/TransportBox'
 
 export function StudentPage() {
   const { id } = useParams()
@@ -78,7 +79,15 @@ function OneStudent({ id }: { id: number }) {
           />
           <PhonesBox student={s} canEdit={canEdit} editing={editing} setEditing={setEditing} />
         </div>
-        <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-6" />
+        <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-6">
+          <TransportBox
+            student={s}
+            canEdit={canEdit}
+            editing={editing?.box === 'transport'}
+            onEdit={() => setEditing({ box: 'transport' })}
+            onClose={() => setEditing(null)}
+          />
+        </div>
       </div>
     </>
   )

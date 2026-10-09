@@ -370,3 +370,153 @@ describe('One student: phone numbers', () => {
     expect(screen.getAllByRole('form')).toHaveLength(1)
   })
 })
+
+describe('One student: transport', () => {
+  const box = () => screen.getByRole('region', { name: 'Transport' })
+
+  async function openChange() {
+    await userEvent.click(within(box()).getByRole('button', { name: 'Change' }))
+    return await within(box()).findByRole('form', { name: 'Change the bus' })
+  }
+
+  async function setDate(form: HTMLElement, label: string, value: string) {
+    const input = within(form).getByLabelText(label)
+    await userEvent.clear(input)
+    await userEvent.type(input, value)
+  }
+
+  it('shows the state now, closed, with a Change button', async () => {
+    await openStudent(1)
+    expect(box()).toHaveTextContent('Now: does not use the bus, since admission on 1 April 2026.')
+    expect(within(box()).queryByRole('form')).not.toBeInTheDocument()
+    expect(within(box()).getByRole('button', { name: 'Change' })).toBeInTheDocument()
+  })
+
+  it('shows the route, the stop and the fee for a child on the bus', async () => {
+    await openStudent(2)
+    expect(box()).toHaveTextContent('Now: Route 4, Jakhal, since 1 April 2024.')
+    expect(box()).toHaveTextContent('Bus fee: ₹8,800.')
+  })
+
+  it('stopListFollowsTheChosenRoute', async () => {
+    await openStudent(1)
+    const form = await openChange()
+    const stop = within(form).getByLabelText('Stop')
+    // Before a route is chosen there is nothing to pick.
+    expect(
+      within(stop)
+        .getAllByRole('option')
+        .map((o) => o.textContent),
+    ).toEqual(['Pick a route first'])
+
+    await userEvent.selectOptions(within(form).getByLabelText('Route'), 'Route 4')
+    expect(
+      within(stop)
+        .getAllByRole('option')
+        .map((o) => o.textContent),
+    ).toEqual([
+      'Pick a stop',
+      'Sadhanwas · 7:25',
+      'Jakhal · 7:40',
+      'Kanheri · 7:55',
+      'Tohana town · 8:02',
+    ])
+    await userEvent.selectOptions(stop, 'Jakhal · 7:40')
+    expect(stop).toHaveValue('11')
+
+    // Another route: other stops, and the old choice is gone.
+    await userEvent.selectOptions(within(form).getByLabelText('Route'), 'Route 1')
+    expect(
+      within(stop)
+        .getAllByRole('option')
+        .map((o) => o.textContent),
+    ).toEqual(['Pick a stop', 'Samain · 7:05', 'Bhuna road · 7:22', 'Dhand · 7:38'])
+    expect(stop).toHaveValue('')
+  })
+
+  it('fullRouteShowsWarningButSaves', async () => {
+    await openStudent(1)
+    const form = await openChange()
+    await userEvent.selectOptions(within(form).getByLabelText('Route'), 'Route 9')
+    // The warning shows at once, from the load-board numbers.
+    expect(await within(form).findByRole('status')).toHaveTextContent(
+      'Route 9 is already full. It has 45 children on 26 seats. Ishaan will be number 46.',
+    )
+    await userEvent.selectOptions(within(form).getByLabelText('Stop'), 'Lahli · 6:55')
+    await setDate(form, 'Start from', '2026-11-02')
+    const fee = within(form).getByLabelText('Bus fee for the rest of this year (₹)')
+    expect(fee).toHaveValue('8,800')
+    await userEvent.clear(fee)
+    await userEvent.type(fee, '4000')
+    expect(fee).toHaveValue('4,000')
+    expect(
+      within(form).getByText('The full year is ₹8,800. You decide the amount for the months left.'),
+    ).toBeInTheDocument()
+    expect(form).toHaveTextContent("From 2 November, Ishaan is on the Route 9 attendant's list.")
+    expect(form).toHaveTextContent('₹4,000 is added to the fees still to pay.')
+
+    await userEvent.click(within(form).getByRole('button', { name: 'Save change' }))
+    expect(await screen.findByText('Bus change saved')).toBeInTheDocument()
+    // The change was saved, and the server's warning stays on the screen.
+    await waitFor(() =>
+      expect(box()).toHaveTextContent('The change was saved. Route 9 has 46 children on 26 seats.'),
+    )
+    expect(box()).toHaveTextContent('From 2 November 2026: Route 9, Lahli.')
+    expect(box()).toHaveTextContent('Now: does not use the bus')
+    expect(within(box()).queryByRole('form')).not.toBeInTheDocument()
+  })
+
+  it('noBusAsksOnlyForTheDate', async () => {
+    await openStudent(2)
+    const form = await openChange()
+    expect(within(form).getByLabelText('Route')).toHaveValue('4')
+    await userEvent.click(within(form).getByLabelText('No bus'))
+    expect(within(form).queryByLabelText('Route')).not.toBeInTheDocument()
+    expect(within(form).queryByLabelText('Stop')).not.toBeInTheDocument()
+    expect(within(form).queryByLabelText(/Bus fee/)).not.toBeInTheDocument()
+    expect(within(form).queryByRole('status')).not.toBeInTheDocument()
+    await setDate(form, 'From which date', '2026-12-01')
+    expect(form).toHaveTextContent("From 1 December, Aryan is taken off the attendant's list.")
+
+    await userEvent.click(within(form).getByRole('button', { name: 'Save change' }))
+    await waitFor(() =>
+      expect(box()).toHaveTextContent('From 1 December 2026: does not use the bus.'),
+    )
+    expect(box()).toHaveTextContent('Now: Route 4, Jakhal')
+    // No warning for a child who leaves the bus.
+    expect(box()).not.toHaveTextContent('The change was saved.')
+  })
+
+  it('asks for a route and a stop when the child uses the bus', async () => {
+    await openStudent(1)
+    const form = await openChange()
+    await userEvent.click(within(form).getByRole('button', { name: 'Save change' }))
+    expect(await within(form).findByText('Pick a route.')).toBeInTheDocument()
+    expect(within(form).getByText('Pick a stop.')).toBeInTheDocument()
+  })
+
+  it('Cancel closes the form and nothing is saved', async () => {
+    await openStudent(1)
+    const form = await openChange()
+    await userEvent.click(within(form).getByRole('button', { name: 'Cancel' }))
+    expect(within(box()).queryByRole('form')).not.toBeInTheDocument()
+    expect(box()).toHaveTextContent('Now: does not use the bus')
+  })
+
+  it('shows the message of the server when the stop is not on the route', async () => {
+    server.use(
+      http.put('http://localhost:3000/api/v1/students/1/transport', () =>
+        HttpResponse.json(
+          { error: 'STOP_NOT_ON_ROUTE', message: 'That stop is not on Route 4.' },
+          { status: 409 },
+        ),
+      ),
+    )
+    await openStudent(1)
+    const form = await openChange()
+    await userEvent.selectOptions(within(form).getByLabelText('Route'), 'Route 4')
+    await userEvent.selectOptions(within(form).getByLabelText('Stop'), 'Jakhal · 7:40')
+    await userEvent.click(within(form).getByRole('button', { name: 'Save change' }))
+    expect(await within(form).findByRole('alert')).toHaveTextContent('That stop is not on Route 4.')
+  })
+})

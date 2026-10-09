@@ -31,6 +31,11 @@ export function formatLongDate(iso: string): string {
   }).format(new Date(`${iso}T00:00:00+05:30`))
 }
 
+/** formatLongDayMonth('2026-11-02') → 2 November */
+export function formatLongDayMonth(iso: string): string {
+  return formatLongDate(iso).replace(/ \d{4}$/, '')
+}
+
 /** formatDayMonth('2026-10-28') → 28 Oct */
 export function formatDayMonth(iso: string): string {
   return formatDate(iso).replace(/ \d{4}$/, '')

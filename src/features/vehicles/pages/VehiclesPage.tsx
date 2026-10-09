@@ -5,6 +5,7 @@ import { LinkButton } from '@/ui/LinkButton'
 import { PageHeader } from '@/ui/PageHeader'
 import { useStaff, useVehicles } from '../api'
 import { AttentionBox } from '../components/AttentionBox'
+import { PersonDialog } from '../components/PersonDialog'
 import { StaffTable } from '../components/StaffTable'
 import { VehiclesTable } from '../components/VehiclesTable'
 import type { Staff } from '../types'
@@ -17,7 +18,7 @@ export function VehiclesPage() {
   const canEdit = can('VEHICLES_EDIT')
   const vehicles = useVehicles()
   const staff = useStaff()
-  const [, setDialog] = useState<PersonDialogState>({ kind: 'closed' })
+  const [dialog, setDialog] = useState<PersonDialogState>({ kind: 'closed' })
 
   const counts =
     vehicles.data && staff.data
@@ -47,6 +48,11 @@ export function VehiclesPage() {
         canEdit={canEdit}
         onAdd={() => setDialog({ kind: 'add' })}
         onEdit={(person) => setDialog({ kind: 'edit', person })}
+      />
+      <PersonDialog
+        open={dialog.kind !== 'closed'}
+        person={dialog.kind === 'edit' ? dialog.person : undefined}
+        onClose={() => setDialog({ kind: 'closed' })}
       />
     </>
   )

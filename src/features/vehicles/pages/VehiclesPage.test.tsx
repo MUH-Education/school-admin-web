@@ -111,3 +111,44 @@ describe('Vehicles and staff page', () => {
     expect(await screen.findByText('No vehicles yet')).toBeInTheDocument()
   })
 })
+
+describe('Add and edit a person', () => {
+  it('adds a driver with a licence and shows them in the table', async () => {
+    await openVehicles()
+    await userEvent.click(screen.getByRole('button', { name: 'Add a person' }))
+    const dialog = screen.getByRole('dialog', { name: 'Add a person' })
+    await userEvent.type(within(dialog).getByLabelText('Name'), 'Naresh')
+    await userEvent.type(within(dialog).getByLabelText('Mobile number'), '98765 12345')
+    await userEvent.type(within(dialog).getByLabelText('Licence number'), 'HR23 2020 0000999')
+    await userEvent.type(within(dialog).getByLabelText('Licence valid till'), '2031-05-04')
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Add person' }))
+    expect(await screen.findByText('Person added')).toBeInTheDocument()
+    const table = await screen.findByRole('table', { name: 'Drivers, attendants and helpers' })
+    const row = await within(table).findByText('Naresh')
+    expect(within(row.closest('tr') as HTMLElement).getByText('4 May 2031')).toBeInTheDocument()
+  })
+
+  it('asks for the licence only for a driver', async () => {
+    await openVehicles()
+    await userEvent.click(screen.getByRole('button', { name: 'Add a person' }))
+    const dialog = screen.getByRole('dialog')
+    expect(within(dialog).getByLabelText('Licence number')).toBeInTheDocument()
+    await userEvent.selectOptions(within(dialog).getByLabelText('Work'), 'Attendant')
+    expect(within(dialog).queryByLabelText('Licence number')).not.toBeInTheDocument()
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Add person' }))
+    expect(await within(dialog).findByText('Enter the name.')).toBeInTheDocument()
+  })
+
+  it('shows the server message when a person still on a vehicle is turned off', async () => {
+    await openVehicles()
+    const table = await screen.findByRole('table', { name: 'Drivers, attendants and helpers' })
+    await userEvent.click(within(table).getByRole('button', { name: 'Edit Jagdish' }))
+    const dialog = screen.getByRole('dialog', { name: 'Edit person' })
+    expect(within(dialog).getByLabelText('Name')).toHaveValue('Jagdish')
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Turn off this person' }))
+    await userEvent.click(screen.getByRole('button', { name: 'Turn off' }))
+    expect(await within(dialog).findByRole('alert')).toHaveTextContent(
+      'Jagdish is still on Van 4. Change the person there first.',
+    )
+  })
+})

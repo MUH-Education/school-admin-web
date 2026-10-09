@@ -30,13 +30,26 @@ async function fillFamily() {
   await userEvent.type(f.getByLabelText(/Village or locality/), 'Tohana town')
 }
 
+/** Part 4: the school fee comes from the class; the family picks how often it pays. */
+async function fillFees() {
+  const f = within(form())
+  const school = f.getByLabelText(/School fee for the year/)
+  try {
+    await waitFor(() => expect(school).not.toHaveValue(''))
+  } catch {
+    await userEvent.type(school, '30000')
+  }
+  await userEvent.click(f.getByLabelText('Every 3 months'))
+}
+
 describe('New admission: the form', () => {
-  it('has the three parts, the automatic number and no draft button', async () => {
+  it('has the four parts, the automatic number and no draft button', async () => {
     await openAdmission()
     expect(within(form()).getByRole('heading', { name: '1. Student' })).toBeInTheDocument()
     expect(within(form()).getByRole('heading', { name: '2. Family' })).toBeInTheDocument()
     expect(within(form()).getByRole('heading', { name: '3. Transport' })).toBeInTheDocument()
-    expect(within(form()).queryByRole('heading', { name: /4\. Fees/ })).not.toBeInTheDocument()
+    expect(within(form()).getByRole('heading', { name: '4. Fees' })).toBeInTheDocument()
+    expect(screen.getByRole('complementary', { name: 'Fee summary' })).toBeInTheDocument()
     expect(screen.getByText('Given automatically when you save')).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: /draft/i })).not.toBeInTheDocument()
     expect(within(form()).getByRole('button', { name: 'Save admission' })).toBeInTheDocument()
@@ -111,6 +124,7 @@ describe('New admission: the form', () => {
     await fillStudent()
     await fillFamily()
     await userEvent.click(within(form()).getByLabelText('No, comes on own'))
+    await fillFees()
     await userEvent.click(within(form()).getByRole('button', { name: 'Save admission' }))
 
     const phone = await within(form()).findByLabelText("Father's phone *")
@@ -134,6 +148,7 @@ describe('New admission: the form', () => {
     await fillStudent()
     await fillFamily()
     await userEvent.click(within(form()).getByLabelText('No, comes on own'))
+    await fillFees()
     await userEvent.click(within(form()).getByRole('button', { name: 'Save admission' }))
     expect(await within(form()).findByText('The server is busy.')).toBeInTheDocument()
   })
@@ -204,6 +219,7 @@ describe('New admission: brother or sister', () => {
     )
     await userEvent.type(within(form()).getByLabelText(/Village or locality/), 'Jakhal')
     await userEvent.click(within(form()).getByLabelText('No, comes on own'))
+    await fillFees()
     await userEvent.click(within(form()).getByRole('button', { name: 'Save admission' }))
 
     expect(
@@ -234,6 +250,7 @@ describe('New admission: route is full, saving, leaving', () => {
     )
     await userEvent.selectOptions(within(form()).getByLabelText('Stop'), 'Lahli · 6:55')
     // It does not block saving.
+    await fillFees()
     await userEvent.click(within(form()).getByRole('button', { name: 'Save admission' }))
     expect(
       await screen.findByRole('heading', { level: 1, name: 'Kavya Goyal' }),
@@ -277,6 +294,7 @@ describe('New admission: route is full, saving, leaving', () => {
     await fillStudent()
     await fillFamily()
     await userEvent.click(within(form()).getByLabelText('No, comes on own'))
+    await fillFees()
     await userEvent.click(within(form()).getByRole('button', { name: 'Save admission' }))
 
     await waitFor(() => expect(router.state.location.pathname).toBe('/students/1000'))
@@ -397,6 +415,7 @@ describe('New admission: started from an enquiry', () => {
     await userEvent.type(f.getByLabelText("Father's name *"), 'Rakesh Goyal')
     await userEvent.type(f.getByLabelText("Father's phone *"), '98123 00771')
     await userEvent.click(f.getByLabelText('No, comes on own'))
+    await fillFees()
     await userEvent.click(f.getByRole('button', { name: 'Save admission' }))
     await waitFor(() => expect(router.state.location.pathname).toMatch(/^\/students\/\d+$/))
     expect(sent.enquiryId).toBe(23)

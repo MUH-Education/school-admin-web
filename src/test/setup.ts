@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/vitest'
 import 'fake-indexeddb/auto'
-import { cleanup } from '@testing-library/react'
+import { cleanup, configure } from '@testing-library/react'
 import { resetLocalState } from '@/attendant/localState'
 import { resetPhoneDb } from '@/attendant/phoneDb'
 import { i18n } from '@/i18n'
@@ -15,6 +15,10 @@ vi.mock('virtual:pwa-register/react', () => ({
     updateServiceWorker: async () => {},
   }),
 }))
+
+// A page test waits for the lazy page and the mock server. When all 67 test files run together the
+// machine is busy, and the default 1 second is sometimes too short.
+configure({ asyncUtilTimeout: 4000 })
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 afterEach(async () => {

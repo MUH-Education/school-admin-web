@@ -7,6 +7,7 @@ import { Button } from '@/ui/Button'
 import { ConfirmDialog } from '@/ui/ConfirmDialog'
 import { LinkButton } from '@/ui/LinkButton'
 import { useToast } from '@/ui/useToast'
+import { usePermissions } from '@/auth/usePermissions'
 import { useEnquiryPrefill } from '@/features/enquiries/api'
 import { useAdmit } from '../api'
 import {
@@ -19,20 +20,24 @@ import {
 import type { AdmissionValues } from '../form'
 import { EnquiryNotice } from './EnquiryNotice'
 import { FamilySection } from './FamilySection'
+import { FeesSection } from './FeesSection'
+import { FeeSummary } from './FeeSummary'
 import { StudentSection } from './StudentSection'
 import { TransportSection } from './TransportSection'
 
-/** Parts 1 to 3 of the admission. Part 4 (Fees) comes in web phase 8. */
+/** The admission: 1 Student, 2 Family, 3 Transport, and 4 Fees with the Fee summary on the right. */
 export function AdmissionForm() {
   const toast = useToast()
   const navigate = useNavigate()
   const admit = useAdmit()
+  // Part 4 and the summary are for people who may edit fees. The server checks too.
+  const feesOn = usePermissions().can('FEES_EDIT')
   const formRef = useRef<HTMLFormElement>(null)
   const [serverError, setServerError] = useState<string | null>(null)
 
   const form = useForm<AdmissionValues>({
     resolver: zodResolver(admissionSchema),
-    defaultValues: emptyAdmission(),
+    defaultValues: emptyAdmission(feesOn),
   })
   const { isDirty } = form.formState
 
@@ -80,7 +85,10 @@ export function AdmissionForm() {
     try {
       const result = await admit.mutateAsync(toRequest(values, prefill.data ? enquiryId : null))
       saved.current = true
-      toast.show(`Admitted. Admission number ${result.admissionNo}`)
+      toast.show(
+        `Admitted. Admission number ${result.admissionNo}` +
+          (result.receiptNo ? `. Receipt number ${result.receiptNo}` : ''),
+      )
       void navigate(`/students/${result.studentId}`)
     } catch (error) {
       if (!(error instanceof ApiError)) {
@@ -97,31 +105,35 @@ export function AdmissionForm() {
   return (
     <>
       {enquiryId !== null && <EnquiryNotice enquiryId={enquiryId} prefill={prefill} />}
-      <form
-        ref={formRef}
-        noValidate
-        aria-label="New admission"
-        onSubmit={(event) => void form.handleSubmit(save, showFirstMistake)(event)}
-        className="flex max-w-[860px] flex-col gap-6"
-      >
-        <StudentSection form={form} />
-        <FamilySection form={form} />
-        <TransportSection form={form} />
+      <div className="flex flex-wrap items-start gap-6">
+        <form
+          ref={formRef}
+          noValidate
+          aria-label="New admission"
+          onSubmit={(event) => void form.handleSubmit(save, showFirstMistake)(event)}
+          className={`flex flex-col gap-6 ${feesOn ? 'min-w-0 flex-[999_1_620px]' : 'max-w-[860px]'}`}
+        >
+          <StudentSection form={form} />
+          <FamilySection form={form} />
+          <TransportSection form={form} />
+          {feesOn && <FeesSection form={form} />}
 
-        {serverError && (
-          <p role="alert" className="border border-bad bg-bad-soft p-3 font-semibold text-bad">
-            {serverError}
-          </p>
-        )}
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
-          <Button type="submit" saving={admit.isPending} className="min-h-[52px] px-7 text-base">
-            Save admission
-          </Button>
-          <LinkButton to="/students" variant="plain" className="min-h-[52px] px-6 text-base">
-            Cancel
-          </LinkButton>
-        </div>
-      </form>
+          {serverError && (
+            <p role="alert" className="border border-bad bg-bad-soft p-3 font-semibold text-bad">
+              {serverError}
+            </p>
+          )}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+            <Button type="submit" saving={admit.isPending} className="min-h-[52px] px-7 text-base">
+              Save admission
+            </Button>
+            <LinkButton to="/students" variant="plain" className="min-h-[52px] px-6 text-base">
+              Cancel
+            </LinkButton>
+          </div>
+        </form>
+        {feesOn && <FeeSummary control={form.control} />}
+      </div>
       <ConfirmDialog
         open={blocker.state === 'blocked'}
         title="Leave without saving?"

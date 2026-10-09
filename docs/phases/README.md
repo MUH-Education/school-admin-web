@@ -16,8 +16,8 @@ Change the Status column as you go: **Not started** → **In progress** → **Do
 | 5 | [Attendant app](phase-5-attendant-app.md) | The five phone pages, offline, installable | 4 | L | Done |
 | 6 | [Messages](phase-6-messages.md) | Messages, SMS column on One bus | 5 | S | Done |
 | 7 | [Enquiries](phase-7-enquiries.md) | Enquiry list, Add an enquiry, One enquiry | 6 | M | Done |
-| 8 | [Fees](phase-8-fees.md) | Fees in admission and on the student page, Fee setup | 7 | M | In progress |
-| 9 | [Analytics](phase-9-analytics.md) | Analytics | 8 | M | Not started |
+| 8 | [Fees](phase-8-fees.md) | Fees in admission and on the student page, Fee setup | 7 | M | Done |
+| 9 | [Analytics](phase-9-analytics.md) | Analytics | 8 | M | In progress |
 | 10 | [Go live](phase-10-go-live.md) | Everything on the real backend, on the real address | all | M | Not started |
 
 Size: **S** is about one week, **M** about one and a half weeks, **L** about two weeks, at about 10 to 12 hours a week with Claude Code doing most of the typing. It is a guess, not a promise.

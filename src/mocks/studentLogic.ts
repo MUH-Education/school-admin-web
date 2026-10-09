@@ -85,6 +85,11 @@ function toNow(e: MockEnrolment | undefined): TransportNow {
   }
 }
 
+/** Where the child rides today, or the booked change when nothing runs yet. */
+export function transportNowOf(studentId: number): TransportNow {
+  return toNow(enrolmentOn(studentId, today()) ?? enrolmentsOf(studentId).at(-1))
+}
+
 export function toGuardian(g: MockGuardian): Guardian {
   return {
     id: g.id,

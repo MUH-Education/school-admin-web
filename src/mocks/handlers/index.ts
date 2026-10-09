@@ -5,6 +5,7 @@ import { busStatusHandlers } from './busStatus'
 import { routeHandlers } from './routes'
 import { staffHandlers } from './staff'
 import { studentHandlers } from './students'
+import { tripsHandlers } from './trips'
 import { userHandlers } from './users'
 import { vehicleHandlers } from './vehicles'
 
@@ -18,4 +19,5 @@ export const handlers: RequestHandler[] = [
   ...studentHandlers,
   ...admissionHandlers,
   ...busStatusHandlers,
+  ...tripsHandlers,
 ]

@@ -47,8 +47,8 @@ Foundations:
 
 - [x] 5.1 i18n setup; `hi.json` and `en.json` with every text from the six designs and the strings in `docs/07-attendant-offline.md`. Language button and saved choice.
 - [x] 5.2 Login page: Hindi texts, the "हिंदी / English" button.
-- [ ] 5.3 Types: `Manifest`, `ManifestStop`, `ManifestChild`, `Tap`, `MarkResult`, `MyRoute`.
-- [ ] 5.4 Mock data and handlers: Route 4's manifest for the fixed day; `POST /trips/marks` that applies the server rules (same tap twice saved once, older tap ignored, `NOT_YOUR_ROUTE` for a child of another route).
+- [x] 5.3 Types: `Manifest`, `ManifestStop`, `ManifestChild`, `Tap`, `MarkResult`, `MyRoute`.
+- [x] 5.4 Mock data and handlers: Route 4's manifest for the fixed day; `POST /trips/marks` that applies the server rules (same tap twice saved once, older tap ignored, `NOT_YOUR_ROUTE` for a child of another route).
 
 Offline core (pure TypeScript, no React, fully unit-tested):
 

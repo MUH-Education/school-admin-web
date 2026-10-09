@@ -45,9 +45,9 @@ The office sees where every bus is right now, which buses need attention, and fo
 
 Mock first:
 
-- [ ] 4.1 Types: `BusStatusRoute`, `StopState`, `RouteState`, `AttentionItem`, `BusChildRow`.
-- [ ] 4.2 Mock data: the 7:48 picture from `Main.dc.html` for all 9 routes, and the 19 children of Route 4 from `BusDetail.dc.html`.
-- [ ] 4.3 Mock handlers. `?phase=EVENING` returns an evening picture (some routes boarding, some on the way, one child missing).
+- [x] 4.1 Types: `BusStatusRoute`, `StopState`, `RouteState`, `AttentionItem`, `BusChildRow`.
+- [x] 4.2 Mock data: the 7:48 picture from `Main.dc.html` for all 9 routes, and the 19 children of Route 4 from `BusDetail.dc.html`.
+- [x] 4.3 Mock handlers. `?phase=EVENING` returns an evening picture (some routes boarding, some on the way, one child missing).
 
 Components:
 

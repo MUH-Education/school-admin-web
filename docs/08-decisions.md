@@ -71,6 +71,13 @@ This file is the memory of the web project. When something is decided, write one
 | 9 Oct 2026 | 2 | The mock has 19 active people (10 drivers with Surender free, 9 attendants). Kuldeep (id 25) is an old attendant who left. Sunil from phase 1 is gone; Sunita takes Van 5. | The design shows 19 people and Sunita on Van 5. The Users test now picks Sunita. |
 | 9 Oct 2026 | 2 | Business errors on vehicles and staff are HTTP 409: `STAFF_BUSY`, `WRONG_STAFF_TYPE`, `LICENCE_ENDED`, `VEHICLE_IN_USE`, `STAFF_ON_VEHICLE` (my name, for deleting a person still on a vehicle). | The docs name the codes but not all statuses. |
 | 9 Oct 2026 | 2 | `/vehicles/new` sends `POST /vehicles`, then `PUT /vehicles/{id}/documents`. | The API has no papers in the add call. |
+| 9 Oct 2026 | 2 | In the route panel the "Vehicle" choice lists real vehicles (Van 4), not vehicle types. Seats and cost per month are shown as read-only text. | `PUT /routes/{id}` changes only the name and the vehicle. Seats and cost belong to the vehicle (edit them on One vehicle). The design drew type, seats and cost as inputs. |
+| 9 Oct 2026 | 2 | In the stops editor, saved stops show name and time as text. Only a new stop has a name box and a time box. | The design shows text. Renaming a saved stop is not needed yet. |
+| 9 Oct 2026 | 2 | The three numbers (months, bus fee, collected %) save when the person leaves a box or presses Enter. A wrong number shows its message and is not sent. | The design has no Save button for them. |
+| 9 Oct 2026 | 2 | `people` on `GET /vehicles/{id}` shows the latest change that has not ended, even if it starts in the future, with `upcoming: true`. | Behaviour 3: after saving "from 12 Oct", the box must show the new person at once. |
+| 9 Oct 2026 | 2 | `GET /vehicles/attention` rows carry the label to show: "Bus 9" or "Driver Krishan". | The web app should not build the label from two fields. |
+| 9 Oct 2026 | 2 | Added: "Turn off this person" in the Edit person dialog (`DELETE /staff/{id}`) and "Add a new driver" in the change form (opens the Add person dialog). | The API has the call; the design shows the "Add a new driver" choice. |
+| 9 Oct 2026 | 2 | The session label "2026–27" on Routes and load is worked out from today's date (April to March). | There is no session API until phase 8. |
 
 ## E. Differences from the first plan document
 

@@ -68,9 +68,10 @@ export function PeopleBox({ vehicle, canEdit }: Props) {
                 </div>
                 {canEdit && (
                   <Button
+                    variant="secondary"
                     aria-expanded={isOpen}
                     onClick={() => setOpen(isOpen ? null : duty)}
-                    className={isOpen ? 'bg-canal-soft text-ink' : ''}
+                    className={isOpen ? 'bg-canal-soft! text-ink!' : ''}
                   >
                     {person ? `Change ${label.toLowerCase()}` : 'Add a person'}
                   </Button>

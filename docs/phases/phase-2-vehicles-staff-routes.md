@@ -71,7 +71,7 @@ Routes and load:
 
 Finish:
 
-- [ ] 2.20 Playwright flow: open Van 4, change the driver for 12 to 16 Oct, see the new driver; open Routes and load, add a stop to Route 4, save.
+- [x] 2.20 Playwright flow: open Van 4, change the driver for 12 to 16 Oct, see the new driver; open Routes and load, add a stop to Route 4, save.
 - [ ] 2.21 **Switch to the real backend** (needs backend Phase 2).
 
 ## Tests that must pass

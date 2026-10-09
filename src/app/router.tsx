@@ -211,7 +211,19 @@ export const routes: RouteObject[] = [
               placeholder('enquiries', 'Enquiries', 'ENQUIRIES_VIEW', 7),
               placeholder('enquiries/new', 'Add an enquiry', 'ENQUIRIES_EDIT', 7),
               placeholder('enquiries/:id', 'One enquiry', 'ENQUIRIES_VIEW', 7),
-              placeholder('messages', 'Messages', 'MESSAGES_VIEW', 6),
+              {
+                path: 'messages',
+                lazy: async () => {
+                  const { MessagesPage } = await import('@/features/messages/pages/MessagesPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="MESSAGES_VIEW">
+                        <MessagesPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
               placeholder('analytics', 'Analytics', 'ANALYTICS_VIEW', 9),
               {
                 path: 'users',

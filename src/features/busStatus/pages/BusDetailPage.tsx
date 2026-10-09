@@ -19,6 +19,10 @@ import { phaseChoices, routeStateLabel } from '../labels'
 import { parsePhase } from '../phase'
 import type { BusStatusRoute } from '../types'
 
+/** The note under the table in BusDetail.dc.html. */
+const SMS_RULE_NOTE =
+  'SMS follows the class rule. Nursery to Class 8: all four messages. Class 9 and 10: only "reached school" and "boarded evening bus". Class 11 and 12: no bus SMS.'
+
 export function BusDetailPage() {
   const { routeId } = useParams()
   return <OneBus routeId={Number(routeId)} />
@@ -119,7 +123,10 @@ function OneBus({ routeId }: { routeId: number }) {
             hint="Add children from the Students page."
           />
         ) : (
-          <ChildrenTable rows={children} />
+          <>
+            <ChildrenTable rows={children} />
+            <p className="max-w-[760px] text-[12.5px] text-ink-soft">{SMS_RULE_NOTE}</p>
+          </>
         )}
       </section>
     </>

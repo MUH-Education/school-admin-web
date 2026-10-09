@@ -1,5 +1,6 @@
 import type { BusChildRow } from '../types'
 import { EventCell } from './EventCell'
+import { SmsCell } from './SmsCell'
 
 /** Same columns as BusDetail.dc.html: three that stretch, four events of 96px, SMS last. */
 const GRID =
@@ -60,8 +61,9 @@ export function ChildrenTable({ rows }: { rows: BusChildRow[] }) {
             <div role="cell">
               <EventCell event={child.events.reachedHome} />
             </div>
-            {/* Filled in web phase 6 (Messages). The column is here so the table keeps its shape. */}
-            <div role="cell" className="text-[12.5px] text-ink-soft" />
+            <div role="cell" className="text-[12.5px] text-ink-soft">
+              <SmsCell sms={child.sms} className={child.className} />
+            </div>
           </div>
         ))}
       </div>

@@ -1,18 +1,20 @@
 import type { ReactNode } from 'react'
 
 interface PageHeaderProps {
-  /** Small capital label above the title. */
+  /** A breadcrumb above the title. When it is given, the small label is not needed. */
+  breadcrumb?: ReactNode /** Small capital label above the title. */
   label?: string
   title: string
-  description?: string
+  description?: ReactNode
   /** Buttons on the right. */
   action?: ReactNode
 }
 
-export function PageHeader({ label, title, description, action }: PageHeaderProps) {
+export function PageHeader({ breadcrumb, label, title, description, action }: PageHeaderProps) {
   return (
     <header className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4 border-b-2 border-ink pb-4">
       <div className="flex min-w-0 flex-col gap-1.5">
+        {breadcrumb}
         {label && (
           <div className="font-mono text-[11px] tracking-[0.08em] text-dust-text uppercase">
             {label}

@@ -40,38 +40,38 @@ The office can see and manage vehicles, their papers, drivers, attendants and he
 
 Mock first:
 
-- [ ] 2.1 Types: `Vehicle`, `VehicleDocument`, `Staff`, `Assignment`, `Route`, `RouteStop`, `LoadBoardRow`, `Settings`.
-- [ ] 2.2 Mock data: 9 vehicles, 19 staff, assignments, 9 routes with stops, children counts (255 in total, as in `docs/06-api-and-mocks.md`).
-- [ ] 2.3 Mock handlers for all calls above, with the business errors and the load maths.
+- [x] 2.1 Types: `Vehicle`, `VehicleDocument`, `Staff`, `Assignment`, `Route`, `RouteStop`, `LoadBoardRow`, `Settings`.
+- [x] 2.2 Mock data: 9 vehicles, 19 staff, assignments, 9 routes with stops, children counts (255 in total, as in `docs/06-api-and-mocks.md`).
+- [x] 2.3 Mock handlers for all calls above, with the business errors and the load maths.
 
 Shared components:
 
-- [ ] 2.4 `TileRow`, `Tile`.
-- [ ] 2.5 `DateInput`, `MoneyInput`, `ChoiceGroup`.
-- [ ] 2.6 `InlineForm`, `HistoryList`.
-- [ ] 2.7 `SeatMeter` with tests for under, exactly full, and over.
+- [x] 2.4 `TileRow`, `Tile`.
+- [x] 2.5 `DateInput`, `MoneyInput`, `ChoiceGroup`.
+- [x] 2.6 `InlineForm`, `HistoryList`.
+- [x] 2.7 `SeatMeter` with tests for under, exactly full, and over.
 
 Vehicles and staff:
 
-- [ ] 2.8 API hooks for vehicles, staff, assignments.
-- [ ] 2.9 `VehiclesPage`: attention box, vehicles table, staff table.
-- [ ] 2.10 Add and edit a person (dialog).
-- [ ] 2.11 `VehicleDetailPage`: details form, papers form.
-- [ ] 2.12 People box with the change form (behaviour 3, 4) and the history list.
-- [ ] 2.13 `/vehicles/new` and "Remove this vehicle".
-- [ ] 2.14 Read-only mode (behaviour 5).
+- [x] 2.8 API hooks for vehicles, staff, assignments.
+- [x] 2.9 `VehiclesPage`: attention box, vehicles table, staff table.
+- [x] 2.10 Add and edit a person (dialog).
+- [x] 2.11 `VehicleDetailPage`: details form, papers form.
+- [x] 2.12 People box with the change form (behaviour 3, 4) and the history list.
+- [x] 2.13 `/vehicles/new` and "Remove this vehicle".
+- [x] 2.14 Read-only mode (behaviour 5).
 
 Routes and load:
 
-- [ ] 2.15 API hooks for routes, load board, settings.
-- [ ] 2.16 `RoutesPage`: tiles, settings row, route list with `SeatMeter`.
-- [ ] 2.17 Selected route panel: name, vehicle, stops editor, the six numbers.
-- [ ] 2.18 Add route, delete route.
-- [ ] 2.19 `loadBoardInsights(rows)` pure function and the bottom box.
+- [x] 2.15 API hooks for routes, load board, settings.
+- [x] 2.16 `RoutesPage`: tiles, settings row, route list with `SeatMeter`.
+- [x] 2.17 Selected route panel: name, vehicle, stops editor, the six numbers.
+- [x] 2.18 Add route, delete route.
+- [x] 2.19 `loadBoardInsights(rows)` pure function and the bottom box.
 
 Finish:
 
-- [ ] 2.20 Playwright flow: open Van 4, change the driver for 12 to 16 Oct, see the new driver; open Routes and load, add a stop to Route 4, save.
+- [x] 2.20 Playwright flow: open Van 4, change the driver for 12 to 16 Oct, see the new driver; open Routes and load, add a stop to Route 4, save.
 - [ ] 2.21 **Switch to the real backend** (needs backend Phase 2).
 
 ## Tests that must pass

@@ -102,12 +102,12 @@ describe('Users and roles page', () => {
     await userEvent.type(within(dialog).getByLabelText('Mobile number'), '98765 00001')
     await userEvent.selectOptions(within(dialog).getByLabelText('Role'), 'Attendant')
     const which = await within(dialog).findByLabelText('Which attendant?')
-    await within(dialog).findByRole('option', { name: 'Sunil' })
+    await within(dialog).findByRole('option', { name: 'Sunita · Route 5' })
 
     await userEvent.click(within(dialog).getByRole('button', { name: 'Add user' }))
     expect(await within(dialog).findByText('Pick the attendant.')).toBeInTheDocument()
 
-    await userEvent.selectOptions(which, 'Sunil')
+    await userEvent.selectOptions(which, 'Sunita · Route 5')
     await userEvent.click(within(dialog).getByRole('button', { name: 'Add user' }))
     expect(await screen.findByText('User added')).toBeInTheDocument()
     const row = (await screen.findByText('+919876500001')).closest('tr')

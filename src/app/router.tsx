@@ -53,10 +53,60 @@ export const routes: RouteObject[] = [
             children: [
               placeholder('bus-status', 'Bus status', 'BUS_STATUS_VIEW', 4),
               placeholder('bus-status/routes/:routeId', 'One bus', 'BUS_STATUS_VIEW', 4),
-              placeholder('routes', 'Routes and load', 'ROUTES_VIEW', 2),
-              placeholder('vehicles', 'Vehicles and staff', 'VEHICLES_VIEW', 2),
-              placeholder('vehicles/new', 'Add a vehicle', 'VEHICLES_EDIT', 2),
-              placeholder('vehicles/:id', 'One vehicle', 'VEHICLES_VIEW', 2),
+              {
+                path: 'routes',
+                lazy: async () => {
+                  const { RoutesPage } = await import('@/features/routes/pages/RoutesPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="ROUTES_VIEW">
+                        <RoutesPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
+              {
+                path: 'vehicles',
+                lazy: async () => {
+                  const { VehiclesPage } = await import('@/features/vehicles/pages/VehiclesPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="VEHICLES_VIEW">
+                        <VehiclesPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
+              {
+                path: 'vehicles/new',
+                lazy: async () => {
+                  const { VehicleDetailPage } =
+                    await import('@/features/vehicles/pages/VehicleDetailPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="VEHICLES_EDIT">
+                        <VehicleDetailPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
+              {
+                path: 'vehicles/:id',
+                lazy: async () => {
+                  const { VehicleDetailPage } =
+                    await import('@/features/vehicles/pages/VehicleDetailPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="VEHICLES_VIEW">
+                        <VehicleDetailPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
               placeholder('students', 'Students', 'STUDENTS_VIEW', 3),
               placeholder('students/:id', 'One student', 'STUDENTS_VIEW', 3),
               placeholder('admissions/new', 'New admission', 'ADMISSIONS_CREATE', 3),

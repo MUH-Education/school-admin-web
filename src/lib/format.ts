@@ -21,6 +21,21 @@ export function formatDate(iso: string): string {
     .replace('Sept', 'Sep')
 }
 
+/** formatLongDate('2026-10-28') → 28 October 2026 */
+export function formatLongDate(iso: string): string {
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: ZONE,
+  }).format(new Date(`${iso}T00:00:00+05:30`))
+}
+
+/** formatDayMonth('2026-10-28') → 28 Oct */
+export function formatDayMonth(iso: string): string {
+  return formatDate(iso).replace(/ \d{4}$/, '')
+}
+
 /** formatTime('2026-10-07T07:42:10+05:30') → 7:42, in Indian time on any laptop */
 export function formatTime(iso: string): string {
   const parts = new Intl.DateTimeFormat('en-GB', {
@@ -34,6 +49,12 @@ export function formatTime(iso: string): string {
   return `${Number(hour)}:${minute}`
 }
 
+/** formatClock('07:25') → 7:25. For a stop time that comes as plain text. */
+export function formatClock(hhmm: string): string {
+  const [hour = '', minute = ''] = hhmm.split(':')
+  return `${Number(hour)}:${minute}`
+}
+
 /** formatLoad(1.357) → 1.36× */
 export function formatLoad(load: number): string {
   return `${load.toFixed(2)}×`
@@ -41,6 +62,11 @@ export function formatLoad(load: number): string {
 
 function indiaToday(now: Date): string {
   return new Intl.DateTimeFormat('en-CA', { timeZone: ZONE }).format(now)
+}
+
+/** Today's date in India as ISO text, for example 2026-10-07. */
+export function todayIso(now: Date = new Date()): string {
+  return indiaToday(now)
 }
 
 /** Days from today to an ISO date. daysFromToday('2026-10-28') on 7 Oct 2026 → 21 */

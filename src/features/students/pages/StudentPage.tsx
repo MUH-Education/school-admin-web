@@ -10,6 +10,7 @@ import { LoadingBlock } from '@/ui/LoadingBlock'
 import { PageHeader } from '@/ui/PageHeader'
 import { useStudent } from '../api'
 import { DetailsBox } from '../components/DetailsBox'
+import { HistoryBox } from '../components/HistoryBox'
 import { PhonesBox } from '../components/PhonesBox'
 import { StudentHeader } from '../components/StudentHeader'
 import { TransportBox } from '../components/TransportBox'
@@ -87,6 +88,7 @@ function OneStudent({ id }: { id: number }) {
             onEdit={() => setEditing({ box: 'transport' })}
             onClose={() => setEditing(null)}
           />
+          <HistoryBox studentId={s.id} />
         </div>
       </div>
     </>

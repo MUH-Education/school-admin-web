@@ -85,8 +85,8 @@ One student:
 - [x] 3.9 Details box, view and edit (behaviour 5, 6, 12).
 - [x] 3.10 Phone numbers box with add, edit, remove (behaviour 7, 8).
 - [x] 3.11 Transport box with the change form and warnings (behaviour 9).
-- [ ] 3.12 Change history box.
-- [ ] 3.13 View-only mode (behaviour 13).
+- [x] 3.12 Change history box.
+- [x] 3.13 View-only mode (behaviour 13).
 
 New admission:
 

@@ -69,7 +69,7 @@ describe('One student: header and photo', () => {
     await openStudent(1)
     const png = new File([new Uint8Array(1000)], 'me.png', { type: 'image/png' })
     await userEvent.upload(screen.getByLabelText('Photo file'), png)
-    expect(await screen.findByText('Photo saved')).toBeInTheDocument()
+    expect((await screen.findAllByText('Photo saved')).length).toBeGreaterThan(0)
     expect(await screen.findByRole('img', { name: 'Photo of Ishaan Sharma' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Change photo' })).toBeInTheDocument()
   })
@@ -79,7 +79,8 @@ describe('One student: header and photo', () => {
     await userEvent.click(await screen.findByRole('button', { name: 'Remove photo' }))
     const dialog = screen.getByRole('dialog', { name: 'Remove the photo?' })
     await userEvent.click(within(dialog).getByRole('button', { name: 'Remove photo' }))
-    expect(await screen.findByText('Photo removed')).toBeInTheDocument()
+    // The toast and the new line of the change history both say it.
+    expect((await screen.findAllByText('Photo removed')).length).toBeGreaterThan(0)
     await waitFor(() =>
       expect(screen.queryByRole('img', { name: /Photo of/ })).not.toBeInTheDocument(),
     )
@@ -518,5 +519,99 @@ describe('One student: transport', () => {
     await userEvent.selectOptions(within(form).getByLabelText('Stop'), 'Jakhal · 7:40')
     await userEvent.click(within(form).getByRole('button', { name: 'Save change' }))
     expect(await within(form).findByRole('alert')).toHaveTextContent('That stop is not on Route 4.')
+  })
+})
+
+describe('One student: change history', () => {
+  const box = () => screen.getByRole('region', { name: 'Change history' })
+
+  it('shows date, what changed and who, newest first', async () => {
+    await openStudent(1)
+    const items = await within(box()).findAllByRole('listitem')
+    expect(items).toHaveLength(3)
+    expect(items[0]).toHaveTextContent('12 Aug 2026')
+    expect(items[0]).toHaveTextContent('Section changed from B to A')
+    expect(items[0]).toHaveTextContent('Neelam')
+    expect(items[1]).toHaveTextContent('3 Jun 2026')
+    expect(items[1]).toHaveTextContent("Mother's phone number added")
+    expect(items[2]).toHaveTextContent('1 Apr 2026')
+    expect(items[2]).toHaveTextContent('Admitted to Class 4, no bus')
+    expect(items[2]).toHaveTextContent('Priya')
+  })
+
+  it('shows a new line after a change, with the name of the person who made it', async () => {
+    await openStudent(1)
+    await within(box()).findAllByRole('listitem')
+    const phones = screen.getByRole('region', { name: 'Parents and phone numbers' })
+    await userEvent.click(within(phones).getByRole('button', { name: 'Edit Pooja Sharma' }))
+    await userEvent.click(within(phones).getByRole('button', { name: 'Remove this number' }))
+    await userEvent.click(
+      within(screen.getByRole('dialog')).getByRole('button', { name: 'Remove number' }),
+    )
+    await waitFor(() => expect(within(box()).getAllByRole('listitem')).toHaveLength(4))
+    const first = within(box()).getAllByRole('listitem')[0]
+    expect(first).toHaveTextContent('Phone number of Pooja Sharma removed')
+    expect(first).toHaveTextContent('Neelam')
+  })
+
+  it('shows an error with Retry', async () => {
+    let fail = true
+    server.use(
+      http.get('http://localhost:3000/api/v1/students/1/history', () =>
+        fail
+          ? HttpResponse.json({ error: 'SERVER', message: 'x' }, { status: 500 })
+          : HttpResponse.json([]),
+      ),
+    )
+    await openStudent(1)
+    expect(await within(box()).findByRole('alert')).toHaveTextContent('Something went wrong')
+    fail = false
+    await userEvent.click(within(box()).getByRole('button', { name: 'Retry' }))
+    expect(await within(box()).findByText('No changes yet.')).toBeInTheDocument()
+  })
+})
+
+describe('One student: view-only roles', () => {
+  it.each([
+    ['the transport in-charge', sampleUserIds.transport],
+    ['the admissions desk', sampleUserIds.admissions],
+  ])('viewOnlyRoleSeesNoEditButtons (%s)', async (_who, userId) => {
+    await openStudent(2, userId)
+    // Everything is there to read.
+    const details = screen.getByRole('region', { name: 'Student details' })
+    expect(within(details).getByText('21 June 2018')).toBeInTheDocument()
+    const phones = screen.getByRole('region', { name: 'Parents and phone numbers' })
+    expect(phones).toHaveTextContent('Rajender Punia · Father')
+    expect(phones).toHaveTextContent('94XXX XX871')
+    expect(screen.getByRole('region', { name: 'Transport' })).toHaveTextContent(
+      'Now: Route 4, Jakhal',
+    )
+    expect((await screen.findAllByRole('listitem')).length).toBeGreaterThan(0)
+    expect(await screen.findByRole('img', { name: 'Photo of Aryan Punia' })).toBeInTheDocument()
+
+    // And nothing to change.
+    const main = screen.getByRole('main')
+    for (const name of [
+      'Edit',
+      'Change',
+      'Add a photo',
+      'Change photo',
+      'Remove photo',
+      'Add a phone number',
+    ]) {
+      expect(within(main).queryByRole('button', { name })).not.toBeInTheDocument()
+    }
+    expect(within(main).queryByRole('button', { name: /^Edit / })).not.toBeInTheDocument()
+    expect(within(main).queryAllByRole('button')).toHaveLength(0)
+    expect(within(main).queryByLabelText('Photo file')).not.toBeInTheDocument()
+    expect(within(main).queryByRole('textbox')).not.toBeInTheDocument()
+    expect(within(main).queryByRole('combobox')).not.toBeInTheDocument()
+  })
+
+  it('the office admin, who may edit, sees the buttons', async () => {
+    await openStudent(2)
+    expect(screen.getByRole('button', { name: 'Edit' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Change' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Add a phone number' })).toBeInTheDocument()
   })
 })

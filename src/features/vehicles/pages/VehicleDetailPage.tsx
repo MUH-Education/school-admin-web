@@ -9,6 +9,7 @@ import { PageHeader } from '@/ui/PageHeader'
 import { usePermissions } from '@/auth/usePermissions'
 import { useVehicle } from '../api'
 import { HistoryBox } from '../components/HistoryBox'
+import { VehicleReadOnly } from '../components/VehicleReadOnly'
 import { RemoveVehicle } from '../components/RemoveVehicle'
 import { PeopleBox } from '../components/PeopleBox'
 import { PapersCell } from '../components/PapersCell'
@@ -41,7 +42,7 @@ function NewVehicle() {
 }
 
 function ExistingVehicle({ id }: { id: number }) {
-  const { can } = usePermissions()
+  const canEdit = usePermissions().can('VEHICLES_EDIT')
   const vehicle = useVehicle(id)
   const crumb = (name: string) => (
     <Breadcrumb items={[{ label: 'Vehicles and staff', to: '/vehicles' }, { label: name }]} />
@@ -108,14 +109,18 @@ function ExistingVehicle({ id }: { id: number }) {
       />
       <div className="flex flex-wrap items-start gap-6">
         <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-6">
-          <VehicleForm
-            key={v.id}
-            vehicle={v}
-            extraAction={<RemoveVehicle id={v.id} name={v.name} />}
-          />
+          {canEdit ? (
+            <VehicleForm
+              key={v.id}
+              vehicle={v}
+              extraAction={<RemoveVehicle id={v.id} name={v.name} />}
+            />
+          ) : (
+            <VehicleReadOnly vehicle={v} />
+          )}
         </div>
         <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-6">
-          <PeopleBox vehicle={v} canEdit={can('VEHICLES_EDIT')} />
+          <PeopleBox vehicle={v} canEdit={canEdit} />
           <HistoryBox vehicleId={v.id} />
         </div>
       </div>

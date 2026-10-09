@@ -10,6 +10,8 @@ import { server } from '@/mocks/server'
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 afterEach(async () => {
   cleanup()
+  vi.useRealTimers()
+  vi.restoreAllMocks()
   localStorage.clear()
   await i18n.changeLanguage('en')
   await resetPhoneDb()

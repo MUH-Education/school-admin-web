@@ -60,20 +60,20 @@ Offline core (pure TypeScript, no React, fully unit-tested):
 
 Shell and shared parts:
 
-- [ ] 5.10 `AttendantShell`: top bar (back, title, count), sending strip, bottom button area. `font-hindi`.
-- [ ] 5.11 `ChildRow` with one or two answer buttons, at least 52px high.
-- [ ] 5.12 `SendingStrip` with the four states.
-- [ ] 5.13 `StopHeader`, `DoneStopLine`.
+- [x] 5.10 `AttendantShell`: top bar (back, title, count), sending strip, bottom button area. `font-hindi`.
+- [x] 5.11 `ChildRow` with one or two answer buttons, at least 52px high.
+- [x] 5.12 `SendingStrip` with the four states.
+- [x] 5.13 `StopHeader`, `DoneStopLine`.
 
 Pages:
 
-- [ ] 5.14 `/trip` Today: four job cards with counts, the current one highlighted, "call the office", the "no route today" state.
+- [x] 5.14 `/trip` Today: four job cards with counts, the current one highlighted, "call the office", the "no route today" state.
 - [ ] 5.15 `/trip/pickup` Morning pickup: current stop open, earlier stops as lines, next-stop button.
 - [ ] 5.16 `/trip/school` Reached school: the big button with its one confirm, the absent list, "see names one by one".
 - [ ] 5.17 `/trip/evening` Evening boarding: missing children on top, two answers, the gated bottom button.
 - [ ] 5.18 `/trip/drop` Home drop: evening stop order, "all children of this stop got off".
-- [ ] 5.19 Problems list (taps the server refused) with a clear button.
-- [ ] 5.20 New-day handling and the "today's list did not load" banner.
+- [x] 5.19 Problems list (taps the server refused) with a clear button.
+- [x] 5.20 New-day handling and the "today's list did not load" banner.
 
 Install and offline shell:
 

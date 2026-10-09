@@ -6,13 +6,15 @@ interface DialogProps {
   title: string
   onClose: () => void
   children: ReactNode
+  /** Extra classes for the dark layer, for example `font-hindi` on the phone. */
+  className?: string
 }
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
 /** A centred box over the page. Focus stays inside it. Escape closes it. */
-export function Dialog({ open, title, onClose, children }: DialogProps) {
+export function Dialog({ open, title, onClose, children, className = '' }: DialogProps) {
   const titleId = useId()
   const boxRef = useRef<HTMLDivElement>(null)
   const onCloseRef = useRef(onClose)
@@ -56,7 +58,7 @@ export function Dialog({ open, title, onClose, children }: DialogProps) {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-ink/60 p-4"
+      className={`fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-ink/60 p-4 ${className}`}
       onKeyDown={onKeyDown}
     >
       <div

@@ -32,6 +32,6 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
     include: ['src/**/*.test.{ts,tsx}'],
-    env: { VITE_API_BASE: 'http://localhost:3000/api/v1' },
+    env: { VITE_API_BASE: 'http://localhost:3000/api/v1', VITE_OFFICE_PHONE: '+919812340002' },
   },
 })

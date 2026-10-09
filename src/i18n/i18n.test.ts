@@ -43,12 +43,24 @@ const codeFiles = import.meta.glob(
   { query: '?raw', import: 'default', eager: true },
 ) as Record<string, string>
 
+/** Examples in comments may be in Hindi. Only real code must not hold words. */
+function withoutComments(code: string): string {
+  return code.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1')
+}
+
 describe('texts of the phone app', () => {
   it('no Hindi letter is written in a code file; all words live in hi.json', () => {
     const offenders = Object.entries(codeFiles)
-      .filter(([, text]) => /[\u0900-\u097F]/.test(text))
+      .filter(([, text]) => /[\u0900-\u097F]/.test(withoutComments(text)))
       .map(([file]) => file)
     expect(offenders).toEqual([])
+  })
+
+  it('the check sees a Hindi word in code but not in a comment', () => {
+    expect(/[\u0900-\u097F]/.test(withoutComments('const a = "नमस्ते"'))).toBe(true)
+    expect(/[\u0900-\u097F]/.test(withoutComments('/** "नमस्ते" */\n// नमस्ते\nconst a = 1'))).toBe(
+      false,
+    )
   })
 
   it('the check really reads the login page', () => {

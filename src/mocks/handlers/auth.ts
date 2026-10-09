@@ -2,15 +2,16 @@ import { http, HttpResponse } from 'msw'
 import type { AuthUser, OtpRequestBody, OtpVerifyBody } from '@/auth/types'
 import { normalizePhone } from '@/lib/phone'
 import { rolePermissions } from '../data/roles'
-import { sampleAttendants, type MockUser } from '../data/users'
+import type { MockUser } from '../data/users'
 import { db } from '../db'
+import { placementOf } from '../fleetLogic'
 import { authorize, errorResponse, tokenFor, wait } from '../http'
 
 const OTP_CODE = '000000'
 const MAX_ATTEMPTS = 5
 
 export function toAuthUser(user: MockUser): AuthUser {
-  const staff = sampleAttendants.find((s) => s.id === user.staffId)
+  const place = placementOf(user.staffId)
   return {
     id: user.id,
     name: user.name,
@@ -18,8 +19,8 @@ export function toAuthUser(user: MockUser): AuthUser {
     role: user.role,
     permissions: rolePermissions[user.role],
     route:
-      staff?.route && staff.vehicle
-        ? { id: Number(staff.route.replace(/\D/g, '')), name: staff.route, vehicle: staff.vehicle }
+      place?.routeId && place.routeName
+        ? { id: place.routeId, name: place.routeName, vehicle: place.vehicleName }
         : null,
   }
 }

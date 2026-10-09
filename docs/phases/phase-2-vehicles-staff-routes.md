@@ -40,9 +40,9 @@ The office can see and manage vehicles, their papers, drivers, attendants and he
 
 Mock first:
 
-- [ ] 2.1 Types: `Vehicle`, `VehicleDocument`, `Staff`, `Assignment`, `Route`, `RouteStop`, `LoadBoardRow`, `Settings`.
-- [ ] 2.2 Mock data: 9 vehicles, 19 staff, assignments, 9 routes with stops, children counts (255 in total, as in `docs/06-api-and-mocks.md`).
-- [ ] 2.3 Mock handlers for all calls above, with the business errors and the load maths.
+- [x] 2.1 Types: `Vehicle`, `VehicleDocument`, `Staff`, `Assignment`, `Route`, `RouteStop`, `LoadBoardRow`, `Settings`.
+- [x] 2.2 Mock data: 9 vehicles, 19 staff, assignments, 9 routes with stops, children counts (255 in total, as in `docs/06-api-and-mocks.md`).
+- [x] 2.3 Mock handlers for all calls above, with the business errors and the load maths.
 
 Shared components:
 

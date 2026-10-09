@@ -3,7 +3,7 @@ import type { RoleCode } from '@/auth/types'
 import type { CreateUserBody, UpdateUserBody, User } from '@/features/users/types'
 import { normalizePhone } from '@/lib/phone'
 import { roleTable } from '../data/roles'
-import { sampleAttendants, type MockUser } from '../data/users'
+import type { MockUser } from '../data/users'
 import { db } from '../db'
 import { authorize, errorResponse, routeNameOf, wait } from '../http'
 
@@ -43,19 +43,6 @@ export const userHandlers = [
     const user = authorize(request, 'USERS_MANAGE')
     if (user instanceof Response) return user
     return HttpResponse.json(db.users.map(toUser))
-  }),
-
-  http.get('/api/v1/staff', async ({ request }) => {
-    await wait()
-    const user = authorize(request, 'VEHICLES_VIEW')
-    if (user instanceof Response) return user
-    const attendants = sampleAttendants.map(({ id, name, type, route }) => ({
-      id,
-      name,
-      type,
-      route,
-    }))
-    return HttpResponse.json(attendants)
   }),
 
   http.post('/api/v1/users', async ({ request }) => {

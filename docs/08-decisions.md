@@ -67,6 +67,10 @@ This file is the memory of the web project. When something is decided, write one
 | 8 Oct 2026 | 1 | Unknown addresses show "Page not found" inside the admin shell, so a person who is not logged in goes to `/login` first. | One guard for everything except `/login`. |
 | 8 Oct 2026 | 1 | After "Log out" the login page does not return to the old page. After a 401 it does. | Logging out is on purpose; a 401 is not. |
 | 8 Oct 2026 | 1 | `Dialog` is built by hand (focus trap, Escape) instead of the `<dialog>` tag. | jsdom has no `showModal()`, so tests could not check it. No new library. |
+| 9 Oct 2026 | 2 | JSON shapes for vehicles, staff, assignments, attention, routes, settings are my guess. See `src/features/vehicles/types.ts` and `src/features/routes/types.ts`. Papers come as `documents[]` with `validTill`, `status` (VALID, ENDING, ENDED) and `daysLeft` decided by the server. Settings are `{ busMonths, busFeePerChild, feeCollectedPercent }`. Load-board verdict is `OVER`, `OK` or `LOW`. | `docs/backend/api.md` gives JSON only for the assignment body and one load-board row. Confirm in task 2.21. |
+| 9 Oct 2026 | 2 | The mock has 19 active people (10 drivers with Surender free, 9 attendants). Kuldeep (id 25) is an old attendant who left. Sunil from phase 1 is gone; Sunita takes Van 5. | The design shows 19 people and Sunita on Van 5. The Users test now picks Sunita. |
+| 9 Oct 2026 | 2 | Business errors on vehicles and staff are HTTP 409: `STAFF_BUSY`, `WRONG_STAFF_TYPE`, `LICENCE_ENDED`, `VEHICLE_IN_USE`, `STAFF_ON_VEHICLE` (my name, for deleting a person still on a vehicle). | The docs name the codes but not all statuses. |
+| 9 Oct 2026 | 2 | `/vehicles/new` sends `POST /vehicles`, then `PUT /vehicles/{id}/documents`. | The API has no papers in the add call. |
 
 ## E. Differences from the first plan document
 

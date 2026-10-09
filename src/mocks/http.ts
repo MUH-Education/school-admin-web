@@ -1,8 +1,9 @@
 import { delay, HttpResponse } from 'msw'
 import type { Permission } from '@/auth/types'
 import { rolePermissions } from './data/roles'
-import { sampleAttendants, type MockUser } from './data/users'
+import type { MockUser } from './data/users'
 import { db } from './db'
+import { placementOf } from './fleetLogic'
 
 /** Answers come after a short wait, so loading states are visible. Tests skip the wait. */
 export async function wait(): Promise<void> {
@@ -38,5 +39,5 @@ export function authorize(request: Request, permission?: Permission): MockUser |
 }
 
 export function routeNameOf(user: MockUser): string | null {
-  return sampleAttendants.find((s) => s.id === user.staffId)?.route ?? null
+  return placementOf(user.staffId)?.routeName ?? null
 }

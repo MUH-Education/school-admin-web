@@ -48,7 +48,7 @@ describe('mock vehicles, staff and routes', () => {
     expect(items.map((i) => [i.subject, i.status, i.daysLeft])).toEqual([
       ['Bus 9', 'ENDED', -7],
       ['Van 6', 'ENDING', 21],
-      ['Krishan', 'ENDING', 26],
+      ['Driver Krishan', 'ENDING', 26],
     ])
   })
 

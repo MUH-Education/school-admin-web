@@ -127,7 +127,7 @@ export interface StaffBody {
 /** One row of GET /vehicles/attention. Ended first, then ending. */
 export interface AttentionItem {
   subjectType: 'VEHICLE' | 'STAFF'
-  /** "Bus 9" or "Krishan". */
+  /** "Bus 9" or "Driver Krishan". */
   subject: string
   vehicleId: number | null
   item: PaperKind | 'LICENCE'

@@ -80,7 +80,7 @@ export const vehicleHandlers = [
       if (status === 'VALID') continue
       items.push({
         subjectType: 'STAFF',
-        subject: s.name,
+        subject: `Driver ${s.name}`,
         vehicleId: null,
         item: 'LICENCE',
         validTill: s.licenceValidTill as string,

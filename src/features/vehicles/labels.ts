@@ -31,7 +31,7 @@ export const paperShortLabels: Record<PaperKind | 'LICENCE', string> = {
   FITNESS: 'Fitness',
   INSURANCE: 'Insurance',
   PERMIT: 'Permit',
-  POLLUTION: 'Pollution certificate',
+  POLLUTION: 'Pollution',
   LICENCE: 'Licence',
 }
 export const paperOrder: PaperKind[] = ['FITNESS', 'INSURANCE', 'PERMIT', 'POLLUTION']

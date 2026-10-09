@@ -1,4 +1,14 @@
-import { daysFromToday, formatDate, formatInr, formatLoad, formatTime, maskPhone } from './format'
+import {
+  daysFromToday,
+  formatClock,
+  formatDate,
+  formatDayMonth,
+  formatInr,
+  formatLoad,
+  formatLongDate,
+  formatTime,
+  maskPhone,
+} from './format'
 
 describe('formatInr', () => {
   it('groups in the Indian way', () => {
@@ -34,5 +44,16 @@ describe('formatLoad', () => {
 describe('maskPhone', () => {
   it('hides the middle digits', () => {
     expect(maskPhone('+919812345678')).toBe('+91XXXXXX5678')
+  })
+})
+
+describe('more date helpers', () => {
+  it('formats a long date and a day with month', () => {
+    expect(formatLongDate('2026-10-28')).toBe('28 October 2026')
+    expect(formatDayMonth('2026-09-30')).toBe('30 Sep')
+  })
+  it('formats a stop time', () => {
+    expect(formatClock('07:25')).toBe('7:25')
+    expect(formatClock('16:05')).toBe('16:05')
   })
 })

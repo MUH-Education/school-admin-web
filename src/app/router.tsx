@@ -54,7 +54,19 @@ export const routes: RouteObject[] = [
               placeholder('bus-status', 'Bus status', 'BUS_STATUS_VIEW', 4),
               placeholder('bus-status/routes/:routeId', 'One bus', 'BUS_STATUS_VIEW', 4),
               placeholder('routes', 'Routes and load', 'ROUTES_VIEW', 2),
-              placeholder('vehicles', 'Vehicles and staff', 'VEHICLES_VIEW', 2),
+              {
+                path: 'vehicles',
+                lazy: async () => {
+                  const { VehiclesPage } = await import('@/features/vehicles/pages/VehiclesPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="VEHICLES_VIEW">
+                        <VehiclesPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
               placeholder('vehicles/new', 'Add a vehicle', 'VEHICLES_EDIT', 2),
               placeholder('vehicles/:id', 'One vehicle', 'VEHICLES_VIEW', 2),
               placeholder('students', 'Students', 'STUDENTS_VIEW', 3),

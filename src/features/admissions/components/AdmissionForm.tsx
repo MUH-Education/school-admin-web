@@ -1,15 +1,23 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useBeforeUnload, useBlocker, useNavigate } from 'react-router'
+import { useBeforeUnload, useBlocker, useNavigate, useSearchParams } from 'react-router'
 import { ApiError } from '@/api/errors'
 import { Button } from '@/ui/Button'
 import { ConfirmDialog } from '@/ui/ConfirmDialog'
 import { LinkButton } from '@/ui/LinkButton'
 import { useToast } from '@/ui/useToast'
+import { useEnquiryPrefill } from '@/features/enquiries/api'
 import { useAdmit } from '../api'
-import { admissionFieldNames, admissionSchema, emptyAdmission, toRequest } from '../form'
+import {
+  admissionFieldNames,
+  admissionSchema,
+  emptyAdmission,
+  prefillValues,
+  toRequest,
+} from '../form'
 import type { AdmissionValues } from '../form'
+import { EnquiryNotice } from './EnquiryNotice'
 import { FamilySection } from './FamilySection'
 import { StudentSection } from './StudentSection'
 import { TransportSection } from './TransportSection'
@@ -27,6 +35,21 @@ export function AdmissionForm() {
     defaultValues: emptyAdmission(),
   })
   const { isDirty } = form.formState
+
+  // With ?enquiryId= the known details come from the enquiry, once. After that the clerk is free.
+  const [params] = useSearchParams()
+  const rawEnquiryId = Number(params.get('enquiryId'))
+  const enquiryId = Number.isInteger(rawEnquiryId) && rawEnquiryId > 0 ? rawEnquiryId : null
+  const prefill = useEnquiryPrefill(enquiryId)
+  const prefilled = useRef(false)
+  const { setValue } = form
+  useEffect(() => {
+    if (!prefill.data || prefilled.current) return
+    prefilled.current = true
+    for (const [name, value] of Object.entries(prefillValues(prefill.data))) {
+      setValue(name as keyof AdmissionValues, value as never)
+    }
+  }, [prefill.data, setValue])
 
   // Leaving with typed data asks first. After a good save there is nothing to lose.
   const dirty = useRef(false)
@@ -55,7 +78,7 @@ export function AdmissionForm() {
   async function save(values: AdmissionValues) {
     setServerError(null)
     try {
-      const result = await admit.mutateAsync(toRequest(values))
+      const result = await admit.mutateAsync(toRequest(values, prefill.data ? enquiryId : null))
       saved.current = true
       toast.show(`Admitted. Admission number ${result.admissionNo}`)
       void navigate(`/students/${result.studentId}`)
@@ -73,6 +96,7 @@ export function AdmissionForm() {
 
   return (
     <>
+      {enquiryId !== null && <EnquiryNotice enquiryId={enquiryId} prefill={prefill} />}
       <form
         ref={formRef}
         noValidate

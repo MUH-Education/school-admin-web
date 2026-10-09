@@ -334,3 +334,91 @@ describe('New admission: route is full, saving, leaving', () => {
     ).toBeInTheDocument()
   })
 })
+
+describe('New admission: started from an enquiry', () => {
+  async function openFromEnquiry(id: number) {
+    saveLogin(sampleUserIds.admissions)
+    const view = renderApp(`/admissions/new?enquiryId=${id}`)
+    await screen.findByRole('form', { name: 'New admission' })
+    return view
+  }
+
+  it('admissionFormIsPrefilledFromTheEnquiry', async () => {
+    await openFromEnquiry(23)
+    const box = await screen.findByRole('region', { name: 'Started from an enquiry' })
+    expect(box).toHaveTextContent(
+      'Started from the enquiry of Anita Goyal, Tohana town, Class UKG. The known details are already filled in.',
+    )
+    expect(within(box).getByRole('link', { name: 'View enquiry' })).toHaveAttribute(
+      'href',
+      '/enquiries/23',
+    )
+    const f = within(form())
+    await waitFor(() => expect(f.getByLabelText(/Student name/)).toHaveValue('Kavya'))
+    expect(f.getByLabelText(/Class \*/)).toHaveValue('UKG')
+    expect(f.getByLabelText(/Village or locality/)).toHaveValue('Tohana town')
+    // The enquiry was from a mother, so the mother's boxes are filled.
+    expect(f.getByLabelText("Mother's name")).toHaveValue('Anita Goyal')
+    expect(f.getAllByLabelText(/^Mother's phone$/)[0]).toHaveValue('9898100771')
+    expect(f.getByLabelText("Father's name *")).toHaveValue('')
+  })
+
+  it('lets the clerk change every filled box', async () => {
+    await openFromEnquiry(29)
+    const name = within(form()).getByLabelText(/Village or locality/)
+    await waitFor(() => expect(name).toHaveValue('Jakhal'))
+    expect(within(form()).getByLabelText("Father's name *")).toHaveValue('Rajesh Kumar')
+    await userEvent.clear(name)
+    await userEvent.type(name, 'Kanheri')
+    expect(name).toHaveValue('Kanheri')
+  })
+
+  it('has no blue box without ?enquiryId=', async () => {
+    await openAdmission()
+    expect(
+      screen.queryByRole('region', { name: 'Started from an enquiry' }),
+    ).not.toBeInTheDocument()
+  })
+
+  it('sends enquiryId, and the enquiry then shows as Admitted in the list', async () => {
+    let sent: { enquiryId?: number } = {}
+    server.use(
+      http.post('http://localhost:3000/api/v1/admissions', async ({ request }) => {
+        sent = (await request.clone().json()) as { enquiryId?: number }
+        return undefined
+      }),
+    )
+    const { router } = await openFromEnquiry(23)
+    const f = within(form())
+    await waitFor(() => expect(f.getByLabelText(/Student name/)).toHaveValue('Kavya'))
+    await userEvent.type(f.getByLabelText(/Date of birth/), '2021-08-14')
+    await userEvent.click(f.getByLabelText('Girl'))
+    await userEvent.selectOptions(f.getByLabelText(/Father's occupation/), 'Shopkeeper or trader')
+    await userEvent.type(f.getByLabelText("Father's name *"), 'Rakesh Goyal')
+    await userEvent.type(f.getByLabelText("Father's phone *"), '98123 00771')
+    await userEvent.click(f.getByLabelText('No, comes on own'))
+    await userEvent.click(f.getByRole('button', { name: 'Save admission' }))
+    await waitFor(() => expect(router.state.location.pathname).toMatch(/^\/students\/\d+$/))
+    expect(sent.enquiryId).toBe(23)
+    await router.navigate('/enquiries?status=ADMITTED')
+    const table = await screen.findByRole('table', { name: 'Enquiries' })
+    const row = (await within(table).findByText('Anita Goyal')).closest('tr') as HTMLElement
+    expect(within(row).getByText('Admitted')).toBeInTheDocument()
+  })
+
+  it('shows an error with Retry when the enquiry cannot be read, and the form still works', async () => {
+    server.use(
+      http.get('http://localhost:3000/api/v1/enquiries/23/prefill', () =>
+        HttpResponse.json({ error: 'SERVER', message: 'boom' }, { status: 500 }),
+      ),
+    )
+    await openFromEnquiry(23)
+    const alert = await screen.findByText(
+      'The enquiry could not be loaded. You can fill the form by hand.',
+    )
+    expect(
+      within(alert.parentElement as HTMLElement).getByRole('button', { name: 'Retry' }),
+    ).toBeInTheDocument()
+    expect(within(form()).getByLabelText(/Student name/)).toHaveValue('')
+  })
+})

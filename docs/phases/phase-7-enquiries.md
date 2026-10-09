@@ -64,7 +64,7 @@ This phase needs only web Phase 1. You can do it earlier if you like.
 - [x] 7.6 `EnquiryForm` shared by add and edit, with its Zod schema (behaviour 6 to 8).
 - [x] 7.7 `AddEnquiryPage` with both save buttons and the duplicate message (behaviour 9, 10).
 - [x] 7.8 `EnquiryDetailPage`: form, stage buttons, follow-ups, start admission (behaviour 11 to 14).
-- [ ] 7.9 Prefill on the admission page (behaviour 15, 16).
+- [x] 7.9 Prefill on the admission page (behaviour 15, 16).
 - [ ] 7.10 Playwright flow: add an enquiry, add a follow-up, start admission, save, see the enquiry as Admitted.
 - [ ] 7.11 **Switch to the real backend** (needs backend Phase 6).
 

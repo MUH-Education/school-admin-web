@@ -2,6 +2,7 @@ import { http, HttpResponse } from 'msw'
 import type { AdmissionRequest, AdmissionResult } from '@/features/admissions/types'
 import { classNames, occupations } from '@/features/students/types'
 import { db } from '../db'
+import { enquiryById, isOpen, markAdmitted } from '../enquiriesLogic'
 import { authorize, errorResponse, wait } from '../http'
 import {
   addHistory,
@@ -56,6 +57,15 @@ export const admissionHandlers = [
     const fields = checkAdmission(body)
     if (Object.keys(fields).length > 0) {
       return errorResponse(400, 'VALIDATION', 'Check the form.', { fields })
+    }
+
+    // An admission from an enquiry: the enquiry must be there and still open.
+    const enquiry = body.enquiryId === undefined ? undefined : enquiryById(body.enquiryId)
+    if (body.enquiryId !== undefined) {
+      if (!enquiry) return errorResponse(404, 'NOT_FOUND', 'This enquiry was not found.')
+      if (!isOpen(enquiry.status)) {
+        return errorResponse(409, 'BAD_STAGE', 'This enquiry is already closed.')
+      }
     }
 
     const route = body.usesBus
@@ -129,6 +139,8 @@ export const admissionHandlers = [
       `Admitted to ${body.className}, ${route ? route.name : 'no bus'}`,
       me.name ?? me.phone,
     )
+
+    if (enquiry) markAdmitted(enquiry, id)
 
     const result: AdmissionResult = { studentId: id, admissionNo }
     if (route) {

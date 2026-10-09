@@ -1,7 +1,9 @@
 import type { RequestHandler } from 'msw'
+import { admissionHandlers } from './admissions'
 import { authHandlers } from './auth'
 import { routeHandlers } from './routes'
 import { staffHandlers } from './staff'
+import { studentHandlers } from './students'
 import { userHandlers } from './users'
 import { vehicleHandlers } from './vehicles'
 
@@ -12,4 +14,6 @@ export const handlers: RequestHandler[] = [
   ...vehicleHandlers,
   ...staffHandlers,
   ...routeHandlers,
+  ...studentHandlers,
+  ...admissionHandlers,
 ]

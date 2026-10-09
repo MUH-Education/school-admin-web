@@ -1,0 +1,113 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useBeforeUnload, useBlocker, useNavigate } from 'react-router'
+import { ApiError } from '@/api/errors'
+import { Button } from '@/ui/Button'
+import { ConfirmDialog } from '@/ui/ConfirmDialog'
+import { LinkButton } from '@/ui/LinkButton'
+import { useToast } from '@/ui/useToast'
+import { useAdmit } from '../api'
+import { admissionFieldNames, admissionSchema, emptyAdmission, toRequest } from '../form'
+import type { AdmissionValues } from '../form'
+import { FamilySection } from './FamilySection'
+import { StudentSection } from './StudentSection'
+import { TransportSection } from './TransportSection'
+
+/** Parts 1 to 3 of the admission. Part 4 (Fees) comes in web phase 8. */
+export function AdmissionForm() {
+  const toast = useToast()
+  const navigate = useNavigate()
+  const admit = useAdmit()
+  const formRef = useRef<HTMLFormElement>(null)
+  const [serverError, setServerError] = useState<string | null>(null)
+
+  const form = useForm<AdmissionValues>({
+    resolver: zodResolver(admissionSchema),
+    defaultValues: emptyAdmission(),
+  })
+  const { isDirty } = form.formState
+
+  // Leaving with typed data asks first. After a good save there is nothing to lose.
+  const dirty = useRef(false)
+  const saved = useRef(false)
+  useEffect(() => {
+    dirty.current = isDirty
+  }, [isDirty])
+  const blocker = useBlocker(() => dirty.current && !saved.current)
+  useBeforeUnload(
+    useCallback((event: BeforeUnloadEvent) => {
+      if (dirty.current && !saved.current) event.preventDefault()
+    }, []),
+  )
+
+  /** Scrolls to the first input with a mistake. The timer lets the mistakes reach the screen first. */
+  function showFirstMistake() {
+    setTimeout(() => {
+      const first = formRef.current?.querySelector<HTMLElement>(
+        '[aria-invalid="true"], p[role="alert"]',
+      )
+      first?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      first?.focus({ preventScroll: true })
+    }, 0)
+  }
+
+  async function save(values: AdmissionValues) {
+    setServerError(null)
+    try {
+      const result = await admit.mutateAsync(toRequest(values))
+      saved.current = true
+      toast.show(`Admitted. Admission number ${result.admissionNo}`)
+      void navigate(`/students/${result.studentId}`)
+    } catch (error) {
+      if (!(error instanceof ApiError)) {
+        setServerError('Something went wrong. Try again.')
+      } else {
+        const names = admissionFieldNames.filter((name) => error.fields[name])
+        for (const name of names) form.setError(name, { message: error.fields[name] })
+        if (names.length === 0) setServerError(error.message)
+      }
+      showFirstMistake()
+    }
+  }
+
+  return (
+    <>
+      <form
+        ref={formRef}
+        noValidate
+        aria-label="New admission"
+        onSubmit={(event) => void form.handleSubmit(save, showFirstMistake)(event)}
+        className="flex max-w-[860px] flex-col gap-6"
+      >
+        <StudentSection form={form} />
+        <FamilySection form={form} />
+        <TransportSection form={form} />
+
+        {serverError && (
+          <p role="alert" className="border border-bad bg-bad-soft p-3 font-semibold text-bad">
+            {serverError}
+          </p>
+        )}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+          <Button type="submit" saving={admit.isPending} className="min-h-[52px] px-7 text-base">
+            Save admission
+          </Button>
+          <LinkButton to="/students" variant="plain" className="min-h-[52px] px-6 text-base">
+            Cancel
+          </LinkButton>
+        </div>
+      </form>
+      <ConfirmDialog
+        open={blocker.state === 'blocked'}
+        title="Leave without saving?"
+        message="You typed data on this form. If you leave now, it is lost."
+        confirmLabel="Leave"
+        cancelLabel="Stay here"
+        danger
+        onConfirm={() => blocker.proceed?.()}
+        onCancel={() => blocker.reset?.()}
+      />
+    </>
+  )
+}

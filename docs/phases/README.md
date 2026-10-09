@@ -10,8 +10,8 @@ Change the Status column as you go: **Not started** → **In progress** → **Do
 |---|---|---|---|---|---|
 | 0 | [Project setup](phase-0-setup.md) | An empty page in the right colours and fonts | — | S | Done |
 | 1 | [Shell, login, users](phase-1-shell-login-users.md) | Login, sidebar, Users and roles | 1 | M | Done |
-| 2 | [Vehicles, staff, routes](phase-2-vehicles-staff-routes.md) | Vehicles and staff, One vehicle, Routes and load | 2 | M | In progress |
-| 3 | [Students and admission](phase-3-students-admission.md) | Students, One student, New admission | 3 | L | Not started |
+| 2 | [Vehicles, staff, routes](phase-2-vehicles-staff-routes.md) | Vehicles and staff, One vehicle, Routes and load | 2 | M | Done |
+| 3 | [Students and admission](phase-3-students-admission.md) | Students, One student, New admission | 3 | L | In progress |
 | 4 | [Bus status](phase-4-bus-status.md) | Bus status, One bus | 4 | M | Not started |
 | 5 | [Attendant app](phase-5-attendant-app.md) | The five phone pages, offline, installable | 4 | L | Not started |
 | 6 | [Messages](phase-6-messages.md) | Messages, SMS column on One bus | 5 | S | Not started |

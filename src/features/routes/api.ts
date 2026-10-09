@@ -9,6 +9,11 @@ export function useLoadBoard() {
   })
 }
 
+/** Every route with its stops. Used by pick lists, for example the bus filter on Students. */
+export function useRoutes() {
+  return useQuery({ queryKey: ['routes', 'list'], queryFn: () => api<Route[]>('GET', '/routes') })
+}
+
 /** One route with its stops. Not asked while no route is selected. */
 export function useRoute(id: number | null) {
   return useQuery({

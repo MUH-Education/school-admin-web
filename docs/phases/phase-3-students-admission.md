@@ -65,38 +65,38 @@ The office can admit a student, find any student, and change details, photo, par
 
 Mock first:
 
-- [ ] 3.1 Types: `Student`, `StudentListRow`, `Guardian`, `TransportEnrolment`, `HistoryEntry`, `AdmissionRequest`, the class list, the occupation list with labels.
-- [ ] 3.2 Mock data: about 60 students across the 9 routes, including brothers and sisters with one phone, a student with no bus (Ishaan), one with a photo.
-- [ ] 3.3 Mock handlers for all calls above, with filters, paging, the business errors and the `ROUTE_FULL` warning.
+- [x] 3.1 Types: `Student`, `StudentListRow`, `Guardian`, `TransportEnrolment`, `HistoryEntry`, `AdmissionRequest`, the class list, the occupation list with labels.
+- [x] 3.2 Mock data: about 60 students across the 9 routes, including brothers and sisters with one phone, a student with no bus (Ishaan), one with a photo.
+- [x] 3.3 Mock handlers for all calls above, with filters, paging, the business errors and the `ROUTE_FULL` warning.
 
 Shared components:
 
-- [ ] 3.4 `FilterBar`, `Pagination`.
-- [ ] 3.5 `DefinitionGrid`, `TextArea`.
+- [x] 3.4 `FilterBar`, `Pagination`.
+- [x] 3.5 `DefinitionGrid`, `TextArea`.
 
 Students list:
 
-- [ ] 3.6 API hooks; `StudentsPage` with URL filters, debounce, paging (behaviour 1 to 4).
-- [ ] 3.7 Import dialog (behaviour 21).
+- [x] 3.6 API hooks; `StudentsPage` with URL filters, debounce, paging (behaviour 1 to 4).
+- [x] 3.7 Import dialog (behaviour 21).
 
 One student:
 
-- [ ] 3.8 Page header with photo, name, class, admission number; photo add, change, remove (behaviour 10).
-- [ ] 3.9 Details box, view and edit (behaviour 5, 6, 12).
-- [ ] 3.10 Phone numbers box with add, edit, remove (behaviour 7, 8).
-- [ ] 3.11 Transport box with the change form and warnings (behaviour 9).
-- [ ] 3.12 Change history box.
-- [ ] 3.13 View-only mode (behaviour 13).
+- [x] 3.8 Page header with photo, name, class, admission number; photo add, change, remove (behaviour 10).
+- [x] 3.9 Details box, view and edit (behaviour 5, 6, 12).
+- [x] 3.10 Phone numbers box with add, edit, remove (behaviour 7, 8).
+- [x] 3.11 Transport box with the change form and warnings (behaviour 9).
+- [x] 3.12 Change history box.
+- [x] 3.13 View-only mode (behaviour 13).
 
 New admission:
 
-- [ ] 3.14 The form, parts 1 to 3, with its Zod schema (behaviour 14, 15).
-- [ ] 3.15 Brother or sister search (behaviour 16).
-- [ ] 3.16 Route-full warning, save, errors, success, leave guard (behaviour 17 to 20).
+- [x] 3.14 The form, parts 1 to 3, with its Zod schema (behaviour 14, 15).
+- [x] 3.15 Brother or sister search (behaviour 16).
+- [x] 3.16 Route-full warning, save, errors, success, leave guard (behaviour 17 to 20).
 
 Finish:
 
-- [ ] 3.17 Playwright flow: admit a child with no bus; open the child; start the bus from a later date; add a phone number.
+- [x] 3.17 Playwright flow: admit a child with no bus; open the child; start the bus from a later date; add a phone number.
 - [ ] 3.18 **Switch to the real backend** (needs backend Phase 3). Also switch the child counts on Routes and load.
 
 ## Tests that must pass

@@ -77,7 +77,7 @@ can('VEHICLES_EDIT')   // true or false, from user.permissions
 A group heading (Transport, Admissions, Reports, Settings) is hidden when all its items are hidden.
 
 Examples, matching the "Users and roles" design:
-- Priya (Admissions desk) sees: Enquiries, New admission, Students, Analytics.
+- Priya (Admissions desk) sees: Routes and load, Enquiries, New admission, Students, Analytics. (Routes and load comes from `ROUTES_VIEW`, which New admission needs. See `docs/08-decisions.md`, 9 Oct 2026, phase 3.)
 - Jaswant (Transport in-charge) sees: Bus status, Routes and load, Vehicles and staff, Messages, Students.
 - Balwan (Attendant) sees no sidebar. He is sent to `/trip`.
 

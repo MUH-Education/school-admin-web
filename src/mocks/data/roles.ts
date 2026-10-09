@@ -52,7 +52,10 @@ export const rolePermissions: Record<RoleCode, Permission[]> = {
     'STUDENTS_VIEW',
     'MESSAGES_VIEW',
   ],
+  // ROUTES_VIEW is not in docs/backend/roles-permissions.md. New admission needs the route
+  // and stop lists, so the owner decided on 9 Oct 2026 that the backend adds it (docs/08-decisions.md).
   ADMISSIONS_DESK: [
+    'ROUTES_VIEW',
     'STUDENTS_VIEW',
     'ADMISSIONS_CREATE',
     'ENQUIRIES_VIEW',

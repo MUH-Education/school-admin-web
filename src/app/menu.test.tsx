@@ -41,8 +41,10 @@ describe('the menu by role', () => {
     ])
   })
 
-  it('admissions desk sees Enquiries, New admission, Students, Analytics', async () => {
+  it('admissions desk sees Routes and load, Enquiries, New admission, Students, Analytics', async () => {
+    // ROUTES_VIEW was added for this role in phase 3 (docs/08-decisions.md, 9 Oct 2026).
     expect(await menuFor(sampleUserIds.admissions)).toEqual([
+      'Routes and load',
       'Enquiries',
       'New admission',
       'Students',
@@ -52,7 +54,6 @@ describe('the menu by role', () => {
 
   it('hides a group when all its items are hidden', async () => {
     await menuFor(sampleUserIds.admissions)
-    expect(screen.queryByText('Transport')).not.toBeInTheDocument()
     expect(screen.queryByText('Settings')).not.toBeInTheDocument()
   })
 })

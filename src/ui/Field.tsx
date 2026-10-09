@@ -5,11 +5,13 @@ interface FieldProps {
   label: string
   hint?: string
   error?: string
+  /** 14px label, for the small forms inside boxes. */
+  compact?: boolean
   children: ReactNode
 }
 
 /** Label + input + hint + error text. The input inside gets its id automatically. */
-export function Field({ label, hint, error, children }: FieldProps) {
+export function Field({ label, hint, error, compact = false, children }: FieldProps) {
   const id = useId()
   const hintId = hint ? `${id}-hint` : undefined
   const errorId = error ? `${id}-error` : undefined
@@ -18,7 +20,7 @@ export function Field({ label, hint, error, children }: FieldProps) {
   return (
     <FieldContext value={{ id, describedBy, invalid: Boolean(error) }}>
       <div className="flex flex-col gap-2">
-        <label htmlFor={id} className="text-[15px] font-semibold">
+        <label htmlFor={id} className={`font-semibold ${compact ? 'text-sm' : 'text-[15px]'}`}>
           {label}
         </label>
         {children}

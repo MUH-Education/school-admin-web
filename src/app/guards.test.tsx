@@ -6,7 +6,7 @@ describe('guards and landing', () => {
     ['owner', sampleUserIds.owner, '/bus-status'],
     ['officeAdmin', sampleUserIds.officeAdmin, '/bus-status'],
     ['transport', sampleUserIds.transport, '/bus-status'],
-    ['admissions', sampleUserIds.admissions, '/enquiries'],
+    ['admissions', sampleUserIds.admissions, '/routes'],
     ['attendant', sampleUserIds.attendant, '/trip'],
   ])('lands %s on %s', async (_name, userId, expected) => {
     saveLogin(userId)
@@ -53,7 +53,7 @@ describe('guards and landing', () => {
 
   it('shows placeholder pages with the phase number', async () => {
     saveLogin(sampleUserIds.owner)
-    renderApp('/students')
-    expect(await screen.findByText('Coming in phase 3.')).toBeInTheDocument()
+    renderApp('/enquiries')
+    expect(await screen.findByText('Coming in phase 7.')).toBeInTheDocument()
   })
 })

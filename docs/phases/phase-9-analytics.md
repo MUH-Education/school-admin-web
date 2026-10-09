@@ -40,7 +40,7 @@ The owner picks filters and sees tiles, four charts and a list of students with 
 
 - [x] 9.1 Types for the six answers and `AnalyticsFilters`.
 - [x] 9.2 Mock data and handlers. The mock really filters its sample students, so the numbers change when a filter changes.
-- [ ] 9.3 `useAnalyticsFilters()` and the `FilterBar` with the six selects (behaviour 1, 2).
+- [x] 9.3 `useAnalyticsFilters()` and the `FilterBar` with the six selects (behaviour 1, 2).
 - [ ] 9.4 `BarColumns` (grouped and single), with axis and grid (used by charts 1 and 3).
 - [ ] 9.5 `StackedBar` (chart 2).
 - [ ] 9.6 `BarList` (chart 4).

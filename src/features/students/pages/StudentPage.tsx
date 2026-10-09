@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useParams } from 'react-router'
 import { ApiError } from '@/api/errors'
 import { usePermissions } from '@/auth/usePermissions'
@@ -8,6 +9,7 @@ import { LinkButton } from '@/ui/LinkButton'
 import { LoadingBlock } from '@/ui/LoadingBlock'
 import { PageHeader } from '@/ui/PageHeader'
 import { useStudent } from '../api'
+import { DetailsBox } from '../components/DetailsBox'
 import { StudentHeader } from '../components/StudentHeader'
 
 export function StudentPage() {
@@ -15,7 +17,16 @@ export function StudentPage() {
   return <OneStudent id={Number(id)} />
 }
 
+/** Which box is a form now. Only one at a time: opening another box closes the first. */
+export type Editing =
+  | { box: 'details' }
+  | { box: 'transport' }
+  | { box: 'phone-add' }
+  | { box: 'phone'; id: number }
+  | null
+
 function OneStudent({ id }: { id: number }) {
+  const [editing, setEditing] = useState<Editing>(null)
   const canEdit = usePermissions().can('STUDENTS_EDIT')
   const student = useStudent(id)
   const crumb = (name: string) => (
@@ -56,7 +67,15 @@ function OneStudent({ id }: { id: number }) {
     <>
       <StudentHeader student={s} canEdit={canEdit} />
       <div className="flex flex-wrap items-start gap-6">
-        <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-6" />
+        <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-6">
+          <DetailsBox
+            student={s}
+            canEdit={canEdit}
+            editing={editing?.box === 'details'}
+            onEdit={() => setEditing({ box: 'details' })}
+            onClose={() => setEditing(null)}
+          />
+        </div>
         <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-6" />
       </div>
     </>

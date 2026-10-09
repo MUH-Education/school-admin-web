@@ -128,3 +128,107 @@ describe('One student: the four states', () => {
     )
   })
 })
+
+describe('One student: details box', () => {
+  it('shows the details in view state, with one Edit button', async () => {
+    await openStudent(1)
+    // The box is a new element once it turns into a form, so look it up each time.
+    const box = () => screen.getByRole('region', { name: 'Student details' })
+    expect(within(box()).getByText('12 March 2017')).toBeInTheDocument()
+    expect(within(box()).getByText('Boy')).toBeInTheDocument()
+    expect(within(box()).getByText('4 A')).toBeInTheDocument()
+    expect(within(box()).getByText('Tohana town')).toBeInTheDocument()
+    expect(within(box()).getByText('Model Town')).toBeInTheDocument()
+    expect(within(box()).getByText('Government employee')).toBeInTheDocument()
+    expect(within(box()).queryByRole('textbox')).not.toBeInTheDocument()
+    expect(within(box()).getByRole('button', { name: 'Edit' })).toBeInTheDocument()
+  })
+
+  it('Edit turns the box into a form, Cancel turns it back', async () => {
+    await openStudent(1)
+    // The box is a new element once it turns into a form, so look it up each time.
+    const box = () => screen.getByRole('region', { name: 'Student details' })
+    await userEvent.click(within(box()).getByRole('button', { name: 'Edit' }))
+    expect(within(box()).getByLabelText('Student name')).toHaveValue('Ishaan Sharma')
+    await userEvent.clear(within(box()).getByLabelText('Student name'))
+    await userEvent.type(within(box()).getByLabelText('Student name'), 'Changed')
+    await userEvent.click(within(box()).getByRole('button', { name: 'Cancel' }))
+    expect(within(box()).queryByLabelText('Student name')).not.toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: 'Ishaan Sharma' })).toBeInTheDocument()
+  })
+
+  it('Save changes the details and the history', async () => {
+    await openStudent(1)
+    // The box is a new element once it turns into a form, so look it up each time.
+    const box = () => screen.getByRole('region', { name: 'Student details' })
+    await userEvent.click(within(box()).getByRole('button', { name: 'Edit' }))
+    await userEvent.selectOptions(within(box()).getByLabelText('Class'), 'Class 5')
+    await userEvent.clear(within(box()).getByLabelText('Address'))
+    await userEvent.type(within(box()).getByLabelText('Address'), 'Sector 2')
+    await userEvent.click(within(box()).getByRole('button', { name: 'Save' }))
+    expect(await screen.findByText('Details saved')).toBeInTheDocument()
+    expect(await within(box()).findByText('5 A')).toBeInTheDocument()
+    expect(within(box()).getByText('Sector 2')).toBeInTheDocument()
+    expect(within(box()).queryByLabelText('Student name')).not.toBeInTheDocument()
+  })
+
+  it('shows a mistake under its input and keeps the form open', async () => {
+    await openStudent(1)
+    // The box is a new element once it turns into a form, so look it up each time.
+    const box = () => screen.getByRole('region', { name: 'Student details' })
+    await userEvent.click(within(box()).getByRole('button', { name: 'Edit' }))
+    await userEvent.clear(within(box()).getByLabelText('Village or locality'))
+    await userEvent.click(within(box()).getByRole('button', { name: 'Save' }))
+    expect(await within(box()).findByText('Enter the village or locality.')).toBeInTheDocument()
+    expect(within(box()).getByLabelText('Village or locality')).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    )
+  })
+
+  it('shows the field error that the server sends', async () => {
+    server.use(
+      http.put('http://localhost:3000/api/v1/students/1', () =>
+        HttpResponse.json(
+          {
+            error: 'VALIDATION',
+            message: 'Check the form.',
+            fields: { name: 'This name is taken.' },
+          },
+          { status: 400 },
+        ),
+      ),
+    )
+    await openStudent(1)
+    // The box is a new element once it turns into a form, so look it up each time.
+    const box = () => screen.getByRole('region', { name: 'Student details' })
+    await userEvent.click(within(box()).getByRole('button', { name: 'Edit' }))
+    await userEvent.click(within(box()).getByRole('button', { name: 'Save' }))
+    expect(await within(box()).findByText('This name is taken.')).toBeInTheDocument()
+  })
+
+  it('marks a child as left after a question, and goes back to the list', async () => {
+    const { router } = await openStudent(1)
+    // The box is a new element once it turns into a form, so look it up each time.
+    const box = () => screen.getByRole('region', { name: 'Student details' })
+    await userEvent.click(within(box()).getByRole('button', { name: 'Edit' }))
+    await userEvent.click(within(box()).getByRole('button', { name: 'Mark as left the school' }))
+    const dialog = screen.getByRole('dialog', { name: 'Mark Ishaan Sharma as left the school?' })
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Mark as left' }))
+    await waitFor(() => expect(router.state.location.pathname).toBe('/students'))
+    await screen.findByRole('table', { name: 'Students' })
+    expect(screen.queryByText('Ishaan Sharma')).not.toBeInTheDocument()
+  })
+
+  it('does not mark as left when the question is answered Cancel', async () => {
+    await openStudent(1)
+    // The box is a new element once it turns into a form, so look it up each time.
+    const box = () => screen.getByRole('region', { name: 'Student details' })
+    await userEvent.click(within(box()).getByRole('button', { name: 'Edit' }))
+    await userEvent.click(within(box()).getByRole('button', { name: 'Mark as left the school' }))
+    const dialog = screen.getByRole('dialog')
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Cancel' }))
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: 'Ishaan Sharma' })).toBeInTheDocument()
+  })
+})

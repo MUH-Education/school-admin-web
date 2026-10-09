@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router'
 import { useAuth } from '@/auth/useAuth'
-import { landingPath } from './landing'
+import { landingPath } from './landingPath'
 
 /** The address `/` sends you to your first page. */
 export function Landing() {

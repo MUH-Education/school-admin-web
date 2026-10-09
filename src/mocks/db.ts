@@ -19,6 +19,14 @@ import {
   type MockHistory,
   type MockStudent,
 } from './data/students'
+import {
+  buildSampleFees,
+  sampleClassFees,
+  sampleSessions,
+  type MockFeePlan,
+  type MockPayment,
+} from './data/fees'
+import type { ClassFee, Session } from '@/features/fees/types'
 import { sampleEnquiries, type MockEnquiry } from './data/enquiries'
 import type { MockTapRecord } from './data/trips'
 import { sampleUsers, type MockUser } from './data/users'
@@ -53,6 +61,12 @@ export const db = {
   /** Taps the phone app sent to POST /trips/marks. The morning picture of Route 4 is not in here. */
   tripTaps: [] as MockTapRecord[],
   enquiries: [] as MockEnquiry[],
+  sessions: [] as Session[],
+  /** The class fees by session id. */
+  classFees: new Map<number, ClassFee[]>(),
+  feePlans: [] as MockFeePlan[],
+  payments: [] as MockPayment[],
+  nextPaymentId: 1,
   nextStudentId: 1000,
   nextGuardianId: 1000,
   nextEnrolmentId: 1000,
@@ -87,6 +101,12 @@ export function resetMockDb(): void {
     ...e,
     followUps: e.followUps.map((f) => ({ ...f })),
   }))
+  db.sessions = sampleSessions.map((x) => ({ ...x }))
+  db.classFees = new Map(sampleSessions.map((x) => [x.id, sampleClassFees(x.id)]))
+  const fees = buildSampleFees(sampleStudentData.students, sampleStudentData.enrolments)
+  db.feePlans = fees.plans.map((x) => ({ ...x }))
+  db.payments = fees.payments.map((x) => ({ ...x }))
+  db.nextPaymentId = fees.nextReceiptSeq
   db.nextEnquiryId = 100
   db.nextFollowUpId = 100
   db.nextStudentId = 1000

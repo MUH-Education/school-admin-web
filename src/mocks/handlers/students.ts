@@ -17,6 +17,8 @@ import {
 } from '@/features/students/types'
 import { formatDate } from '@/lib/format'
 import type { MockStudent } from '../data/students'
+import { planOf } from '../feesLogic'
+import { rolePermissions } from '../data/roles'
 import { db } from '../db'
 import { authorize, errorResponse, wait } from '../http'
 import {
@@ -62,7 +64,7 @@ function matchesQuery(student: MockStudent, q: string): boolean {
   return digits.length >= 3 && guardiansOf(student.id).some((g) => g.phone.includes(digits))
 }
 
-function filterStudents(url: URL): StudentListRow[] {
+function filterStudents(url: URL, withFees: boolean): StudentListRow[] {
   const q = url.searchParams.get('q') ?? ''
   const className = url.searchParams.get('className') ?? ''
   const village = url.searchParams.get('village') ?? ''
@@ -74,7 +76,7 @@ function filterStudents(url: URL): StudentListRow[] {
     .filter((s) => !className || s.className === className)
     .filter((s) => !village || s.village === village)
     .sort((a, b) => a.name.localeCompare(b.name) || a.id - b.id)
-    .map(toListRow)
+    .map((s) => toListRow(s, withFees))
     .filter((row) => (bus === 'YES' ? row.usesBus : bus === 'NO' ? !row.usesBus : true))
     .filter((row) => {
       if (routeId === null) return true
@@ -136,7 +138,7 @@ export const studentHandlers = [
     const me = authorize(request, 'STUDENTS_VIEW')
     if (me instanceof Response) return me
     const url = new URL(request.url)
-    const rows = filterStudents(url)
+    const rows = filterStudents(url, rolePermissions[me.role].includes('FEES_VIEW'))
     const requested = Number(url.searchParams.get('page'))
     const page = Number.isInteger(requested) && requested > 0 ? requested : 1
     const body: StudentPage = {
@@ -395,6 +397,7 @@ export const studentHandlers = [
       return errorResponse(409, 'STOP_NOT_ON_ROUTE', `That stop is not on ${route.name}.`)
     }
 
+    const wasOnBus = enrolmentsOf(student.id)[0]?.usesBus ?? false
     startEnrolment(student.id, {
       usesBus: Boolean(body.usesBus),
       routeId: route?.id ?? null,
@@ -402,6 +405,12 @@ export const studentHandlers = [
       fromDate: body.fromDate,
       busFee: body.busFee ?? null,
     })
+    // A child who starts the bus gets the bus fee for the rest of the year as one more payment.
+    // A change of route or stop adds nothing.
+    const plan = planOf(student.id)
+    if (body.usesBus && !wasOnBus && plan && (body.busFee ?? 0) > 0) {
+      plan.busExtras.push({ dueDate: body.fromDate, amount: body.busFee ?? 0 })
+    }
     addHistory(
       student.id,
       describeTransport(Boolean(body.usesBus), route?.id ?? null, stop?.id ?? null, body.fromDate),

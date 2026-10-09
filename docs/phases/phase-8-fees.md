@@ -66,10 +66,10 @@ Do not start this phase before the owner has answered backend question C2 (does 
 
 ## Tasks
 
-- [ ] 8.1 Types: `Session`, `ClassFee`, `FeePlan`, `FeeDue`, `FeePayment`, `StudentFees`, `FeeStatus`, with labels.
-- [ ] 8.2 Mock data: plans and payments for the sample students (on time, delayed, defaulted), class fees for all classes.
-- [ ] 8.3 Mock handlers, with `PAYMENT_TOO_LARGE` and the receipt number.
-- [ ] 8.4 API hooks.
+- [x] 8.1 Types: `Session`, `ClassFee`, `FeePlan`, `FeeDue`, `FeePayment`, `StudentFees`, `FeeStatus`, with labels.
+- [x] 8.2 Mock data: plans and payments for the sample students (on time, delayed, defaulted), class fees for all classes.
+- [x] 8.3 Mock handlers, with `PAYMENT_TOO_LARGE` and the receipt number.
+- [x] 8.4 API hooks.
 - [ ] 8.5 `feePreview()` pure function with tests (behaviour 6, 8).
 - [ ] 8.6 Admission part 4 and the Fee summary box; extend the Zod schema and the request (behaviour 1 to 7).
 - [ ] 8.7 "Fees this year" box (behaviour 9, 12, 14).

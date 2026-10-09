@@ -1,6 +1,8 @@
 // Shapes of /students and its sub-paths. The URLs and the transport body are in
 // docs/backend/api.md; the JSON answers are my guess (docs/08-decisions.md, part D, 9 Oct 2026).
 
+import type { FeeStatus } from '@/features/fees/types'
+
 export type Gender = 'BOY' | 'GIRL'
 
 export const genderLabels: Record<Gender, string> = { BOY: 'Boy', GIRL: 'Girl' }
@@ -84,6 +86,8 @@ export interface StudentListRow {
   stop: string | null
   /** As the server sends it, for example "98XXX XX340". Not logged. */
   parentPhone: string | null
+  /** The worst fee status of the year. Null: the child has no fee plan. Only with `FEES_VIEW`. */
+  feeStatus: FeeStatus | null
 }
 
 /** The answer of GET /students: one page and the counts for the current filters. */

@@ -19,6 +19,7 @@ import {
   type MockHistory,
   type MockStudent,
 } from './data/students'
+import { sampleEnquiries, type MockEnquiry } from './data/enquiries'
 import type { MockTapRecord } from './data/trips'
 import { sampleUsers, type MockUser } from './data/users'
 
@@ -51,10 +52,13 @@ export const db = {
   photos: new Map<number, MockPhoto>(),
   /** Taps the phone app sent to POST /trips/marks. The morning picture of Route 4 is not in here. */
   tripTaps: [] as MockTapRecord[],
+  enquiries: [] as MockEnquiry[],
   nextStudentId: 1000,
   nextGuardianId: 1000,
   nextEnrolmentId: 1000,
   nextHistoryId: 1000,
+  nextEnquiryId: 100,
+  nextFollowUpId: 100,
   /** The next admission number is A-<year>-<this>. Ishaan has 118. */
   nextAdmissionSeq: 119,
   nextVehicleId: 100,
@@ -79,6 +83,12 @@ export function resetMockDb(): void {
   db.history = sampleStudentData.history.map((x) => ({ ...x }))
   db.photos = new Map([[2, samplePhoto()]])
   db.tripTaps = []
+  db.enquiries = sampleEnquiries.map((e) => ({
+    ...e,
+    followUps: e.followUps.map((f) => ({ ...f })),
+  }))
+  db.nextEnquiryId = 100
+  db.nextFollowUpId = 100
   db.nextStudentId = 1000
   db.nextGuardianId = 1000
   db.nextEnrolmentId = 1000

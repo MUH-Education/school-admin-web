@@ -2,6 +2,7 @@ import type { RequestHandler } from 'msw'
 import { admissionHandlers } from './admissions'
 import { authHandlers } from './auth'
 import { busStatusHandlers } from './busStatus'
+import { enquiryHandlers } from './enquiries'
 import { messageHandlers } from './messages'
 import { routeHandlers } from './routes'
 import { staffHandlers } from './staff'
@@ -22,4 +23,5 @@ export const handlers: RequestHandler[] = [
   ...busStatusHandlers,
   ...tripsHandlers,
   ...messageHandlers,
+  ...enquiryHandlers,
 ]

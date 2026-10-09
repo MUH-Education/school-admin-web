@@ -138,6 +138,12 @@ export function sessionLabel(now: Date = new Date()): string {
   return `${start}–${String(start + 1).slice(-2)}`
 }
 
+/** Enquiries are for the next school year: 7 Oct 2026 → "2027–28". */
+export function nextSessionLabel(now: Date = new Date()): string {
+  const start = Number(sessionLabel(now).slice(0, 4)) + 1
+  return `${start}–${String(start + 1).slice(-2)}`
+}
+
 /** isoWithOffset(new Date('2026-10-07T02:12:10Z')) → 2026-10-07T07:42:10+05:30. The time a tap is stamped with. */
 export function isoWithOffset(now: Date = new Date()): string {
   const parts = new Intl.DateTimeFormat('en-GB', {

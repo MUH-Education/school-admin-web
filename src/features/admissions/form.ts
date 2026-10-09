@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { todayIso } from '@/lib/format'
 import { normalizePhone } from '@/lib/phone'
+import type { EnquiryPrefill } from '@/features/enquiries/types'
 import type { ClassName, Gender, Occupation } from '@/features/students/types'
 import type { AdmissionRequest } from './types'
 
@@ -104,8 +105,23 @@ export function emptyAdmission(): AdmissionValues {
   }
 }
 
-/** The body of POST /admissions. Empty boxes are left out. */
-export function toRequest(v: AdmissionValues): AdmissionRequest {
+/**
+ * What GET /enquiries/{id}/prefill fills in. The parent goes to the mother's boxes when the
+ * enquiry came from a mother, and to the father's boxes for everyone else. The clerk can change all.
+ */
+export function prefillValues(p: EnquiryPrefill): Partial<AdmissionValues> {
+  return {
+    name: p.childName ?? '',
+    className: p.className,
+    village: p.village,
+    ...(p.relation === 'MOTHER'
+      ? { motherName: p.parentName, motherPhone: p.phone }
+      : { fatherName: p.parentName, fatherPhone: p.phone }),
+  }
+}
+
+/** The body of POST /admissions. Empty boxes are left out. `enquiryId` makes that enquiry Admitted. */
+export function toRequest(v: AdmissionValues, enquiryId: number | null = null): AdmissionRequest {
   const usesBus = v.usesBus === 'YES'
   const sibling = v.siblingStudentId
   return {
@@ -131,5 +147,6 @@ export function toRequest(v: AdmissionValues): AdmissionRequest {
         }),
     usesBus,
     ...(usesBus ? { routeId: Number(v.routeId), stopId: Number(v.stopId) } : {}),
+    ...(enquiryId !== null ? { enquiryId } : {}),
   }
 }

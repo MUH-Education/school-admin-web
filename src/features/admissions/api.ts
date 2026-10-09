@@ -11,6 +11,8 @@ export function useAdmit() {
       Promise.all([
         queryClient.invalidateQueries({ queryKey: ['students'] }),
         queryClient.invalidateQueries({ queryKey: ['routes'] }),
+        // An admission that started from an enquiry makes it Admitted.
+        queryClient.invalidateQueries({ queryKey: ['enquiries'] }),
       ]),
   })
 }

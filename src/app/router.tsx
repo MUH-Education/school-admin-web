@@ -208,9 +208,47 @@ export const routes: RouteObject[] = [
                   }
                 },
               },
-              placeholder('enquiries', 'Enquiries', 'ENQUIRIES_VIEW', 7),
-              placeholder('enquiries/new', 'Add an enquiry', 'ENQUIRIES_EDIT', 7),
-              placeholder('enquiries/:id', 'One enquiry', 'ENQUIRIES_VIEW', 7),
+              {
+                path: 'enquiries',
+                lazy: async () => {
+                  const { EnquiriesPage } = await import('@/features/enquiries/pages/EnquiriesPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="ENQUIRIES_VIEW">
+                        <EnquiriesPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
+              {
+                path: 'enquiries/new',
+                lazy: async () => {
+                  const { AddEnquiryPage } =
+                    await import('@/features/enquiries/pages/AddEnquiryPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="ENQUIRIES_EDIT">
+                        <AddEnquiryPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
+              {
+                path: 'enquiries/:id',
+                lazy: async () => {
+                  const { EnquiryDetailPage } =
+                    await import('@/features/enquiries/pages/EnquiryDetailPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="ENQUIRIES_VIEW">
+                        <EnquiryDetailPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
               {
                 path: 'messages',
                 lazy: async () => {

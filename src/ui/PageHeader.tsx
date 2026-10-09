@@ -10,6 +10,8 @@ interface PageHeaderProps {
   descriptionWidth?: number
   /** Buttons on the right. */
   action?: ReactNode
+  /** The roomy forms: 8px between the lines, a 15px description (Add an enquiry design). */
+  roomy?: boolean
 }
 
 export function PageHeader({
@@ -19,10 +21,13 @@ export function PageHeader({
   description,
   descriptionWidth = 600,
   action,
+  roomy = false,
 }: PageHeaderProps) {
   return (
-    <header className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4 border-b-2 border-ink pb-4">
-      <div className="flex min-w-0 flex-col gap-1.5">
+    <header
+      className={`flex flex-wrap items-end justify-between gap-x-8 gap-y-4 border-b-2 border-ink ${roomy ? 'pb-[18px]' : 'pb-4'}`}
+    >
+      <div className={`flex min-w-0 flex-col ${roomy ? 'gap-2' : 'gap-1.5'}`}>
         {breadcrumb}
         {label && (
           <div className="font-mono text-[11px] tracking-[0.08em] text-dust-text uppercase">
@@ -31,7 +36,10 @@ export function PageHeader({
         )}
         <h1 className="text-[30px] leading-[1.1] font-bold tracking-[-0.02em]">{title}</h1>
         {description && (
-          <p className="text-sm text-ink-soft" style={{ maxWidth: descriptionWidth }}>
+          <p
+            className={`text-ink-soft ${roomy ? 'text-[15px]' : 'text-sm'}`}
+            style={{ maxWidth: descriptionWidth }}
+          >
             {description}
           </p>
         )}

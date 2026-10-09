@@ -12,7 +12,7 @@ async function openMessages(path = '/messages', userId: number = sampleUserIds.o
 }
 
 function tile(label: string): HTMLElement {
-  const tiles = screen.getByRole('region', { name: 'Messages of the day' })
+  const tiles = screen.getByRole('region', { name: 'Message counts' })
   return within(tiles).getByText(label).nextElementSibling as HTMLElement
 }
 

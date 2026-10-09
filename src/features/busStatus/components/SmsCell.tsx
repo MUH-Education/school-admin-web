@@ -21,9 +21,9 @@ export function SmsCell({ sms, className }: { sms: ChildSms; className: string }
     case 'TEST_ONLY':
       return <>Test only, not sent</>
     case 'NONE_THIS_EVENT':
-      return <>None for this event (Class {classOf(className)})</>
+      return <>{`None for this event (Class ${classOf(className)})`}</>
     case 'NO_SMS_CLASS':
-      return <>None (Class {classOf(className)})</>
+      return <>{`None (Class ${classOf(className)})`}</>
     case 'NONE':
       return (
         <>

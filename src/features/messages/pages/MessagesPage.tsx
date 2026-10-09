@@ -38,7 +38,7 @@ export function MessagesPage() {
         </Panel>
       )}
 
-      <TileRow label="Messages of the day">
+      <TileRow label="Message counts">
         <Tile label="Sent" value={count(day?.sent)} />
         <Tile label="Waiting" value={count(day?.queued)} />
         <Tile

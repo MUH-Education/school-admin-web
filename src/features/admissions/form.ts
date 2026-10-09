@@ -1,5 +1,7 @@
 import { z } from 'zod'
-import { todayIso } from '@/lib/format'
+import { feePreview } from '@/features/fees/feePreview'
+import type { Frequency, PayMode } from '@/features/fees/types'
+import { formatInr, todayIso } from '@/lib/format'
 import { normalizePhone } from '@/lib/phone'
 import type { EnquiryPrefill } from '@/features/enquiries/types'
 import type { ClassName, Gender, Occupation } from '@/features/students/types'
@@ -7,7 +9,7 @@ import type { AdmissionRequest } from './types'
 
 const filled = (message: string) => z.string().refine((v) => v.trim() !== '', message)
 
-/** The form of parts 1 to 3: Student, Family, Transport. Part 4 (Fees) comes in web phase 8. */
+/** The form: 1 Student, 2 Family, 3 Transport, 4 Fees. Part 4 is only checked when `feesOn` is true. */
 export const admissionSchema = z
   .object({
     // 1. Student
@@ -33,6 +35,16 @@ export const admissionSchema = z
     usesBus: filled('Say yes or no.'),
     routeId: z.string(),
     stopId: z.string(),
+    // 4. Fees. Whole rupees, null when the box is empty.
+    /** False when the person cannot edit fees: part 4 is not on the page and is not checked. */
+    feesOn: z.boolean(),
+    schoolFee: z.number().nullable(),
+    busFee: z.number().nullable(),
+    discount: z.number().nullable(),
+    discountReason: z.string(),
+    frequency: z.string(),
+    firstPaymentAmount: z.number().nullable(),
+    firstPaymentMode: z.string(),
   })
   .superRefine((v, ctx) => {
     const problem = (path: keyof AdmissionValues, message: string) =>
@@ -55,7 +67,37 @@ export const admissionSchema = z
       if (!v.routeId) problem('routeId', 'Pick a route.')
       if (!v.stopId) problem('stopId', 'Pick a stop.')
     }
+
+    if (v.feesOn) {
+      const school = v.schoolFee
+      const bus = v.usesBus === 'YES' ? v.busFee : 0
+      if (school === null) problem('schoolFee', 'Enter the school fee.')
+      if (bus === null) problem('busFee', 'Enter the bus fee, or 0.')
+      const preview = previewOf(v)
+      if (preview.discountTooLarge) problem('discount', 'The discount is more than the fees.')
+      if ((v.discount ?? 0) > 0 && !v.discountReason)
+        problem('discountReason', 'Say why there is a discount.')
+      if (!v.frequency) problem('frequency', 'Pick how often the family pays.')
+      if (preview.paidTooLarge) {
+        problem(
+          'firstPaymentAmount',
+          `The first payment is more than the ${formatInr(preview.total)} for the year.`,
+        )
+      }
+    }
   })
+
+/** The numbers of the Fee summary for the values in the form. The bus fee counts only with a bus. */
+export function previewOf(v: AdmissionValues) {
+  return feePreview({
+    schoolFee: v.schoolFee,
+    busFee: v.usesBus === 'YES' ? v.busFee : 0,
+    discount: v.discount,
+    frequency: (v.frequency || null) as Frequency | null,
+    paidToday: v.firstPaymentAmount,
+    startsOn: v.admissionDate || todayIso(),
+  })
+}
 
 export type AdmissionValues = z.infer<typeof admissionSchema>
 
@@ -78,9 +120,16 @@ export const admissionFieldNames = [
   'usesBus',
   'routeId',
   'stopId',
+  'schoolFee',
+  'busFee',
+  'discount',
+  'discountReason',
+  'frequency',
+  'firstPaymentAmount',
+  'firstPaymentMode',
 ] as const satisfies readonly (keyof AdmissionValues)[]
 
-export function emptyAdmission(): AdmissionValues {
+export function emptyAdmission(feesOn = true): AdmissionValues {
   return {
     name: '',
     dateOfBirth: '',
@@ -102,6 +151,14 @@ export function emptyAdmission(): AdmissionValues {
     usesBus: '',
     routeId: '',
     stopId: '',
+    feesOn,
+    schoolFee: null,
+    busFee: null,
+    discount: 0,
+    discountReason: '',
+    frequency: '',
+    firstPaymentAmount: null,
+    firstPaymentMode: 'UPI',
   }
 }
 
@@ -148,5 +205,22 @@ export function toRequest(v: AdmissionValues, enquiryId: number | null = null): 
     usesBus,
     ...(usesBus ? { routeId: Number(v.routeId), stopId: Number(v.stopId) } : {}),
     ...(enquiryId !== null ? { enquiryId } : {}),
+    ...(v.feesOn ? feesRequest(v) : {}),
+  }
+}
+
+/** Part 4 of the body. The discount reason and the first payment are left out when they are empty. */
+function feesRequest(v: AdmissionValues): Partial<AdmissionRequest> {
+  const discount = v.discount ?? 0
+  const paid = v.firstPaymentAmount ?? 0
+  return {
+    schoolFee: v.schoolFee ?? 0,
+    busFee: v.usesBus === 'YES' ? (v.busFee ?? 0) : 0,
+    discount,
+    ...(discount > 0 ? { discountReason: v.discountReason } : {}),
+    frequency: v.frequency as Frequency,
+    ...(paid > 0
+      ? { firstPaymentAmount: paid, firstPaymentMode: v.firstPaymentMode as PayMode }
+      : {}),
   }
 }

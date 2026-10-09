@@ -1,7 +1,10 @@
 import { http, HttpResponse } from 'msw'
 import type { AdmissionRequest, AdmissionResult } from '@/features/admissions/types'
+import { frequencies, payModes } from '@/features/fees/types'
 import { classNames, occupations } from '@/features/students/types'
+import { formatInr } from '@/lib/format'
 import { db } from '../db'
+import { currentSession, nextReceiptNo, planTotals, splitFirstPayment } from '../feesLogic'
 import { enquiryById, isOpen, markAdmitted } from '../enquiriesLogic'
 import { authorize, errorResponse, wait } from '../http'
 import {
@@ -45,6 +48,27 @@ function checkAdmission(body: Partial<AdmissionRequest>): Record<string, string>
     if (!body.routeId) fields.routeId = 'Pick a route.'
     if (!body.stopId) fields.stopId = 'Pick a stop.'
   }
+
+  // Part 4. A request without `schoolFee` has no fee plan (the person cannot edit fees).
+  if (body.schoolFee !== undefined) {
+    const money = (v: unknown): v is number =>
+      typeof v === 'number' && Number.isInteger(v) && v >= 0
+    if (!money(body.schoolFee)) fields.schoolFee = 'Enter the school fee.'
+    if (body.busFee !== undefined && !money(body.busFee)) fields.busFee = 'Enter the bus fee, or 0.'
+    if (body.discount !== undefined && !money(body.discount))
+      fields.discount = 'Enter the discount, or 0.'
+    else if ((body.discount ?? 0) > (body.schoolFee ?? 0) + (body.busFee ?? 0))
+      fields.discount = 'The discount is more than the fees.'
+    if ((body.discount ?? 0) > 0 && !body.discountReason?.trim())
+      fields.discountReason = 'Say why there is a discount.'
+    if (!body.frequency || !frequencies.includes(body.frequency))
+      fields.frequency = 'Pick how often the family pays.'
+    if (body.firstPaymentAmount !== undefined && body.firstPaymentAmount > 0) {
+      if (!money(body.firstPaymentAmount)) fields.firstPaymentAmount = 'Enter a whole amount.'
+      if (!body.firstPaymentMode || !payModes.includes(body.firstPaymentMode))
+        fields.firstPaymentMode = 'Pick how it was paid.'
+    }
+  }
   return fields
 }
 
@@ -78,6 +102,17 @@ export const admissionHandlers = [
         : errorResponse(400, 'VALIDATION', 'Check the form.', {
             fields: { routeId: 'Pick a route.' },
           })
+    }
+
+    // A first payment above the total is refused before anything is saved.
+    if (body.schoolFee !== undefined) {
+      const total = body.schoolFee + (body.usesBus ? (body.busFee ?? 0) : 0) - (body.discount ?? 0)
+      if ((body.firstPaymentAmount ?? 0) > total) {
+        const message = `The first payment is more than the ${formatInr(total)} for the year.`
+        return errorResponse(409, 'PAYMENT_TOO_LARGE', message, {
+          fields: { firstPaymentAmount: message },
+        })
+      }
     }
 
     const id = db.nextStudentId++
@@ -142,7 +177,44 @@ export const admissionHandlers = [
 
     if (enquiry) markAdmitted(enquiry, id)
 
-    const result: AdmissionResult = { studentId: id, admissionNo }
+    let receiptNo: string | undefined
+    if (body.schoolFee !== undefined) {
+      const plan = {
+        studentId: id,
+        sessionId: currentSession().id,
+        schoolFee: body.schoolFee,
+        busFee: body.usesBus ? (body.busFee ?? 0) : 0,
+        discount: body.discount ?? 0,
+        discountReason: (body.discount ?? 0) > 0 ? (body.discountReason?.trim() ?? null) : null,
+        frequency: body.frequency ?? 'QUARTERLY',
+        startsOn:
+          admissionDate > currentSession().startsOn ? admissionDate : currentSession().startsOn,
+        busExtras: [],
+      }
+      db.feePlans.push(plan)
+      const first = body.firstPaymentAmount ?? 0
+      if (first > 0 && planTotals(plan).SCHOOL + planTotals(plan).BUS >= first) {
+        const split = splitFirstPayment(plan, first)
+        receiptNo = nextReceiptNo()
+        db.payments.push({
+          id: db.nextPaymentId - 1,
+          studentId: id,
+          receiptNo,
+          paidOn: admissionDate,
+          mode: body.firstPaymentMode ?? 'CASH',
+          schoolAmount: split.SCHOOL,
+          busAmount: split.BUS,
+          note: null,
+          correctionOf: null,
+        })
+      }
+    }
+
+    const result: AdmissionResult = {
+      studentId: id,
+      admissionNo,
+      ...(receiptNo ? { receiptNo } : {}),
+    }
     if (route) {
       const children = childrenOnRoute(route.id)
       const seats = db.vehicles.find((v) => v.id === route.vehicleId)?.seats ?? 0

@@ -11,7 +11,7 @@ export interface MenuGroup {
   items: MenuItem[]
 }
 
-/** The menu by permission: docs/05-auth-permissions.md. "Fee setup" comes in phase 8. */
+/** The menu by permission: docs/05-auth-permissions.md. */
 export const menuGroups: MenuGroup[] = [
   {
     title: 'Transport',
@@ -36,7 +36,10 @@ export const menuGroups: MenuGroup[] = [
   },
   {
     title: 'Settings',
-    items: [{ label: 'Users and roles', to: '/users', permission: 'USERS_MANAGE' }],
+    items: [
+      { label: 'Users and roles', to: '/users', permission: 'USERS_MANAGE' },
+      { label: 'Fee setup', to: '/settings/fees', permission: 'SETTINGS_EDIT' },
+    ],
   },
 ]
 

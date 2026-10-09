@@ -22,6 +22,7 @@ describe('the menu by role', () => {
       'Students',
       'Analytics',
       'Users and roles',
+      'Fee setup',
     ])
   })
 

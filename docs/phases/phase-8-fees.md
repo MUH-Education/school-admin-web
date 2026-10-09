@@ -66,19 +66,19 @@ Do not start this phase before the owner has answered backend question C2 (does 
 
 ## Tasks
 
-- [ ] 8.1 Types: `Session`, `ClassFee`, `FeePlan`, `FeeDue`, `FeePayment`, `StudentFees`, `FeeStatus`, with labels.
-- [ ] 8.2 Mock data: plans and payments for the sample students (on time, delayed, defaulted), class fees for all classes.
-- [ ] 8.3 Mock handlers, with `PAYMENT_TOO_LARGE` and the receipt number.
-- [ ] 8.4 API hooks.
-- [ ] 8.5 `feePreview()` pure function with tests (behaviour 6, 8).
-- [ ] 8.6 Admission part 4 and the Fee summary box; extend the Zod schema and the request (behaviour 1 to 7).
-- [ ] 8.7 "Fees this year" box (behaviour 9, 12, 14).
-- [ ] 8.8 Record a payment dialog (behaviour 10, 11).
-- [ ] 8.9 Correct a payment, owner only (behaviour 13).
-- [ ] 8.10 "Fee" column on Students (behaviour 15).
-- [ ] 8.11 Fee setup page and its menu item for the owner (behaviour 16).
-- [ ] 8.12 Refresh fees after a bus change (behaviour 17).
-- [ ] 8.13 Playwright flow: admit with ₹30,000 + ₹8,800 quarterly and ₹9,700 paid; open the student; see still to pay ₹29,100; record ₹9,700; see ₹19,400.
+- [x] 8.1 Types: `Session`, `ClassFee`, `FeePlan`, `FeeDue`, `FeePayment`, `StudentFees`, `FeeStatus`, with labels.
+- [x] 8.2 Mock data: plans and payments for the sample students (on time, delayed, defaulted), class fees for all classes.
+- [x] 8.3 Mock handlers, with `PAYMENT_TOO_LARGE` and the receipt number.
+- [x] 8.4 API hooks.
+- [x] 8.5 `feePreview()` pure function with tests (behaviour 6, 8).
+- [x] 8.6 Admission part 4 and the Fee summary box; extend the Zod schema and the request (behaviour 1 to 7).
+- [x] 8.7 "Fees this year" box (behaviour 9, 12, 14).
+- [x] 8.8 Record a payment dialog (behaviour 10, 11).
+- [x] 8.9 Correct a payment, owner only (behaviour 13).
+- [x] 8.10 "Fee" column on Students (behaviour 15).
+- [x] 8.11 Fee setup page and its menu item for the owner (behaviour 16).
+- [x] 8.12 Refresh fees after a bus change (behaviour 17).
+- [x] 8.13 Playwright flow: admit with ₹30,000 + ₹8,800 quarterly and ₹9,700 paid; open the student; see still to pay ₹29,100; record ₹9,700; see ₹19,400.
 - [ ] 8.14 **Switch to the real backend** (needs backend Phase 7).
 
 ## Tests that must pass

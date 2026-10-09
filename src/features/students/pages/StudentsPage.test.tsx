@@ -198,3 +198,45 @@ describe('Students page', () => {
     await waitFor(() => expect(router.state.location.pathname).toBe('/students/1'))
   })
 })
+
+describe('Students page: the Fee column', () => {
+  const cell = (name: string, column: number) => {
+    const row = screen.getByText(name).closest('tr') as HTMLElement
+    return within(row).getAllByRole('cell')[column] as HTMLElement
+  }
+
+  it('studentsListShowsFeeStatus: On time, Delayed and Defaulted, each with its words', async () => {
+    await openStudents('/students?q=Rohit')
+    const table = screen.getByRole('table', { name: 'Students' })
+    expect(within(table).getByRole('columnheader', { name: 'Fee' })).toBeInTheDocument()
+    expect(cell('Rohit Kumar', 6)).toHaveTextContent('Defaulted')
+
+    await userEvent.clear(screen.getByRole('searchbox'))
+    await userEvent.type(screen.getByRole('searchbox'), 'Mohit')
+    await screen.findByText('Mohit Nain')
+    await waitFor(() => expect(cell('Mohit Nain', 6)).toHaveTextContent('Delayed'))
+
+    await userEvent.clear(screen.getByRole('searchbox'))
+    await userEvent.type(screen.getByRole('searchbox'), 'Ishaan')
+    await screen.findByText('Ishaan Sharma')
+    await waitFor(() => expect(cell('Ishaan Sharma', 6)).toHaveTextContent('On time'))
+  })
+
+  it('shows a dash for a child with no fee plan', async () => {
+    // Child 13 has no plan in the sample. Search by name from the list.
+    await openStudents('/students?page=1')
+    const rows = within(screen.getByRole('table', { name: 'Students' }))
+      .getAllByRole('row')
+      .slice(1)
+    const dashRows = rows.filter((r) => within(r).queryByText('No fee plan'))
+    expect(dashRows.length).toBeGreaterThan(0)
+    expect(dashRows[0]).not.toHaveTextContent('On time')
+  })
+
+  it('has no Fee column for a role without FEES_VIEW', async () => {
+    await openStudents('/students', sampleUserIds.transport)
+    const table = screen.getByRole('table', { name: 'Students' })
+    expect(within(table).queryByRole('columnheader', { name: 'Fee' })).not.toBeInTheDocument()
+    expect(within(table).queryByText('On time')).not.toBeInTheDocument()
+  })
+})

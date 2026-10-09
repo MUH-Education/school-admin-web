@@ -8,6 +8,7 @@ import type {
 import { formatDate, todayIso } from '@/lib/format'
 import type { MockEnrolment, MockGuardian, MockStudent } from './data/students'
 import { db } from './db'
+import { feeStatusOf } from './feesLogic'
 import { MOCK_TODAY } from './now'
 
 /**
@@ -119,7 +120,7 @@ export function toStudent(s: MockStudent): Student {
   }
 }
 
-export function toListRow(s: MockStudent): StudentListRow {
+export function toListRow(s: MockStudent, withFees = true): StudentListRow {
   // The row shows where the child rides today, or the booked change when nothing runs yet.
   const now = toNow(enrolmentOn(s.id, today()) ?? enrolmentsOf(s.id).at(-1))
   const first = guardiansOf(s.id)[0]
@@ -135,6 +136,7 @@ export function toListRow(s: MockStudent): StudentListRow {
     route: now.route,
     stop: now.stop,
     parentPhone: first ? maskStudentPhone(first.phone) : null,
+    feeStatus: withFees ? feeStatusOf(s.id) : null,
   }
 }
 

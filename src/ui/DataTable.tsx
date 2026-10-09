@@ -15,6 +15,8 @@ export interface GridLayout {
   columns: string
   /** The box scrolls sideways below this width, in pixels. */
   minWidth: number
+  /** CSS padding of the header row and of a body row. Without it: 14px above and below, 18px at the sides. */
+  padding?: { header: string; row: string }
 }
 
 interface DataTableProps<Row> {
@@ -96,7 +98,11 @@ function GridTable<Row>({
       >
         <caption className="sr-only">{caption}</caption>
         <thead role="rowgroup" className="block">
-          <tr role="row" style={rowStyle} className="grid items-end gap-x-4 px-[18px] py-3.5">
+          <tr
+            role="row"
+            style={grid.padding ? { ...rowStyle, padding: grid.padding.header } : rowStyle}
+            className={`grid items-end gap-x-4 ${grid.padding ? '' : 'px-[18px] py-3.5'}`}
+          >
             {columns.map((column) => (
               <th
                 key={column.header}
@@ -118,8 +124,8 @@ function GridTable<Row>({
             <tr
               key={getRowKey(row)}
               role="row"
-              style={rowStyle}
-              className="grid items-center gap-x-4 border-t border-rule px-[18px] py-3.5"
+              style={grid.padding ? { ...rowStyle, padding: grid.padding.row } : rowStyle}
+              className={`grid items-center gap-x-4 border-t border-rule ${grid.padding ? '' : 'px-[18px] py-3.5'}`}
             >
               {columns.map((column) => (
                 <td

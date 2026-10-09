@@ -3,6 +3,7 @@ import { admissionHandlers } from './admissions'
 import { authHandlers } from './auth'
 import { busStatusHandlers } from './busStatus'
 import { enquiryHandlers } from './enquiries'
+import { feeHandlers } from './fees'
 import { messageHandlers } from './messages'
 import { routeHandlers } from './routes'
 import { staffHandlers } from './staff'
@@ -24,4 +25,5 @@ export const handlers: RequestHandler[] = [
   ...tripsHandlers,
   ...messageHandlers,
   ...enquiryHandlers,
+  ...feeHandlers,
 ]

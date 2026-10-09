@@ -81,3 +81,32 @@ export function at(hhmmss: string, date = DAY): Date {
   const text = hhmmss.length === 5 ? `${hhmmss}:00` : hhmmss
   return new Date(`${date}T${text}+05:30`)
 }
+
+const eveningAnswer = { outcome: 'DONE' as const, occurredAt: `${DAY}T14:50:00+05:30` }
+const morning = done('07:30', DAY)
+const notGoing = { outcome: 'NOT_TRAVELLING' as const, occurredAt: `${DAY}T14:51:00+05:30` }
+
+/** Everybody came in the morning; all but Manpreet boarded in the evening. */
+export function eveningManifest(): Manifest {
+  const both = (id: number, name: string, cls: string) =>
+    child(id, name, { BOARDED_MORNING: morning, BOARDED_EVENING: eveningAnswer }, cls)
+  return makeManifest({
+    stops: [
+      {
+        id: 1,
+        name: 'Sadhanwas',
+        children: [both(400, 'Mohit', '5 A'), both(401, 'Anjali', '2 A')],
+      },
+      {
+        id: 2,
+        name: 'Jakhal',
+        children: [
+          both(405, 'Aryan', '3 B'),
+          child(407, 'Manpreet', { BOARDED_MORNING: morning, BOARDED_EVENING: notGoing }, '6 A'),
+        ],
+      },
+      { id: 3, name: 'Kanheri', children: [both(412, 'Yash', 'LKG'), both(414, 'Rohit', '10 A')] },
+      { id: 4, name: 'Tohana town', children: [both(416, 'Vivek', '7 A')] },
+    ],
+  })
+}

@@ -1,3 +1,4 @@
+import { useRegisterSW } from 'virtual:pwa-register/react'
 import { Outlet } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { LanguageButton } from '@/i18n/LanguageButton'
@@ -28,12 +29,17 @@ export function TripLayout() {
   const today = useToday()
   const sync = useSync()
   const day = useTripDay(today)
+  const {
+    needRefresh: [needRefresh],
+    updateServiceWorker,
+  } = useRegisterSW()
 
   const value = {
     sync,
     stale: day.status === 'ready' && day.stale,
     today,
     retryDay: day.retry,
+    update: { available: needRefresh, apply: () => void updateServiceWorker(true) },
   }
 
   return (

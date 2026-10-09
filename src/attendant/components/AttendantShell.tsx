@@ -4,6 +4,7 @@ import { useDefaultLanguage } from '@/i18n'
 import { useTrip } from '../TripContext'
 import { ProblemsDialog } from './ProblemsDialog'
 import { SendingStrip } from './SendingStrip'
+import { UpdateBar } from './UpdateBar'
 
 interface AttendantShellProps {
   /** The dark bar on top: `PhoneHeader`, or the greeting of the Today page. */
@@ -48,6 +49,7 @@ export function AttendantShell({
       lang={i18n.language}
       className="mx-auto flex h-dvh w-full max-w-[430px] flex-col overflow-hidden bg-paper font-hindi text-base leading-[1.35] text-ink"
     >
+      <UpdateBar />
       {header}
       <SendingStrip
         waiting={sync.waiting}

@@ -1,39 +1,9 @@
 import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { db } from '@/mocks/db'
-import type { Manifest } from '../types'
-import { child, DAY, done, makeManifest } from '@/test/attendant'
+import { eveningManifest } from '@/test/attendant'
 import { openPhone } from '@/test/phone'
 import { getQueue } from '../tapStore'
-
-const evening = { outcome: 'DONE' as const, occurredAt: `${DAY}T14:50:00+05:30` }
-const morning = done('07:30', DAY)
-const notGoing = { outcome: 'NOT_TRAVELLING' as const, occurredAt: `${DAY}T14:51:00+05:30` }
-
-/** Everybody came in the morning; all but Manpreet boarded in the evening. */
-function eveningManifest(): Manifest {
-  const both = (id: number, name: string, cls: string) =>
-    child(id, name, { BOARDED_MORNING: morning, BOARDED_EVENING: evening }, cls)
-  return makeManifest({
-    stops: [
-      {
-        id: 1,
-        name: 'Sadhanwas',
-        children: [both(400, 'Mohit', '5 A'), both(401, 'Anjali', '2 A')],
-      },
-      {
-        id: 2,
-        name: 'Jakhal',
-        children: [
-          both(405, 'Aryan', '3 B'),
-          child(407, 'Manpreet', { BOARDED_MORNING: morning, BOARDED_EVENING: notGoing }, '6 A'),
-        ],
-      },
-      { id: 3, name: 'Kanheri', children: [both(412, 'Yash', 'LKG'), both(414, 'Rohit', '10 A')] },
-      { id: 4, name: 'Tohana town', children: [both(416, 'Vivek', '7 A')] },
-    ],
-  })
-}
 
 describe('Home drop (/trip/drop)', () => {
   it('homeDropUsesReversedStopOrder: starts with the last morning stop and skips children who are not on the bus', async () => {

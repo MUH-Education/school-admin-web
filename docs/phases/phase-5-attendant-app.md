@@ -77,13 +77,13 @@ Pages:
 
 Install and offline shell:
 
-- [ ] 5.21 `vite-plugin-pwa`: manifest (name "स्कूल बस", start URL `/trip`, standalone, icons), service worker that keeps the app files and fonts, no API caching.
-- [ ] 5.22 The "new version" bar. No automatic reload.
-- [ ] 5.23 Code splitting check: opening `/trip` on a fresh browser does not download any admin chunk.
+- [x] 5.21 `vite-plugin-pwa`: manifest (name "स्कूल बस", start URL `/trip`, standalone, icons), service worker that keeps the app files and fonts, no API caching.
+- [x] 5.22 The "new version" bar. No automatic reload.
+- [x] 5.23 Code splitting check: opening `/trip` on a fresh browser does not download any admin chunk.
 
 Finish:
 
-- [ ] 5.24 Playwright flows from `docs/07-attendant-offline.md` (offline taps survive a reload; they are sent with the original times when online).
+- [x] 5.24 Playwright flows from `docs/07-attendant-offline.md` (offline taps survive a reload; they are sent with the original times when online).
 - [ ] 5.25 Try it on a real low-cost Android phone on mobile data: install to the home screen, switch on flight mode, tap, switch off, watch the strip turn green.
 - [ ] 5.26 **Switch to the real backend** (needs backend Phase 4). Log in as an attendant of the dev data and tap a morning.
 

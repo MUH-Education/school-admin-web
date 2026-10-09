@@ -4,7 +4,7 @@ import { getQueue, writeTaps } from './tapStore'
 import { at, makeManifest, seedManifest } from '@/test/attendant'
 
 describe('addTap', () => {
-  it('stamps the tap with the phone time, not the time of sending', async () => {
+  it('tapKeepsThePhoneTimeNotTheSendTime: stamps the tap with the phone time', async () => {
     await addTap({ studentId: 412, eventType: 'BOARDED_MORNING', outcome: 'DONE' }, at('07:56:10'))
     const [tap] = await getQueue()
     expect(tap).toMatchObject({
@@ -35,7 +35,7 @@ describe('addTap', () => {
     expect(screenSaw).toEqual([1])
   })
 
-  it('replaces an unsent tap for the same child and event instead of doubling it', async () => {
+  it('unsentTapForSameChildIsReplacedNotDuplicated: a second tap takes the place of the first', async () => {
     await addTap({ studentId: 412, eventType: 'BOARDED_MORNING', outcome: 'DONE' }, at('07:56'))
     await addTap({ studentId: 412, eventType: 'BOARDED_MORNING', outcome: 'ABSENT' }, at('07:57'))
     const queue = await getQueue()

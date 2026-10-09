@@ -1,6 +1,5 @@
 import { createBrowserRouter, Navigate, Outlet, type RouteObject } from 'react-router'
 import type { Permission } from '@/auth/types'
-import { AdminShell } from './AdminShell'
 import { CannotOpenPage, RequireLogin, RequirePermission } from './guards'
 import { Landing } from './Landing'
 import { NotFoundPage } from './NotFoundPage'
@@ -87,7 +86,7 @@ export const routes: RouteObject[] = [
             ],
           },
           {
-            Component: AdminShell,
+            lazy: async () => ({ Component: (await import('./AdminShell')).AdminShell }),
             children: [
               {
                 path: 'bus-status',

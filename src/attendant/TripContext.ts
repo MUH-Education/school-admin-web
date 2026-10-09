@@ -11,6 +11,8 @@ export interface TripContextValue {
   /** The phone's date, for example 2026-10-07 */
   today: string
   retryDay: () => void
+  /** A new version of the app is waiting. `apply` installs it and reloads (only when the attendant asks). */
+  update: { available: boolean; apply: () => void }
 }
 
 export const TripContext = createContext<TripContextValue | null>(null)

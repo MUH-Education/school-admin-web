@@ -106,8 +106,7 @@
     "noRoute": "You have no route today. Call the office."
   },
   "update": {
-    "text": "A new version is ready · Get it now",
-    "button": "Get it now"
+    "text": "A new version is ready · Get it now"
   },
   "child": {
     "classOnly": "{{class}}",

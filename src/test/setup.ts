@@ -7,6 +7,15 @@ import { i18n } from '@/i18n'
 import { resetMockDb } from '@/mocks/db'
 import { server } from '@/mocks/server'
 
+// There is no service worker in tests. The phone pages ask for one, so give them a quiet stand-in.
+vi.mock('virtual:pwa-register/react', () => ({
+  useRegisterSW: () => ({
+    needRefresh: [false, () => {}],
+    offlineReady: [false, () => {}],
+    updateServiceWorker: async () => {},
+  }),
+}))
+
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 afterEach(async () => {
   cleanup()

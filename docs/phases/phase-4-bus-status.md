@@ -45,28 +45,28 @@ The office sees where every bus is right now, which buses need attention, and fo
 
 Mock first:
 
-- [ ] 4.1 Types: `BusStatusRoute`, `StopState`, `RouteState`, `AttentionItem`, `BusChildRow`.
-- [ ] 4.2 Mock data: the 7:48 picture from `Main.dc.html` for all 9 routes, and the 19 children of Route 4 from `BusDetail.dc.html`.
-- [ ] 4.3 Mock handlers. `?phase=EVENING` returns an evening picture (some routes boarding, some on the way, one child missing).
+- [x] 4.1 Types: `BusStatusRoute`, `StopState`, `RouteState`, `AttentionItem`, `BusChildRow`.
+- [x] 4.2 Mock data: the 7:48 picture from `Main.dc.html` for all 9 routes, and the 19 children of Route 4 from `BusDetail.dc.html`.
+- [x] 4.3 Mock handlers. `?phase=EVENING` returns an evening picture (some routes boarding, some on the way, one child missing).
 
 Components:
 
-- [ ] 4.4 `StopStrip` with tests for every stop state.
-- [ ] 4.5 `routeStateLabel(state, lateMinutes, time)` pure function (behaviour 10).
-- [ ] 4.6 `BusRouteRow`.
-- [ ] 4.7 `AttentionBox`.
-- [ ] 4.8 Phase switch (segmented buttons with `aria-pressed`).
+- [x] 4.4 `StopStrip` with tests for every stop state.
+- [x] 4.5 `routeStateLabel(state, lateMinutes, time)` pure function (behaviour 10).
+- [x] 4.6 `BusRouteRow`.
+- [x] 4.7 `AttentionBox`.
+- [x] 4.8 Phase switch (segmented buttons with `aria-pressed`).
 
 Pages:
 
-- [ ] 4.9 API hooks with the 30-second refresh and the visible-tab rule (behaviour 1).
-- [ ] 4.10 `BusStatusPage`: header with live time, tiles, attention box, the route rows (behaviour 2 to 10).
-- [ ] 4.11 Stale-data handling (behaviour 3).
-- [ ] 4.12 `BusDetailPage` (behaviour 11, 12).
+- [x] 4.9 API hooks with the 30-second refresh and the visible-tab rule (behaviour 1).
+- [x] 4.10 `BusStatusPage`: header with live time, tiles, attention box, the route rows (behaviour 2 to 10).
+- [x] 4.11 Stale-data handling (behaviour 3).
+- [x] 4.12 `BusDetailPage` (behaviour 11, 12).
 
 Finish:
 
-- [ ] 4.13 Playwright flow: open Bus status as the owner, see 9 routes, open Route 4, see 19 children.
+- [x] 4.13 Playwright flow: open Bus status as the owner, see 9 routes, open Route 4, see 19 children.
 - [ ] 4.14 **Switch to the real backend** (needs backend Phase 4).
 
 ## Tests that must pass

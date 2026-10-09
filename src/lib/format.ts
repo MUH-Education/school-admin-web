@@ -60,6 +60,42 @@ export function formatClock(hhmm: string): string {
   return `${Number(hour)}:${minute}`
 }
 
+/**
+ * formatDayClock('07:25') → 7:25 ; formatDayClock('15:20') → 3:20 pm.
+ * For the bus screens: the morning has no am, the afternoon says pm.
+ */
+export function formatDayClock(hhmm: string): string {
+  const [hour = '', minute = ''] = hhmm.split(':')
+  const h = Number(hour)
+  if (h < 12) return `${h}:${minute}`
+  return `${h > 12 ? h - 12 : h}:${minute} pm`
+}
+
+/** formatTimeAmPm('2026-10-07T07:48:00+05:30') → 7:48 am, in Indian time on any laptop */
+export function formatTimeAmPm(iso: string): string {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+    timeZone: ZONE,
+  }).formatToParts(new Date(iso))
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? ''
+  return `${get('hour')}:${get('minute')} ${get('dayPeriod').toLowerCase()}`
+}
+
+/** formatWeekdayDate('2026-10-07') → Wednesday 7 October 2026 */
+export function formatWeekdayDate(iso: string): string {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: ZONE,
+  }).formatToParts(new Date(`${iso}T00:00:00+05:30`))
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? ''
+  return `${get('weekday')} ${get('day')} ${get('month')} ${get('year')}`
+}
+
 /** formatLoad(1.357) → 1.36× */
 export function formatLoad(load: number): string {
   return `${load.toFixed(2)}×`

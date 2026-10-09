@@ -1,0 +1,7 @@
+#!/bin/sh
+# A failing lint, typecheck or test stops the commit. Turn on once with:
+#   git config core.hooksPath .githooks
+set -e
+npm run lint
+npm run typecheck
+npm test

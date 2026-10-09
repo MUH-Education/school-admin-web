@@ -6,11 +6,20 @@ interface PageHeaderProps {
   label?: string
   title: string
   description?: ReactNode
+  /** Widest the description may be, in pixels. Most designs use 600; Bus status uses 560. */
+  descriptionWidth?: number
   /** Buttons on the right. */
   action?: ReactNode
 }
 
-export function PageHeader({ breadcrumb, label, title, description, action }: PageHeaderProps) {
+export function PageHeader({
+  breadcrumb,
+  label,
+  title,
+  description,
+  descriptionWidth = 600,
+  action,
+}: PageHeaderProps) {
   return (
     <header className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4 border-b-2 border-ink pb-4">
       <div className="flex min-w-0 flex-col gap-1.5">
@@ -21,7 +30,11 @@ export function PageHeader({ breadcrumb, label, title, description, action }: Pa
           </div>
         )}
         <h1 className="text-[30px] leading-[1.1] font-bold tracking-[-0.02em]">{title}</h1>
-        {description && <p className="max-w-[600px] text-sm text-ink-soft">{description}</p>}
+        {description && (
+          <p className="text-sm text-ink-soft" style={{ maxWidth: descriptionWidth }}>
+            {description}
+          </p>
+        )}
       </div>
       {action}
     </header>

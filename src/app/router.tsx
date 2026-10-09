@@ -107,7 +107,19 @@ export const routes: RouteObject[] = [
                   }
                 },
               },
-              placeholder('students', 'Students', 'STUDENTS_VIEW', 3),
+              {
+                path: 'students',
+                lazy: async () => {
+                  const { StudentsPage } = await import('@/features/students/pages/StudentsPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="STUDENTS_VIEW">
+                        <StudentsPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
               placeholder('students/:id', 'One student', 'STUDENTS_VIEW', 3),
               placeholder('admissions/new', 'New admission', 'ADMISSIONS_CREATE', 3),
               placeholder('enquiries', 'Enquiries', 'ENQUIRIES_VIEW', 7),

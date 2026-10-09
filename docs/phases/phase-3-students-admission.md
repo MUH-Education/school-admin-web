@@ -71,12 +71,12 @@ Mock first:
 
 Shared components:
 
-- [ ] 3.4 `FilterBar`, `Pagination`.
-- [ ] 3.5 `DefinitionGrid`, `TextArea`.
+- [x] 3.4 `FilterBar`, `Pagination`.
+- [x] 3.5 `DefinitionGrid`, `TextArea`.
 
 Students list:
 
-- [ ] 3.6 API hooks; `StudentsPage` with URL filters, debounce, paging (behaviour 1 to 4).
+- [x] 3.6 API hooks; `StudentsPage` with URL filters, debounce, paging (behaviour 1 to 4).
 - [ ] 3.7 Import dialog (behaviour 21).
 
 One student:

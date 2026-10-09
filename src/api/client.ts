@@ -32,20 +32,21 @@ function baseUrl(): string {
   return import.meta.env.VITE_API_BASE ?? '/api/v1'
 }
 
-/** The one place that calls fetch. */
-export async function api<T>(method: Method, path: string, body?: unknown): Promise<T> {
-  const headers: Record<string, string> = { Accept: 'application/json' }
+/** The one place that calls fetch. Sends the token, turns a failed answer into an ApiError. */
+async function send(
+  method: Method,
+  path: string,
+  init: { body?: BodyInit; json?: boolean; accept?: string },
+): Promise<Response> {
+  const headers: Record<string, string> = { Accept: init.accept ?? 'application/json' }
   const token = getToken()
   if (token) headers.Authorization = `Bearer ${token}`
-  if (body !== undefined) headers['Content-Type'] = 'application/json'
+  // A multipart body sets its own Content-Type (with the boundary), so only JSON gets one here.
+  if (init.json) headers['Content-Type'] = 'application/json'
 
   let response: Response
   try {
-    response = await fetch(`${baseUrl()}${path}`, {
-      method,
-      headers,
-      body: body === undefined ? undefined : JSON.stringify(body),
-    })
+    response = await fetch(`${baseUrl()}${path}`, { method, headers, body: init.body })
   } catch {
     throw ApiError.network()
   }
@@ -58,7 +59,29 @@ export async function api<T>(method: Method, path: string, body?: unknown): Prom
     if (response.status === 401 && !path.startsWith('/auth/otp/')) onUnauthorized()
     throw ApiError.fromBody(response.status, errorBody)
   }
+  return response
+}
 
+export async function api<T>(method: Method, path: string, body?: unknown): Promise<T> {
+  const response = await send(method, path, {
+    body: body === undefined ? undefined : JSON.stringify(body),
+    json: body !== undefined,
+  })
   if (response.status === 204) return undefined as T
   return (await response.json()) as T
+}
+
+/** Sends a file as multipart form data, for example a photo or a CSV. The file's field is `file`. */
+export async function apiUpload<T>(path: string, file: File): Promise<T> {
+  const form = new FormData()
+  form.append('file', file)
+  const response = await send('POST', path, { body: form })
+  if (response.status === 204) return undefined as T
+  return (await response.json()) as T
+}
+
+/** Fetches a file, for example a photo. An `<img src>` cannot carry the token, so we ask here. */
+export async function apiBlob(path: string): Promise<Blob> {
+  const response = await send('GET', path, { accept: '*/*' })
+  return response.blob()
 }

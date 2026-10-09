@@ -84,3 +84,15 @@ export function maskPhone(phone: string): string {
   if (rest.length <= 4) return phone
   return `${prefix}${'X'.repeat(rest.length - 4)}${rest.slice(-4)}`
 }
+
+/** The school year runs April to March: 7 Oct 2026 → "2026–27". */
+export function sessionLabel(now: Date = new Date()): string {
+  const year = Number(
+    new Intl.DateTimeFormat('en-GB', { year: 'numeric', timeZone: 'Asia/Kolkata' }).format(now),
+  )
+  const month = Number(
+    new Intl.DateTimeFormat('en-GB', { month: 'numeric', timeZone: 'Asia/Kolkata' }).format(now),
+  )
+  const start = month >= 4 ? year : year - 1
+  return `${start}–${String(start + 1).slice(-2)}`
+}

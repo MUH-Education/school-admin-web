@@ -11,3 +11,9 @@ afterEach(() => {
   server.resetHandlers()
 })
 afterAll(() => server.close())
+
+// jsdom has no object URLs. The photo tests only need a text to put in `src`.
+if (typeof URL.createObjectURL !== 'function') {
+  URL.createObjectURL = () => 'blob:test-photo'
+  URL.revokeObjectURL = () => {}
+}

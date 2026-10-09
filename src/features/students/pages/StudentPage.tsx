@@ -10,6 +10,7 @@ import { LoadingBlock } from '@/ui/LoadingBlock'
 import { PageHeader } from '@/ui/PageHeader'
 import { useStudent } from '../api'
 import { DetailsBox } from '../components/DetailsBox'
+import { PhonesBox } from '../components/PhonesBox'
 import { StudentHeader } from '../components/StudentHeader'
 
 export function StudentPage() {
@@ -75,6 +76,7 @@ function OneStudent({ id }: { id: number }) {
             onEdit={() => setEditing({ box: 'details' })}
             onClose={() => setEditing(null)}
           />
+          <PhonesBox student={s} canEdit={canEdit} editing={editing} setEditing={setEditing} />
         </div>
         <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-6" />
       </div>

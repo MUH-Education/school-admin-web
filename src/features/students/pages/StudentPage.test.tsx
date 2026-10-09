@@ -4,7 +4,7 @@ import { delay, http, HttpResponse } from 'msw'
 import { server } from '@/mocks/server'
 import { renderApp, saveLogin, sampleUserIds } from '@/test/utils'
 
-const names: Record<number, string> = { 1: 'Ishaan Sharma', 2: 'Aryan Punia' }
+const names: Record<number, string> = { 1: 'Ishaan Sharma', 2: 'Aryan Punia', 4: 'Mohit Nain' }
 
 async function openStudent(id: number, userId: number = sampleUserIds.officeAdmin) {
   saveLogin(userId)
@@ -230,5 +230,143 @@ describe('One student: details box', () => {
     await userEvent.click(within(dialog).getByRole('button', { name: 'Cancel' }))
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 1, name: 'Ishaan Sharma' })).toBeInTheDocument()
+  })
+})
+
+describe('One student: phone numbers', () => {
+  const phones = () => screen.getByRole('region', { name: 'Parents and phone numbers' })
+
+  it('lists the numbers as the server sends them', async () => {
+    await openStudent(1)
+    const list = within(phones()).getByRole('list', { name: 'Phone numbers' })
+    const items = within(list).getAllByRole('listitem')
+    expect(items).toHaveLength(2)
+    expect(items[0]).toHaveTextContent('Sanjay Sharma · Father')
+    expect(items[0]).toHaveTextContent('98XXX XX340 · gets bus SMS')
+    expect(items[1]).toHaveTextContent('Pooja Sharma · Mother')
+  })
+
+  it('addedPhoneAppearsInTheList', async () => {
+    await openStudent(1)
+    await userEvent.click(within(phones()).getByRole('button', { name: 'Add a phone number' }))
+    const form = within(phones()).getByRole('form', { name: 'Add a phone number' })
+    await userEvent.type(within(form).getByLabelText('Name'), 'Ramkumar Sharma')
+    await userEvent.selectOptions(
+      within(form).getByLabelText('Relation to the child'),
+      'Grandfather',
+    )
+    await userEvent.type(within(form).getByLabelText('Phone number'), '94123 45208')
+    expect(within(form).getByLabelText('Send bus SMS to this number too')).toBeChecked()
+    await userEvent.click(within(form).getByRole('button', { name: 'Save number' }))
+
+    expect(await screen.findByText('Phone number added')).toBeInTheDocument()
+    await waitFor(() => {
+      const items = within(phones()).getAllByRole('listitem')
+      expect(items).toHaveLength(3)
+      expect(items[2]).toHaveTextContent('Ramkumar Sharma · Grandfather')
+      expect(items[2]).toHaveTextContent('94XXX XX208 · gets bus SMS')
+    })
+    // The form is closed again.
+    expect(within(phones()).queryByRole('form')).not.toBeInTheDocument()
+  })
+
+  it('shows mistakes under the inputs of the add form', async () => {
+    await openStudent(1)
+    await userEvent.click(within(phones()).getByRole('button', { name: 'Add a phone number' }))
+    const form = within(phones()).getByRole('form', { name: 'Add a phone number' })
+    await userEvent.type(within(form).getByLabelText('Phone number'), '12345')
+    await userEvent.click(within(form).getByRole('button', { name: 'Save number' }))
+    expect(await within(form).findByText('Enter the name.')).toBeInTheDocument()
+    expect(within(form).getByText('Pick the relation.')).toBeInTheDocument()
+    expect(within(form).getByText('Enter a 10-digit mobile number.')).toBeInTheDocument()
+  })
+
+  it('shows the message of the server when the number is already there', async () => {
+    await openStudent(1)
+    await userEvent.click(within(phones()).getByRole('button', { name: 'Add a phone number' }))
+    const form = within(phones()).getByRole('form', { name: 'Add a phone number' })
+    await userEvent.type(within(form).getByLabelText('Name'), 'Sanjay again')
+    await userEvent.selectOptions(within(form).getByLabelText('Relation to the child'), 'Father')
+    await userEvent.type(within(form).getByLabelText('Phone number'), '9812345340')
+    await userEvent.click(within(form).getByRole('button', { name: 'Save number' }))
+    expect(await within(form).findByRole('alert')).toHaveTextContent(
+      'This number is already saved for Ishaan Sharma.',
+    )
+  })
+
+  it('edits a name and the SMS tick', async () => {
+    await openStudent(1)
+    await userEvent.click(within(phones()).getByRole('button', { name: 'Edit Pooja Sharma' }))
+    const form = within(phones()).getByRole('form', { name: 'Edit Pooja Sharma' })
+    expect(within(form).getByText('97XXX XX615')).toBeInTheDocument()
+    await userEvent.click(within(form).getByLabelText('Send bus SMS to this number'))
+    await userEvent.click(within(form).getByRole('button', { name: 'Save' }))
+    await waitFor(() =>
+      expect(within(phones()).getAllByRole('listitem')[1]).toHaveTextContent('no bus SMS'),
+    )
+  })
+
+  it('removes a number after a question', async () => {
+    await openStudent(1)
+    await userEvent.click(within(phones()).getByRole('button', { name: 'Edit Pooja Sharma' }))
+    await userEvent.click(within(phones()).getByRole('button', { name: 'Remove this number' }))
+    const dialog = screen.getByRole('dialog', { name: 'Remove the number of Pooja Sharma?' })
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Remove number' }))
+    await waitFor(() => expect(within(phones()).getAllByRole('listitem')).toHaveLength(1))
+    expect(within(phones()).queryByText(/Pooja/)).not.toBeInTheDocument()
+  })
+
+  it('lastPhoneHasNoRemoveButton', async () => {
+    // Mohit Nain has one number.
+    await openStudent(4)
+    await userEvent.click(within(phones()).getByRole('button', { name: 'Edit Mahavir Nain' }))
+    const form = within(phones()).getByRole('form', { name: 'Edit Mahavir Nain' })
+    expect(within(form).getByRole('button', { name: 'Save' })).toBeInTheDocument()
+    expect(
+      within(form).queryByRole('button', { name: 'Remove this number' }),
+    ).not.toBeInTheDocument()
+  })
+
+  it('shows the message of the server if it still says LAST_GUARDIAN', async () => {
+    server.use(
+      http.delete('http://localhost:3000/api/v1/students/1/guardians/:gid', () =>
+        HttpResponse.json(
+          { error: 'LAST_GUARDIAN', message: 'A child must keep at least one phone number.' },
+          { status: 409 },
+        ),
+      ),
+    )
+    await openStudent(1)
+    await userEvent.click(within(phones()).getByRole('button', { name: 'Edit Pooja Sharma' }))
+    await userEvent.click(within(phones()).getByRole('button', { name: 'Remove this number' }))
+    const dialog = screen.getByRole('dialog')
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Remove number' }))
+    expect(await within(phones()).findByRole('alert')).toHaveTextContent(
+      'A child must keep at least one phone number.',
+    )
+  })
+
+  it('onlyOneBoxIsInEditStateAtATime', async () => {
+    await openStudent(1)
+    const details = () => screen.getByRole('region', { name: 'Student details' })
+    await userEvent.click(within(details()).getByRole('button', { name: 'Edit' }))
+    expect(within(details()).getByLabelText('Student name')).toBeInTheDocument()
+
+    // Opening the phone form closes the details form.
+    await userEvent.click(within(phones()).getByRole('button', { name: 'Add a phone number' }))
+    expect(within(details()).queryByLabelText('Student name')).not.toBeInTheDocument()
+    expect(within(phones()).getByRole('form', { name: 'Add a phone number' })).toBeInTheDocument()
+
+    // Opening an Edit on a number closes the add form.
+    await userEvent.click(within(phones()).getByRole('button', { name: 'Edit Sanjay Sharma' }))
+    expect(
+      within(phones()).queryByRole('form', { name: 'Add a phone number' }),
+    ).not.toBeInTheDocument()
+    expect(within(phones()).getAllByRole('form')).toHaveLength(1)
+
+    // And the details Edit takes it back.
+    await userEvent.click(within(details()).getByRole('button', { name: 'Edit' }))
+    expect(within(phones()).queryByRole('form')).not.toBeInTheDocument()
+    expect(screen.getAllByRole('form')).toHaveLength(1)
   })
 })

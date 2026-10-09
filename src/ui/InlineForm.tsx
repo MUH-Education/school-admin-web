@@ -10,6 +10,10 @@ interface InlineFormProps {
   error?: string | null
   onSubmit: () => void
   onCancel: () => void
+  /** More buttons after Cancel, for example "Remove this number". */
+  extraActions?: ReactNode
+  /** A 2px border all round, for a form that opens in the middle of a box. */
+  framed?: boolean
 }
 
 /** A small form that opens inside a box, not in a dialog. */
@@ -21,6 +25,8 @@ export function InlineForm({
   error,
   onSubmit,
   onCancel,
+  extraActions,
+  framed = false,
 }: InlineFormProps) {
   function submit(event: FormEvent) {
     event.preventDefault()
@@ -31,7 +37,9 @@ export function InlineForm({
       noValidate
       aria-label={title}
       onSubmit={submit}
-      className="flex flex-col gap-4 border-t-2 border-t-canal bg-canal-tint px-[18px] pt-[18px] pb-5"
+      className={`flex flex-col gap-4 bg-canal-tint px-[18px] pt-[18px] pb-5 ${
+        framed ? 'border-2 border-canal' : 'border-t-2 border-t-canal'
+      }`}
     >
       <h3 className="text-[15.5px] font-semibold">{title}</h3>
       {children}
@@ -47,6 +55,7 @@ export function InlineForm({
         <Button variant="plain" onClick={onCancel} className="min-h-12">
           Cancel
         </Button>
+        {extraActions}
       </div>
     </form>
   )

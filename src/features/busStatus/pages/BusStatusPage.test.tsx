@@ -89,6 +89,7 @@ describe('Bus status: the 7:48 picture', () => {
     const { router } = await openPage()
     const row = screen.getByRole('article', { name: 'Route 4' })
     await userEvent.click(within(row).getByRole('link', { name: /View children/ }))
+    await screen.findByRole('heading', { name: 'Route 4', level: 1 })
     expect(router.state.location.pathname).toBe('/bus-status/routes/4')
   })
 })

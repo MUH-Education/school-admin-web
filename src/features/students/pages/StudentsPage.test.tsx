@@ -195,6 +195,6 @@ describe('Students page', () => {
   it('opens a student from the Open link', async () => {
     const { router } = await openStudents('/students?q=Ishaan')
     await userEvent.click(screen.getByRole('link', { name: 'Open Ishaan Sharma' }))
-    expect(router.state.location.pathname).toBe('/students/1')
+    await waitFor(() => expect(router.state.location.pathname).toBe('/students/1'))
   })
 })

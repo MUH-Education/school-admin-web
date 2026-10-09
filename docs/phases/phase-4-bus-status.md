@@ -60,8 +60,8 @@ Components:
 Pages:
 
 - [x] 4.9 API hooks with the 30-second refresh and the visible-tab rule (behaviour 1).
-- [ ] 4.10 `BusStatusPage`: header with live time, tiles, attention box, the route rows (behaviour 2 to 10).
-- [ ] 4.11 Stale-data handling (behaviour 3).
+- [x] 4.10 `BusStatusPage`: header with live time, tiles, attention box, the route rows (behaviour 2 to 10).
+- [x] 4.11 Stale-data handling (behaviour 3).
 - [ ] 4.12 `BusDetailPage` (behaviour 11, 12).
 
 Finish:

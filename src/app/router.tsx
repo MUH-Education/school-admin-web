@@ -51,7 +51,19 @@ export const routes: RouteObject[] = [
           {
             Component: AdminShell,
             children: [
-              placeholder('bus-status', 'Bus status', 'BUS_STATUS_VIEW', 4),
+              {
+                path: 'bus-status',
+                lazy: async () => {
+                  const { BusStatusPage } = await import('@/features/busStatus/pages/BusStatusPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="BUS_STATUS_VIEW">
+                        <BusStatusPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
               placeholder('bus-status/routes/:routeId', 'One bus', 'BUS_STATUS_VIEW', 4),
               {
                 path: 'routes',

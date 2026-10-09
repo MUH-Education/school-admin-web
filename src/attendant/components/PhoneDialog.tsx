@@ -29,7 +29,7 @@ export function QuestionDialog({
           type="button"
           onClick={onYes}
           style={{ minHeight: BUTTON_HEIGHT }}
-          className="cursor-pointer border-2 border-good bg-good text-xl font-bold text-white"
+          className="cursor-pointer border-2 border-good bg-good text-[20px] font-bold text-white"
         >
           {yes}
         </button>
@@ -37,7 +37,7 @@ export function QuestionDialog({
           type="button"
           onClick={onNo}
           style={{ minHeight: BUTTON_HEIGHT }}
-          className="cursor-pointer border-2 border-rule-strong bg-panel text-xl font-semibold text-ink"
+          className="cursor-pointer border-2 border-rule-strong bg-panel text-[20px] font-semibold text-ink"
         >
           {no}
         </button>

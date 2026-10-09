@@ -47,7 +47,7 @@ export function AttendantShell({
   return (
     <div
       lang={i18n.language}
-      className="mx-auto flex h-dvh w-full max-w-[430px] flex-col overflow-hidden bg-paper font-hindi text-base leading-[1.35] text-ink"
+      className="mx-auto flex h-dvh w-full max-w-[430px] flex-col overflow-hidden bg-paper font-hindi text-[16px] leading-[1.35] text-ink"
     >
       <UpdateBar />
       {header}
@@ -60,7 +60,7 @@ export function AttendantShell({
       />
       {stale && (
         <div role="alert" className="flex-none border-b-2 border-dust bg-dust-soft px-4 py-3">
-          <div className="flex items-center gap-2.5 text-base font-bold">
+          <div className="flex items-center gap-2.5 text-[16px] font-bold">
             <span aria-hidden="true" className="size-3 flex-none bg-dust" />
             {t('day.staleBanner')}
           </div>

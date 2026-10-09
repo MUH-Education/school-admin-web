@@ -67,7 +67,7 @@ export function LoginPage() {
         </div>
         <div className="flex flex-col gap-1.5">
           <div className="text-[15px] font-medium text-dust-light">{t('login.org')}</div>
-          <h1 className="text-[34px] leading-tight font-bold">{t('login.title')}</h1>
+          <h1 className="text-[34px] leading-[1.2] font-bold">{t('login.title')}</h1>
           <p className="text-[17px] text-side-text">{t('login.subtitle')}</p>
         </div>
       </div>
@@ -134,9 +134,9 @@ function PhoneStep({
       onSubmit={handleSubmit(async ({ phone }) => {
         await onSend(phone)
       })}
-      className="flex flex-col gap-5"
+      className="flex flex-col gap-[22px]"
     >
-      <Field label={t('login.mobile')} error={errors.phone?.message}>
+      <Field large label={t('login.mobile')} error={errors.phone?.message}>
         <PhoneInput
           placeholder="98123 45678"
           className="min-h-14 text-[19px]"
@@ -148,7 +148,7 @@ function PhoneStep({
         saving={isSubmitting}
         savingLabel={t('common.sending')}
         disabled={wait > 0}
-        className="min-h-14 text-lg"
+        className="min-h-[60px] text-[20px]"
       >
         {t('login.sendCode')}
       </Button>
@@ -189,9 +189,9 @@ function CodeStep({ phone, wait, onChangeNumber, onResend, onLogin, onMessage }:
   }
 
   return (
-    <form noValidate onSubmit={handleSubmit(submit)} className="flex flex-col gap-5">
+    <form noValidate onSubmit={handleSubmit(submit)} className="flex flex-col gap-[22px]">
       <p className="text-ink-soft">{t('login.codeSent')}</p>
-      <Field label={t('login.code')} error={errors.otp?.message}>
+      <Field large label={t('login.code')} error={errors.otp?.message}>
         <TextInput
           inputMode="numeric"
           autoComplete="one-time-code"
@@ -204,7 +204,7 @@ function CodeStep({ phone, wait, onChangeNumber, onResend, onLogin, onMessage }:
         type="submit"
         saving={isSubmitting}
         savingLabel={t('common.sending')}
-        className="min-h-14 text-lg"
+        className="min-h-[60px] text-[20px]"
       >
         {t('login.logIn')}
       </Button>

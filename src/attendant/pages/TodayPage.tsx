@@ -112,7 +112,7 @@ export function TodayPage() {
             </span>
             <span className="flex min-w-0 flex-1 flex-col gap-0.5">
               <span className="text-[22px] leading-[1.2] font-bold">{t(`today.${key}`)}</span>
-              <span className={`text-base ${current ? '' : 'text-ink-soft'}`}>
+              <span className={`text-[16px] ${current ? '' : 'text-ink-soft'}`}>
                 {jobStatus(key, job, times, t)}
               </span>
             </span>

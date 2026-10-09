@@ -10,7 +10,7 @@ export function DoneStopLine({
   onOpen?: () => void
 }) {
   const className =
-    'flex min-h-[46px] w-full flex-none items-center justify-between gap-3 border-b border-rule bg-panel px-4 py-2 text-left text-base text-ink-soft'
+    'flex min-h-[46px] w-full flex-none items-center justify-between gap-3 border-b border-rule bg-panel px-4 py-2 text-left text-[16px] text-ink-soft'
   const content = (
     <>
       <span>{left}</span>

@@ -31,7 +31,7 @@ export function SendingStrip({
           role="status"
           className="flex flex-col gap-0.5 border-b-2 border-dust bg-dust-soft px-4 pt-3 pb-3.5"
         >
-          <div className="flex items-center gap-2.5 text-lg font-bold">
+          <div className="flex items-center gap-2.5 text-[18px] font-bold">
             <span aria-hidden="true" className="size-3 flex-none bg-dust" />
             {t('strip.offlineTitle')}
           </div>

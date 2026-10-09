@@ -148,13 +148,13 @@ export function DropPage() {
               )
             }
             style={{ minHeight: 56 }}
-            className="w-full cursor-pointer border-2 border-canal bg-canal-soft text-lg font-bold text-ink"
+            className="w-full cursor-pointer border-2 border-canal bg-canal-soft text-[18px] font-bold text-ink"
           >
             {t('drop.all')}
           </button>
         </div>
       )}
-      <p className="p-4 text-base">{t('drop.note')}</p>
+      <p className="p-4 text-[16px]">{t('drop.note')}</p>
     </AttendantShell>
   )
 }

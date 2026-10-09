@@ -22,7 +22,7 @@ export function ProblemsDialog({ open, onClose }: { open: boolean; onClose: () =
       <ul className="mb-5 flex flex-col gap-3">
         {problems.map((problem) => (
           <li key={problem.id} className="border border-rule bg-bad-soft p-3">
-            <div className="text-lg font-semibold">
+            <div className="text-[18px] font-semibold">
               {t('problems.line', {
                 name: problem.name || t('problems.unknownChild', { id: problem.studentId }),
                 event: t(`problems.event.${problem.eventType}`),
@@ -42,7 +42,7 @@ export function ProblemsDialog({ open, onClose }: { open: boolean; onClose: () =
           type="button"
           onClick={() => void clear()}
           style={{ minHeight: BUTTON_HEIGHT }}
-          className="cursor-pointer border-2 border-ink bg-ink text-lg font-bold text-white"
+          className="cursor-pointer border-2 border-ink bg-ink text-[18px] font-bold text-white"
         >
           {t('problems.clear')}
         </button>
@@ -50,7 +50,7 @@ export function ProblemsDialog({ open, onClose }: { open: boolean; onClose: () =
           type="button"
           onClick={onClose}
           style={{ minHeight: BUTTON_HEIGHT }}
-          className="cursor-pointer border-2 border-rule-strong bg-panel text-lg font-semibold"
+          className="cursor-pointer border-2 border-rule-strong bg-panel text-[18px] font-semibold"
         >
           {t('problems.close')}
         </button>

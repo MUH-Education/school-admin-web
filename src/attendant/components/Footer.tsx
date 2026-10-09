@@ -29,10 +29,7 @@ export function FooterAction({
         to={to}
         onClick={onClick}
         style={style}
-        className={`${base} bg-ink text-sm text-white no-underline`.replace(
-          'text-sm',
-          'text-[19px] font-bold',
-        )}
+        className={`${base} bg-ink text-[19px] font-bold text-white no-underline`}
       >
         {children}
       </Link>
@@ -70,7 +67,7 @@ export function OutlineButton({
   onClick?: () => void
   href?: string
 }) {
-  const className = `${base} border-2 bg-panel ${small ? 'text-lg' : 'text-[19px]'} font-bold ${
+  const className = `${base} border-2 bg-panel ${small ? 'text-[18px]' : 'text-[19px]'} font-bold ${
     tone === 'bad' ? 'border-bad text-bad' : 'border-ink text-ink'
   } cursor-pointer no-underline`
   const style = { minHeight: FOOTER_MIN_HEIGHT }

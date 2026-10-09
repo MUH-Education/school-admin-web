@@ -85,7 +85,7 @@ export function EveningPage() {
             role="alert"
             className="flex flex-none flex-col gap-0.5 border-b-2 border-bad bg-bad-soft px-4 py-3.5"
           >
-            <div className="flex items-center gap-2.5 text-xl font-bold text-bad">
+            <div className="flex items-center gap-2.5 text-[20px] font-bold text-bad">
               <span aria-hidden="true" className="size-3 flex-none bg-bad" />
               {t('evening.missingTitle', { n: missing.length })}
             </div>
@@ -109,7 +109,7 @@ export function EveningPage() {
       {answered.length > 0 && (
         <>
           <div className="flex min-h-14 items-center justify-between gap-3 border-b border-rule bg-good-soft px-4 py-2">
-            <span className="text-lg font-semibold">
+            <span className="text-[18px] font-semibold">
               {notTravelling > 0
                 ? t('evening.answeredNot', { n: boarded, m: notTravelling })
                 : t('evening.answered', { n: boarded })}
@@ -127,7 +127,7 @@ export function EveningPage() {
           {showAnswered && answered.map(row)}
         </>
       )}
-      <p className="p-4 text-base">{t('evening.note')}</p>
+      <p className="p-4 text-[16px]">{t('evening.note')}</p>
     </AttendantShell>
   )
 }

@@ -49,14 +49,14 @@ export function TripLayout() {
       ) : (
         <AttendantShell header={<SimpleHeader />} mainClassName="bg-paper">
           {day.status === 'loading' && (
-            <p role="status" className="p-6 text-lg text-ink-soft">
+            <p role="status" className="p-6 text-[18px] text-ink-soft">
               {t('day.loading')}
             </p>
           )}
           {day.status === 'error' && (
             <div role="alert" className="flex flex-col items-stretch gap-4 p-4">
               <div className="flex flex-col gap-1 border border-bad bg-bad-soft p-4">
-                <p className="text-xl font-bold text-bad">{t('day.failedTitle')}</p>
+                <p className="text-[20px] font-bold text-bad">{t('day.failedTitle')}</p>
                 <p>{t('day.failedHint')}</p>
               </div>
               <button
@@ -72,7 +72,7 @@ export function TripLayout() {
           )}
           {day.status === 'noRoute' && (
             <div className="flex flex-col items-stretch gap-4 p-4">
-              <p className="border border-rule bg-panel p-4 text-xl font-bold">
+              <p className="border border-rule bg-panel p-4 text-[20px] font-bold">
                 {t('day.noRoute')}
               </p>
               <CallOffice />

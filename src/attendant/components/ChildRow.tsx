@@ -78,7 +78,7 @@ function AnswerButtonView({ button, first }: { button: AnswerButton; first: bool
       style={{ width: button.width, minHeight: ANSWER_BUTTON_MIN_HEIGHT }}
       className={`flex-none cursor-pointer border-2 ${
         button.pressed ? filled[button.tone] : 'border-rule-strong bg-panel text-ink'
-      } ${first ? 'text-[17px] font-bold' : 'text-base font-semibold'}`}
+      } ${first ? 'text-[17px] font-bold' : 'text-[16px] font-semibold'}`}
     >
       {button.label}
     </button>

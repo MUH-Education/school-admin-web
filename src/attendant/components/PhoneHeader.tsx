@@ -29,7 +29,7 @@ export function PhoneHeader({ title, subtitle, counter, backTo = '/trip' }: Phon
       </div>
       {counter && (
         <div className="flex flex-none flex-col items-end">
-          <span className="text-2xl leading-[1.1] font-bold" aria-label={counter.label}>
+          <span className="text-[24px] leading-[1.1] font-bold" aria-label={counter.label}>
             {counter.value}
           </span>
           <span className="text-[13.5px] text-side-text">{counter.label}</span>

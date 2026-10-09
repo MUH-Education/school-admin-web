@@ -113,11 +113,11 @@ export function SchoolPage() {
       <div className="grid grid-cols-2 gap-px border border-rule bg-rule">
         <div className="flex flex-col bg-panel px-4 py-3.5">
           <span className="text-[34px] leading-[1.1] font-bold">{onBus.length}</span>
-          <span className="text-base text-ink-soft">{t('school.onBus')}</span>
+          <span className="text-[16px] text-ink-soft">{t('school.onBus')}</span>
         </div>
         <div className="flex flex-col bg-panel px-4 py-3.5">
           <span className="text-[34px] leading-[1.1] font-bold">{absent.length}</span>
-          <span className="text-base text-ink-soft">{t('school.absent')}</span>
+          <span className="text-[16px] text-ink-soft">{t('school.absent')}</span>
         </div>
       </div>
 
@@ -143,7 +143,7 @@ export function SchoolPage() {
             </span>
             <span className="text-[26px] leading-tight font-bold">{t('school.bigLine2')}</span>
           </button>
-          <p className="mx-1 text-base">{t('school.note')}</p>
+          <p className="mx-1 text-[16px]">{t('school.note')}</p>
         </>
       )}
 
@@ -157,7 +157,7 @@ export function SchoolPage() {
         <div className="flex flex-col gap-1 border border-rule bg-panel px-4 py-3.5">
           <div className="text-[15px] font-semibold text-ink-soft">{t('school.absentHeading')}</div>
           {absent.map((child) => (
-            <div key={child.studentId} className="text-lg">
+            <div key={child.studentId} className="text-[18px]">
               {child.name}{' '}
               <span className="text-[15px] text-ink-soft">{classLabel(child.className, t)}</span>
             </div>

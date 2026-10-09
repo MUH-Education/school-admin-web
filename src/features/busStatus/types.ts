@@ -1,5 +1,6 @@
 // Shapes of /bus-status. docs/backend/api.md gives one route of GET /bus-status; the rest is my
 // guess (see docs/08-decisions.md, part D, 9 Oct 2026).
+import type { ChildSms } from '@/features/messages/types'
 import type { VehicleType } from '@/features/vehicles/types'
 
 /** The three choices on the switch. Without `?phase=` the server picks by the time of day. */
@@ -104,6 +105,8 @@ export interface BusChildRow {
   /** The stop name. */
   stop: string
   events: BusChildEvents
+  /** The SMS of the newest event, for the column "SMS to parent". The server applies the class rule. */
+  sms: ChildSms
 }
 
 /** The answer of GET /bus-status/routes/{routeId}. */

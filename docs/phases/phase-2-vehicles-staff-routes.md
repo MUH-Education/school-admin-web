@@ -56,7 +56,7 @@ Vehicles and staff:
 - [x] 2.8 API hooks for vehicles, staff, assignments.
 - [x] 2.9 `VehiclesPage`: attention box, vehicles table, staff table.
 - [x] 2.10 Add and edit a person (dialog).
-- [ ] 2.11 `VehicleDetailPage`: details form, papers form.
+- [x] 2.11 `VehicleDetailPage`: details form, papers form.
 - [ ] 2.12 People box with the change form (behaviour 3, 4) and the history list.
 - [ ] 2.13 `/vehicles/new` and "Remove this vehicle".
 - [ ] 2.14 Read-only mode (behaviour 5).

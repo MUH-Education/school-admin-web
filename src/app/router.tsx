@@ -67,8 +67,34 @@ export const routes: RouteObject[] = [
                   }
                 },
               },
-              placeholder('vehicles/new', 'Add a vehicle', 'VEHICLES_EDIT', 2),
-              placeholder('vehicles/:id', 'One vehicle', 'VEHICLES_VIEW', 2),
+              {
+                path: 'vehicles/new',
+                lazy: async () => {
+                  const { VehicleDetailPage } =
+                    await import('@/features/vehicles/pages/VehicleDetailPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="VEHICLES_EDIT">
+                        <VehicleDetailPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
+              {
+                path: 'vehicles/:id',
+                lazy: async () => {
+                  const { VehicleDetailPage } =
+                    await import('@/features/vehicles/pages/VehicleDetailPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="VEHICLES_VIEW">
+                        <VehicleDetailPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
               placeholder('students', 'Students', 'STUDENTS_VIEW', 3),
               placeholder('students/:id', 'One student', 'STUDENTS_VIEW', 3),
               placeholder('admissions/new', 'New admission', 'ADMISSIONS_CREATE', 3),

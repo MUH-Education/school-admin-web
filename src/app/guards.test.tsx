@@ -6,7 +6,7 @@ describe('guards and landing', () => {
     ['owner', sampleUserIds.owner, '/bus-status'],
     ['officeAdmin', sampleUserIds.officeAdmin, '/bus-status'],
     ['transport', sampleUserIds.transport, '/bus-status'],
-    ['admissions', sampleUserIds.admissions, '/enquiries'],
+    ['admissions', sampleUserIds.admissions, '/routes'],
     ['attendant', sampleUserIds.attendant, '/trip'],
   ])('lands %s on %s', async (_name, userId, expected) => {
     saveLogin(userId)

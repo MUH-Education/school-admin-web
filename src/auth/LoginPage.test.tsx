@@ -18,7 +18,7 @@ describe('login page', () => {
     expect(screen.getByText(/If this number is registered, a code was sent/)).toBeInTheDocument()
     await userEvent.type(screen.getByLabelText('6-digit code'), '000000')
     await userEvent.click(screen.getByRole('button', { name: 'Log in' }))
-    await waitFor(() => expect(router.state.location.pathname).toBe('/enquiries'))
+    await waitFor(() => expect(router.state.location.pathname).toBe('/routes'))
     expect(getToken()).toBe('mock-token-4')
   })
 
@@ -120,6 +120,6 @@ describe('login page', () => {
   it('a logged-in person who opens /login is sent on', async () => {
     saveLogin(sampleUserIds.admissions)
     const { router } = renderApp('/login')
-    await waitFor(() => expect(router.state.location.pathname).toBe('/enquiries'))
+    await waitFor(() => expect(router.state.location.pathname).toBe('/routes'))
   })
 })

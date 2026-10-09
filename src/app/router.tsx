@@ -59,6 +59,30 @@ export const routes: RouteObject[] = [
                   Component: (await import('@/attendant/pages/TodayPage')).TodayPage,
                 }),
               },
+              {
+                path: 'pickup',
+                lazy: async () => ({
+                  Component: (await import('@/attendant/pages/PickupPage')).PickupPage,
+                }),
+              },
+              {
+                path: 'school',
+                lazy: async () => ({
+                  Component: (await import('@/attendant/pages/SchoolPage')).SchoolPage,
+                }),
+              },
+              {
+                path: 'evening',
+                lazy: async () => ({
+                  Component: (await import('@/attendant/pages/EveningPage')).EveningPage,
+                }),
+              },
+              {
+                path: 'drop',
+                lazy: async () => ({
+                  Component: (await import('@/attendant/pages/DropPage')).DropPage,
+                }),
+              },
               { path: '*', element: <Navigate to="/trip" replace /> },
             ],
           },

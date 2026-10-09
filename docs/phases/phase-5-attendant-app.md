@@ -68,10 +68,10 @@ Shell and shared parts:
 Pages:
 
 - [x] 5.14 `/trip` Today: four job cards with counts, the current one highlighted, "call the office", the "no route today" state.
-- [ ] 5.15 `/trip/pickup` Morning pickup: current stop open, earlier stops as lines, next-stop button.
-- [ ] 5.16 `/trip/school` Reached school: the big button with its one confirm, the absent list, "see names one by one".
-- [ ] 5.17 `/trip/evening` Evening boarding: missing children on top, two answers, the gated bottom button.
-- [ ] 5.18 `/trip/drop` Home drop: evening stop order, "all children of this stop got off".
+- [x] 5.15 `/trip/pickup` Morning pickup: current stop open, earlier stops as lines, next-stop button.
+- [x] 5.16 `/trip/school` Reached school: the big button with its one confirm, the absent list, "see names one by one".
+- [x] 5.17 `/trip/evening` Evening boarding: missing children on top, two answers, the gated bottom button.
+- [x] 5.18 `/trip/drop` Home drop: evening stop order, "all children of this stop got off".
 - [x] 5.19 Problems list (taps the server refused) with a clear button.
 - [x] 5.20 New-day handling and the "today's list did not load" banner.
 

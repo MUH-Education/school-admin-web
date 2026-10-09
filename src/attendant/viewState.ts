@@ -168,6 +168,13 @@ export function dropStops(view: ViewState): DropStop[] {
     .filter((stop) => stop.children.length > 0)
 }
 
+/** The time of the first tap among the answers (when the bus reached the stop), or null. */
+export function firstTapTime(answers: (Answer | undefined)[]): string | null {
+  const times = answers.flatMap((a) => (a ? [a.at] : []))
+  if (times.length === 0) return null
+  return times.reduce((first, time) => (Date.parse(time) < Date.parse(first) ? time : first))
+}
+
 /** The time of the latest tap among the answers, or null. */
 export function lastTapTime(answers: (Answer | undefined)[]): string | null {
   const times = answers.flatMap((a) => (a ? [a.at] : []))

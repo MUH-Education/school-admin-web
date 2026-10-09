@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDefaultLanguage } from '@/i18n'
 import { useTrip } from '../TripContext'
@@ -16,6 +16,8 @@ interface AttendantShellProps {
   mainClassName?: string
   /** The Today page has a larger strip. */
   stripLarge?: boolean
+  /** When this changes (a new stop opens) the list goes back to the top. */
+  scrollKey?: string | number
   children: ReactNode
 }
 
@@ -29,12 +31,17 @@ export function AttendantShell({
   bottom,
   mainClassName = 'bg-panel',
   stripLarge = false,
+  scrollKey,
   children,
 }: AttendantShellProps) {
   const { i18n, t } = useTranslation()
   useDefaultLanguage('hi')
   const { sync, stale } = useTrip()
   const [showProblems, setShowProblems] = useState(false)
+  const mainRef = useRef<HTMLElement>(null)
+  useEffect(() => {
+    if (mainRef.current) mainRef.current.scrollTop = 0
+  }, [scrollKey])
 
   return (
     <div
@@ -58,7 +65,10 @@ export function AttendantShell({
         </div>
       )}
       {top}
-      <main className={`flex min-h-0 flex-1 flex-col overflow-y-auto ${mainClassName}`}>
+      <main
+        ref={mainRef}
+        className={`flex min-h-0 flex-1 flex-col overflow-y-auto ${mainClassName}`}
+      >
         {children}
       </main>
       {bottom}

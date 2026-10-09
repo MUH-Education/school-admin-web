@@ -46,6 +46,7 @@
     "close": "Close",
     "backToday": "Today's jobs",
     "somethingWrong": "Something went wrong. Try again.",
+    "saveFailed": "The tap was not saved. Press again.",
     "noNetwork": "No connection. Check the internet and try again."
   },
   "login": {
@@ -188,6 +189,7 @@
     "reached": "Got off",
     "reachedDone": "✓ Got off",
     "namesTitle": "One by one",
+    "namesCount": "{{done}} / {{total}} got off",
     "namesBack": "Back to the big button",
     "nobody": "No child is on the bus today.",
     "next": "Evening boarding ›"

@@ -69,6 +69,8 @@ test('add an enquiry, add a follow-up, start the admission, save, and see the en
   await form.getByLabel('Girl').check()
   await form.getByLabel("Father's occupation *").selectOption({ label: 'Shopkeeper or trader' })
   await form.getByLabel('No, comes on own').check()
+  await expect(form.getByLabel(/School fee for the year/)).toHaveValue('28,000')
+  await form.getByLabel('Every 3 months').check()
   await form.getByRole('button', { name: 'Save admission' }).click()
   await expect(page).toHaveURL(/\/students\/\d+$/)
 

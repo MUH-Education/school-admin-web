@@ -53,11 +53,18 @@ export function FeesBox({ studentId, canRecord = false, canCorrect = false }: Pr
   const [recording, setRecording] = useState(false)
   const [correcting, setCorrecting] = useState<FeePayment | null>(null)
   return (
-    <Panel aria-label="Fees this year" className="flex flex-col gap-3.5 px-6 pt-[22px] pb-6">
+    <Panel
+      aria-label="Fees this year"
+      className="flex flex-col gap-3.5 px-6 pt-[22px] pb-6 text-[14.5px] leading-[1.45]"
+    >
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <h2 className="text-[17px] font-semibold">Fees this year</h2>
         {fees.data?.plan && canRecord && (
-          <Button variant="secondary" className="px-4!" onClick={() => setRecording(true)}>
+          <Button
+            variant="secondary"
+            className="px-4! text-[14.5px]"
+            onClick={() => setRecording(true)}
+          >
             Record a payment
           </Button>
         )}
@@ -128,7 +135,7 @@ function FeesNumbers({
         className="flex flex-col gap-2 border-t border-rule pt-3.5"
       >
         {fees.heads.map((h) => (
-          <li key={h.head} className="flex items-center justify-between gap-3 text-sm">
+          <li key={h.head} className="flex items-center justify-between gap-3 text-[14px]">
             <span>{feeHeadLabels[h.head]}</span>
             <StatusDot tone={feeStatusTone[h.status]} plain>
               {feeStatusLabels[h.status]}
@@ -138,9 +145,9 @@ function FeesNumbers({
       </ul>
 
       <div className="flex flex-col gap-2 border-t border-rule pt-3.5">
-        <h3 className="text-sm font-semibold">Payments</h3>
+        <h3 className="text-[14px] font-semibold">Payments</h3>
         {fees.payments.length === 0 ? (
-          <p className="text-sm text-ink-soft">No payment yet.</p>
+          <p className="text-[14px] text-ink-soft">No payment yet.</p>
         ) : (
           <ul aria-label="Payments" className="flex flex-col">
             {fees.payments.map((p) => (
@@ -162,7 +169,7 @@ function PaymentLine({
 }) {
   const isCorrection = p.correctionOf !== null
   return (
-    <li className="flex flex-col gap-1 border-t border-rule py-[9px] text-sm first:border-t-0">
+    <li className="flex flex-col gap-1 border-t border-rule py-[9px] text-[14px] first:border-t-0">
       <div className="grid grid-cols-[88px_minmax(0,1fr)_auto] items-baseline gap-x-3.5 gap-y-1">
         <span className="font-mono text-[12.5px] text-ink-soft">{formatDate(p.paidOn)}</span>
         <span>

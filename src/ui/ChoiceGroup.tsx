@@ -13,6 +13,8 @@ interface ChoiceGroupProps<Value extends string> {
   disabled?: boolean
   /** Big boxes in a grid, 52px high, for the roomy forms (Add an enquiry). */
   roomy?: boolean
+  /** Content-sized boxes with 16px words, as in part 4 (Fees) of the Admission design. */
+  large?: boolean
 }
 
 /** Big boxes with a round button each. Example: "Only till 16 Oct" or "From now on". */
@@ -23,11 +25,12 @@ export function ChoiceGroup<Value extends string>({
   onChange,
   disabled,
   roomy = false,
+  large = false,
 }: ChoiceGroupProps<Value>) {
   const name = useId()
   return (
     <fieldset className="m-0 border-0 p-0">
-      <legend className={`mb-2.5 p-0 font-semibold ${roomy ? 'text-[15px]' : 'text-sm'}`}>
+      <legend className={`mb-2.5 p-0 font-semibold ${roomy || large ? 'text-[15px]' : 'text-sm'}`}>
         {legend}
       </legend>
       <div
@@ -43,9 +46,11 @@ export function ChoiceGroup<Value extends string>({
             <label
               key={choice.value}
               className={`flex cursor-pointer items-center gap-3 py-0 ${
-                roomy
-                  ? 'box-content min-h-[52px] px-4 text-base'
-                  : 'min-h-12 pr-[18px] pl-3.5 text-[15px]'
+                large
+                  ? 'box-content min-h-12 pr-5 pl-4 text-[16px]'
+                  : roomy
+                    ? 'box-content min-h-[52px] px-4 text-base'
+                    : 'min-h-12 pr-[18px] pl-3.5 text-[15px]'
               } ${
                 selected
                   ? 'border-2 border-canal bg-canal-soft font-semibold'

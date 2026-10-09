@@ -64,19 +64,22 @@ export function FeesSection({ form }: { form: UseFormReturn<AdmissionValues> }) 
     <FormSection
       title="4. Fees"
       description="What this family will pay in the year, and what they paid today."
+      roomy
+      className="text-[15px] leading-[1.45]"
     >
       <FormGrid>
         <Field
           label="School fee for the year (₹) *"
           hint={schoolHint}
           error={errors.schoolFee?.message}
+          roomy
         >
           <Controller
             control={control}
             name="schoolFee"
             render={({ field }) => (
               <MoneyInput
-                className="font-mono"
+                className="px-3.5! font-mono"
                 value={field.value}
                 onValueChange={field.onChange}
                 onBlur={field.onBlur}
@@ -89,13 +92,14 @@ export function FeesSection({ form }: { form: UseFormReturn<AdmissionValues> }) 
             label="Bus fee for the year (₹)"
             hint="Filled because the child uses the bus."
             error={errors.busFee?.message}
+            roomy
           >
             <Controller
               control={control}
               name="busFee"
               render={({ field }) => (
                 <MoneyInput
-                  className="font-mono"
+                  className="px-3.5! font-mono"
                   value={field.value}
                   onValueChange={field.onChange}
                   onBlur={field.onBlur}
@@ -110,7 +114,7 @@ export function FeesSection({ form }: { form: UseFormReturn<AdmissionValues> }) 
             name="discount"
             render={({ field }) => (
               <MoneyInput
-                className="font-mono"
+                className="px-3.5! font-mono"
                 value={field.value}
                 onValueChange={field.onChange}
                 onBlur={field.onBlur}
@@ -119,7 +123,7 @@ export function FeesSection({ form }: { form: UseFormReturn<AdmissionValues> }) 
           />
         </Field>
         <Field label="Reason for discount" error={errors.discountReason?.message}>
-          <Select {...register('discountReason')}>
+          <Select className="px-3.5!" {...register('discountReason')}>
             <option value="">No discount</option>
             {discountReasons.map((reason) => (
               <option key={reason} value={reason}>
@@ -139,6 +143,7 @@ export function FeesSection({ form }: { form: UseFormReturn<AdmissionValues> }) 
               legend="The family will pay *"
               value={field.value as Frequency}
               onChange={field.onChange}
+              large
               choices={frequencies.map((value) => ({ value, label: frequencyLabels[value] }))}
             />
           )}
@@ -152,8 +157,8 @@ export function FeesSection({ form }: { form: UseFormReturn<AdmissionValues> }) 
 
       <div className="h-px bg-rule" />
       <div className="flex flex-col gap-1">
-        <h3 className="text-base font-semibold">First payment, received today</h3>
-        <p className="text-sm text-ink-soft">Leave empty if the family pays later.</p>
+        <h3 className="text-[16px] font-semibold">First payment, received today</h3>
+        <p className="text-[14px] text-ink-soft">Leave empty if the family pays later.</p>
       </div>
       <FormGrid>
         <Field label="Amount received (₹)" error={errors.firstPaymentAmount?.message}>
@@ -162,7 +167,7 @@ export function FeesSection({ form }: { form: UseFormReturn<AdmissionValues> }) 
             name="firstPaymentAmount"
             render={({ field }) => (
               <MoneyInput
-                className="font-mono"
+                className="px-3.5! font-mono"
                 value={field.value}
                 onValueChange={field.onChange}
                 onBlur={field.onBlur}
@@ -171,7 +176,7 @@ export function FeesSection({ form }: { form: UseFormReturn<AdmissionValues> }) 
           />
         </Field>
         <Field label="Paid by" error={errors.firstPaymentMode?.message}>
-          <Select {...register('firstPaymentMode')}>
+          <Select className="px-3.5!" {...register('firstPaymentMode')}>
             {payModes.map((mode) => (
               <option key={mode} value={mode}>
                 {payModeLabels[mode]}

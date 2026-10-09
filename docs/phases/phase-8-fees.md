@@ -78,7 +78,7 @@ Do not start this phase before the owner has answered backend question C2 (does 
 - [x] 8.10 "Fee" column on Students (behaviour 15).
 - [x] 8.11 Fee setup page and its menu item for the owner (behaviour 16).
 - [x] 8.12 Refresh fees after a bus change (behaviour 17).
-- [ ] 8.13 Playwright flow: admit with ₹30,000 + ₹8,800 quarterly and ₹9,700 paid; open the student; see still to pay ₹29,100; record ₹9,700; see ₹19,400.
+- [x] 8.13 Playwright flow: admit with ₹30,000 + ₹8,800 quarterly and ₹9,700 paid; open the student; see still to pay ₹29,100; record ₹9,700; see ₹19,400.
 - [ ] 8.14 **Switch to the real backend** (needs backend Phase 7).
 
 ## Tests that must pass

@@ -8,6 +8,8 @@ interface FormSectionProps {
   label?: string
   /** The roomy forms: the description is 14px on the page's own line height. */
   roomy?: boolean
+  /** Extra classes on the box, for example `text-[15px] leading-[1.45]` (the Admission design). */
+  className?: string
   children: ReactNode
 }
 
@@ -17,12 +19,13 @@ export function FormSection({
   description,
   label,
   roomy = false,
+  className = '',
   children,
 }: FormSectionProps) {
   return (
     <section
       aria-label={label ?? title}
-      className="flex flex-col gap-6 border border-rule bg-panel px-8 pt-7 pb-8"
+      className={`flex flex-col gap-6 border border-rule bg-panel px-8 pt-7 pb-8 ${className}`}
     >
       <div className="flex flex-col gap-1">
         <h2 className="text-[19px] font-semibold">{title}</h2>

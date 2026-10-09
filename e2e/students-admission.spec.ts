@@ -28,6 +28,9 @@ test('admit a child with no bus, start the bus from a later date, add a phone nu
   await form.getByLabel("Father's occupation *").selectOption({ label: 'Shopkeeper or trader' })
   await form.getByLabel('Village or locality *').fill('Tohana town')
   await form.getByLabel('No, comes on own').check()
+  // Part 4: the school fee comes from the class; the family says how often it pays.
+  await expect(form.getByLabel(/School fee for the year/)).toHaveValue('26,000')
+  await form.getByLabel('Every 3 months').check()
   await form.getByRole('button', { name: 'Save admission' }).click()
 
   // The new child's page opens, with the toast and the number.

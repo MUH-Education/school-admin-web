@@ -27,7 +27,7 @@ export function FeeSummary({ control }: { control: Control<AdmissionValues> }) {
   return (
     <aside
       aria-label="Fee summary"
-      className="box-border flex min-w-0 flex-[1_1_300px] flex-col gap-4 border border-t-[3px] border-rule border-t-ink bg-panel px-6 pt-6 pb-[26px]"
+      className="box-border flex min-w-0 flex-[1_1_300px] flex-col gap-4 text-[15px] leading-[1.45] border border-t-[3px] border-rule border-t-ink bg-panel px-6 pt-6 pb-[26px]"
     >
       <div className="flex flex-col gap-1">
         <h2 className="text-[17px] font-semibold">Fee summary</h2>
@@ -41,7 +41,7 @@ export function FeeSummary({ control }: { control: Control<AdmissionValues> }) {
       <div className="h-0.5 bg-ink" />
       <div className="flex items-baseline justify-between gap-3">
         <span className="text-[15px] font-semibold">Total for the year</span>
-        <span className={`${mono} text-2xl font-semibold`}>{formatInr(preview.total)}</span>
+        <span className={`${mono} text-[24px] font-semibold`}>{formatInr(preview.total)}</span>
       </div>
       <div className="flex flex-col gap-3 text-[15px]">
         <Line label="Paid today" value={formatInr(preview.paidToday)} />

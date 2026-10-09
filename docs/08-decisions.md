@@ -12,6 +12,8 @@ This file is the memory of the web project. When something is decided, write one
 | A4 | Login is phone number and OTP. No passwords. | 7 Oct 2026 |
 | A5 | No parent app and no parent pages. | 7 Oct 2026 |
 | A6 | The attendant app is in Hindi, with big buttons. | 7 Oct 2026 |
+| A7 | Backend question C2 (phase file 8): **yes, the accountant already keeps the fees elsewhere.** In the first phases this app only keeps a record of fees (plans, payments, receipt numbers). It does not replace the accountant's books. | 9 Oct 2026 |
+| A8 | Web question C2 ("Call attendant" on Bus status): show the attendant's **phone number** only. The API must send `attendantPhone` first (backend repo). Not built in web phase 8; it is a later small change on Bus status. | 9 Oct 2026 |
 
 ## B. Decided while planning (change any of these if you disagree)
 
@@ -41,7 +43,7 @@ This file is the memory of the web project. When something is decided, write one
 | # | Question | Needed by | Until answered |
 |---|---|---|---|
 | C1 | The M1 Login design shows username and password. Should the design canvas be updated to phone and OTP? | Phase 1 | Build phone and OTP in the look of M1. |
-| C2 | "Call attendant" on Bus status needs the attendant's phone number. The API does not give it. Add `attendantPhone` to the bus status answer in the backend? | Phase 4 | Show the attendant's name only. |
+| C2 | "Call attendant" on Bus status needs the attendant's phone number. The API does not give it. Add `attendantPhone` to the bus status answer in the backend? | Phase 4 | Show the attendant's name only. **Answered 9 Oct 2026: see A8.** |
 | C3 | "ऑफ़िस को फ़ोन करें" needs the office phone number. Add a setting `school.office_phone` in the backend? | Phase 5 | Read it from `VITE_OFFICE_PHONE`. |
 | C4 | Screens with no design (Login, Messages, One enquiry, small dialogs): is a plain version in the same style enough? | Phases 1, 6, 7 | Yes, plain. |
 | C5 | Where does the owner set the school fee per class? The API exists; no screen is designed. | Phase 8 | A small page "Fee setup" under Settings, owner only. |

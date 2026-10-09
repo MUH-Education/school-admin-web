@@ -46,10 +46,10 @@ Mock first:
 
 Shared components:
 
-- [ ] 2.4 `TileRow`, `Tile`.
-- [ ] 2.5 `DateInput`, `MoneyInput`, `ChoiceGroup`.
-- [ ] 2.6 `InlineForm`, `HistoryList`.
-- [ ] 2.7 `SeatMeter` with tests for under, exactly full, and over.
+- [x] 2.4 `TileRow`, `Tile`.
+- [x] 2.5 `DateInput`, `MoneyInput`, `ChoiceGroup`.
+- [x] 2.6 `InlineForm`, `HistoryList`.
+- [x] 2.7 `SeatMeter` with tests for under, exactly full, and over.
 
 Vehicles and staff:
 

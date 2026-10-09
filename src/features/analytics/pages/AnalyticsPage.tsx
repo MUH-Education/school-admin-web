@@ -1,5 +1,6 @@
 import {
   useAnalyticsStudents,
+  useDownloadStudents,
   useAnalyticsSummary,
   useFeeCollectionByMonth,
   usePaymentByOccupation,
@@ -14,7 +15,9 @@ import { StudentsListSection } from '../components/StudentsListSection'
 import { SummaryTiles } from '../components/SummaryTiles'
 import { VillagePanel } from '../components/VillagePanel'
 import { useAnalyticsFilters } from '../useAnalyticsFilters'
+import { Button } from '@/ui/Button'
 import { PageHeader } from '@/ui/PageHeader'
+import { useToast } from '@/ui/useToast'
 
 /**
  * Analytics: six filters, five tiles, four charts and a list of students. Every call gets the same
@@ -31,6 +34,16 @@ export function AnalyticsPage() {
   const villages = useStudentsByVillage(filters)
   const students = useAnalyticsStudents(filters, controls.table)
 
+  const download = useDownloadStudents()
+  const toast = useToast()
+
+  function downloadList() {
+    download.mutate(
+      { filters, table: controls.table },
+      { onError: () => toast.show('The file could not be made. Try again.') },
+    )
+  }
+
   const noStudents = summary.data?.students === 0
 
   return (
@@ -40,6 +53,16 @@ export function AnalyticsPage() {
         title="Analytics"
         description="Choose filters. Every graph and the list at the bottom follow the same filters. Nothing is typed here. The data comes from the admission form and fee payments."
         descriptionWidth={620}
+        action={
+          <Button
+            variant="outline"
+            saving={download.isPending}
+            savingLabel="Preparing…"
+            onClick={downloadList}
+          >
+            Download as Excel
+          </Button>
+        }
       />
       <AnalyticsFilterBar
         filters={filters}

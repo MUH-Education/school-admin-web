@@ -85,3 +85,23 @@ export async function apiBlob(path: string): Promise<Blob> {
   const response = await send('GET', path, { accept: '*/*' })
   return response.blob()
 }
+
+/** The file name the server suggests in `Content-Disposition: attachment; filename="students.csv"`. */
+function filenameOf(header: string | null): string | null {
+  const match = header ? /filename\*?=(?:UTF-8'')?"?([^";]+)"?/i.exec(header) : null
+  const name = match?.[1] ? decodeURIComponent(match[1]).trim() : ''
+  // Only a plain name: the server cannot choose a folder on the laptop.
+  return name && !/[\\/]/.test(name) ? name : null
+}
+
+/**
+ * Fetches a file that is to be saved, for example the student list for Excel. The token goes in the
+ * header, never in the address. `filename` is the name the server suggests, or null.
+ */
+export async function apiFile(path: string): Promise<{ blob: Blob; filename: string | null }> {
+  const response = await send('GET', path, { accept: '*/*' })
+  return {
+    blob: await response.blob(),
+    filename: filenameOf(response.headers.get('Content-Disposition')),
+  }
+}

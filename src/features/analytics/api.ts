@@ -1,5 +1,7 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import { api } from '@/api/client'
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
+import { api, apiFile } from '@/api/client'
+import { todayIso } from '@/lib/format'
+import { saveFile } from '@/lib/saveFile'
 import type {
   AnalyticsFilters,
   AnalyticsStudentPage,
@@ -74,3 +76,19 @@ export const useStudentsByVillage = (filters: AnalyticsFilters) =>
 /** One page of the table, in the order asked for. */
 export const useAnalyticsStudents = (filters: AnalyticsFilters, table: TableState) =>
   useAnalytics<AnalyticsStudentPage>('students', filters, tableQuery(table))
+
+/**
+ * "Download as Excel": the whole filtered list (not one page) in the order of the screen. The file
+ * is fetched with the token in the header, then saved under the name the server suggests, or
+ * students-<today>.csv.
+ */
+export function useDownloadStudents() {
+  return useMutation({
+    mutationFn: async ({ filters, table }: { filters: AnalyticsFilters; table: TableState }) => {
+      const { blob, filename } = await apiFile(
+        `/analytics/students.csv${analyticsQuery(filters, { sort: table.sort, dir: table.dir })}`,
+      )
+      saveFile(blob, filename ?? `students-${todayIso()}.csv`)
+    },
+  })
+}

@@ -3,6 +3,8 @@ export interface ApiErrorBody {
   message?: string
   fields?: Record<string, string>
   retryAfterSeconds?: number
+  /** ENQUIRY_EXISTS names the old enquiry. */
+  enquiryId?: number
 }
 
 /** Every failed API call becomes one of these. */
@@ -11,6 +13,7 @@ export class ApiError extends Error {
   code: string
   fields: Record<string, string>
   retryAfterSeconds?: number
+  enquiryId?: number
 
   constructor(
     status: number,
@@ -18,6 +21,7 @@ export class ApiError extends Error {
     message: string,
     fields: Record<string, string> = {},
     retryAfterSeconds?: number,
+    enquiryId?: number,
   ) {
     super(message)
     this.name = 'ApiError'
@@ -25,6 +29,7 @@ export class ApiError extends Error {
     this.code = code
     this.fields = fields
     this.retryAfterSeconds = retryAfterSeconds
+    this.enquiryId = enquiryId
   }
 
   static fromBody(status: number, body: ApiErrorBody | null): ApiError {
@@ -34,6 +39,7 @@ export class ApiError extends Error {
       body?.message ?? 'Something went wrong. Try again.',
       body?.fields ?? {},
       body?.retryAfterSeconds,
+      body?.enquiryId,
     )
   }
 

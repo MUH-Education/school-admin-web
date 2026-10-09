@@ -56,9 +56,9 @@ This phase needs only web Phase 1. You can do it earlier if you like.
 
 ## Tasks
 
-- [ ] 7.1 Types: `Enquiry`, `EnquiryStatus`, `EnquirySource`, `FollowUp`, `EnquirySummary`, with labels.
-- [ ] 7.2 Mock data: 29 enquiries across the stages, 4 overdue, some follow-ups.
-- [ ] 7.3 Mock handlers with filters, the stage rules, `ENQUIRY_EXISTS`, and prefill.
+- [x] 7.1 Types: `Enquiry`, `EnquiryStatus`, `EnquirySource`, `FollowUp`, `EnquirySummary`, with labels.
+- [x] 7.2 Mock data: 29 enquiries across the stages, 4 overdue, some follow-ups.
+- [x] 7.3 Mock handlers with filters, the stage rules, `ENQUIRY_EXISTS`, and prefill.
 - [ ] 7.4 API hooks.
 - [ ] 7.5 `EnquiriesPage`: tiles, overdue box, filters, table (behaviour 1 to 5).
 - [ ] 7.6 `EnquiryForm` shared by add and edit, with its Zod schema (behaviour 6 to 8).

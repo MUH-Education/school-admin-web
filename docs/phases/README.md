@@ -14,8 +14,8 @@ Change the Status column as you go: **Not started** → **In progress** → **Do
 | 3 | [Students and admission](phase-3-students-admission.md) | Students, One student, New admission | 3 | L | Done |
 | 4 | [Bus status](phase-4-bus-status.md) | Bus status, One bus | 4 | M | Done |
 | 5 | [Attendant app](phase-5-attendant-app.md) | The five phone pages, offline, installable | 4 | L | Done |
-| 6 | [Messages](phase-6-messages.md) | Messages, SMS column on One bus | 5 | S | In progress |
-| 7 | [Enquiries](phase-7-enquiries.md) | Enquiry list, Add an enquiry, One enquiry | 6 | M | Not started |
+| 6 | [Messages](phase-6-messages.md) | Messages, SMS column on One bus | 5 | S | Done |
+| 7 | [Enquiries](phase-7-enquiries.md) | Enquiry list, Add an enquiry, One enquiry | 6 | M | In progress |
 | 8 | [Fees](phase-8-fees.md) | Fees in admission and on the student page, Fee setup | 7 | M | Not started |
 | 9 | [Analytics](phase-9-analytics.md) | Analytics | 8 | M | Not started |
 | 10 | [Go live](phase-10-go-live.md) | Everything on the real backend, on the real address | all | M | Not started |

@@ -25,6 +25,8 @@ export interface AdmissionRequest {
   usesBus: boolean
   routeId?: number
   stopId?: number
+  /** The enquiry this admission came from. The server marks it Admitted. */
+  enquiryId?: number
 }
 
 /** The answer of POST /admissions. */

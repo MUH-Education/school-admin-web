@@ -1,14 +1,17 @@
 import { useSearchParams } from 'react-router'
 import { usePermissions } from '@/auth/usePermissions'
+import { useVehicles } from '@/features/vehicles/api'
 import { EmptyState } from '@/ui/EmptyState'
 import { ErrorState } from '@/ui/ErrorState'
 import { LoadingBlock } from '@/ui/LoadingBlock'
 import { PageHeader } from '@/ui/PageHeader'
-import { useLoadBoard, useSettings } from '../api'
+import { useLoadBoard, useRoute, useSettings } from '../api'
 import { FleetTiles } from '../components/FleetTiles'
 import { RouteList } from '../components/RouteList'
+import { RoutePanel } from '../components/RoutePanel'
 import { SettingsRow } from '../components/SettingsRow'
 import { sessionLabel } from '../loadMath'
+import type { LoadBoardRow } from '../types'
 
 /** The selected route is in the address: /routes?route=4 */
 function useSelectedRoute(): [number | null, (id: number) => void] {
@@ -75,7 +78,62 @@ export function RoutesPage() {
       )}
       <div className="flex flex-wrap items-start gap-6">
         <RouteList rows={board.data} selectedId={selectedId} onSelect={select} />
+        <SelectedRoute
+          routeId={board.data.some((r) => r.routeId === selectedId) ? selectedId : null}
+          rows={board.data}
+          canEdit={can('ROUTES_EDIT')}
+        />
       </div>
     </>
+  )
+}
+
+/** The right side. It loads the selected route with its stops. */
+function SelectedRoute({
+  routeId,
+  rows,
+  canEdit,
+}: {
+  routeId: number | null
+  rows: LoadBoardRow[]
+  canEdit: boolean
+}) {
+  const route = useRoute(routeId)
+  const vehicles = useVehicles()
+  if (routeId === null) {
+    return (
+      <section aria-label="Route details" className="min-w-0 flex-[1.3_1_460px]">
+        <EmptyState title="Pick a route" hint="Press a route on the left to see its stops." />
+      </section>
+    )
+  }
+  if (route.isPending || vehicles.isPending) {
+    return (
+      <section aria-label="Route details" className="min-w-0 flex-[1.3_1_460px]">
+        <LoadingBlock label="Loading route…" />
+      </section>
+    )
+  }
+  if (route.isError || vehicles.isError) {
+    return (
+      <section aria-label="Route details" className="min-w-0 flex-[1.3_1_460px]">
+        <ErrorState
+          error={route.error ?? vehicles.error}
+          onRetry={() => {
+            void route.refetch()
+            void vehicles.refetch()
+          }}
+        />
+      </section>
+    )
+  }
+  return (
+    <RoutePanel
+      key={route.data.id}
+      route={route.data}
+      vehicles={vehicles.data}
+      numbers={rows.find((r) => r.routeId === route.data.id)}
+      canEdit={canEdit}
+    />
   )
 }

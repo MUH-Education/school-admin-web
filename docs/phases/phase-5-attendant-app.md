@@ -45,45 +45,45 @@ All of `docs/07-attendant-offline.md`. The most important points:
 
 Foundations:
 
-- [ ] 5.1 i18n setup; `hi.json` and `en.json` with every text from the six designs and the strings in `docs/07-attendant-offline.md`. Language button and saved choice.
-- [ ] 5.2 Login page: Hindi texts, the "हिंदी / English" button.
-- [ ] 5.3 Types: `Manifest`, `ManifestStop`, `ManifestChild`, `Tap`, `MarkResult`, `MyRoute`.
-- [ ] 5.4 Mock data and handlers: Route 4's manifest for the fixed day; `POST /trips/marks` that applies the server rules (same tap twice saved once, older tap ignored, `NOT_YOUR_ROUTE` for a child of another route).
+- [x] 5.1 i18n setup; `hi.json` and `en.json` with every text from the six designs and the strings in `docs/07-attendant-offline.md`. Language button and saved choice.
+- [x] 5.2 Login page: Hindi texts, the "हिंदी / English" button.
+- [x] 5.3 Types: `Manifest`, `ManifestStop`, `ManifestChild`, `Tap`, `MarkResult`, `MyRoute`.
+- [x] 5.4 Mock data and handlers: Route 4's manifest for the fixed day; `POST /trips/marks` that applies the server rules (same tap twice saved once, older tap ignored, `NOT_YOUR_ROUTE` for a child of another route).
 
 Offline core (pure TypeScript, no React, fully unit-tested):
 
-- [ ] 5.5 `tapStore`: IndexedDB stores `manifest`, `tapQueue`, `tapProblems` with `idb`.
-- [ ] 5.6 `addTap(...)`: builds the tap with the phone's time, replaces an unsent tap for the same child and event, writes it.
-- [ ] 5.7 `viewState(manifest, queue)`: the pure function that gives each child's shown answer and the counts.
-- [ ] 5.8 `syncOnce()`: the loop of `docs/07-attendant-offline.md`. One run at a time.
-- [ ] 5.9 `useSync()`: starts `syncOnce` on a new tap, on `online`, on app focus, and every 20 seconds while taps wait. Gives `{ waiting, problems, online }` to the UI.
+- [x] 5.5 `tapStore`: IndexedDB stores `manifest`, `tapQueue`, `tapProblems` with `idb`.
+- [x] 5.6 `addTap(...)`: builds the tap with the phone's time, replaces an unsent tap for the same child and event, writes it.
+- [x] 5.7 `viewState(manifest, queue)`: the pure function that gives each child's shown answer and the counts.
+- [x] 5.8 `syncOnce()`: the loop of `docs/07-attendant-offline.md`. One run at a time.
+- [x] 5.9 `useSync()`: starts `syncOnce` on a new tap, on `online`, on app focus, and every 20 seconds while taps wait. Gives `{ waiting, problems, online }` to the UI.
 
 Shell and shared parts:
 
-- [ ] 5.10 `AttendantShell`: top bar (back, title, count), sending strip, bottom button area. `font-hindi`.
-- [ ] 5.11 `ChildRow` with one or two answer buttons, at least 52px high.
-- [ ] 5.12 `SendingStrip` with the four states.
-- [ ] 5.13 `StopHeader`, `DoneStopLine`.
+- [x] 5.10 `AttendantShell`: top bar (back, title, count), sending strip, bottom button area. `font-hindi`.
+- [x] 5.11 `ChildRow` with one or two answer buttons, at least 52px high.
+- [x] 5.12 `SendingStrip` with the four states.
+- [x] 5.13 `StopHeader`, `DoneStopLine`.
 
 Pages:
 
-- [ ] 5.14 `/trip` Today: four job cards with counts, the current one highlighted, "call the office", the "no route today" state.
-- [ ] 5.15 `/trip/pickup` Morning pickup: current stop open, earlier stops as lines, next-stop button.
-- [ ] 5.16 `/trip/school` Reached school: the big button with its one confirm, the absent list, "see names one by one".
-- [ ] 5.17 `/trip/evening` Evening boarding: missing children on top, two answers, the gated bottom button.
-- [ ] 5.18 `/trip/drop` Home drop: evening stop order, "all children of this stop got off".
-- [ ] 5.19 Problems list (taps the server refused) with a clear button.
-- [ ] 5.20 New-day handling and the "today's list did not load" banner.
+- [x] 5.14 `/trip` Today: four job cards with counts, the current one highlighted, "call the office", the "no route today" state.
+- [x] 5.15 `/trip/pickup` Morning pickup: current stop open, earlier stops as lines, next-stop button.
+- [x] 5.16 `/trip/school` Reached school: the big button with its one confirm, the absent list, "see names one by one".
+- [x] 5.17 `/trip/evening` Evening boarding: missing children on top, two answers, the gated bottom button.
+- [x] 5.18 `/trip/drop` Home drop: evening stop order, "all children of this stop got off".
+- [x] 5.19 Problems list (taps the server refused) with a clear button.
+- [x] 5.20 New-day handling and the "today's list did not load" banner.
 
 Install and offline shell:
 
-- [ ] 5.21 `vite-plugin-pwa`: manifest (name "स्कूल बस", start URL `/trip`, standalone, icons), service worker that keeps the app files and fonts, no API caching.
-- [ ] 5.22 The "new version" bar. No automatic reload.
-- [ ] 5.23 Code splitting check: opening `/trip` on a fresh browser does not download any admin chunk.
+- [x] 5.21 `vite-plugin-pwa`: manifest (name "स्कूल बस", start URL `/trip`, standalone, icons), service worker that keeps the app files and fonts, no API caching.
+- [x] 5.22 The "new version" bar. No automatic reload.
+- [x] 5.23 Code splitting check: opening `/trip` on a fresh browser does not download any admin chunk.
 
 Finish:
 
-- [ ] 5.24 Playwright flows from `docs/07-attendant-offline.md` (offline taps survive a reload; they are sent with the original times when online).
+- [x] 5.24 Playwright flows from `docs/07-attendant-offline.md` (offline taps survive a reload; they are sent with the original times when online).
 - [ ] 5.25 Try it on a real low-cost Android phone on mobile data: install to the home screen, switch on flight mode, tap, switch off, watch the strip turn green.
 - [ ] 5.26 **Switch to the real backend** (needs backend Phase 4). Log in as an attendant of the dev data and tap a morning.
 

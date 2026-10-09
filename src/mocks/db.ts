@@ -19,6 +19,7 @@ import {
   type MockHistory,
   type MockStudent,
 } from './data/students'
+import type { MockTapRecord } from './data/trips'
 import { sampleUsers, type MockUser } from './data/users'
 
 export interface MockPhoto {
@@ -48,6 +49,8 @@ export const db = {
   enrolments: [] as MockEnrolment[],
   history: [] as MockHistory[],
   photos: new Map<number, MockPhoto>(),
+  /** Taps the phone app sent to POST /trips/marks. The morning picture of Route 4 is not in here. */
+  tripTaps: [] as MockTapRecord[],
   nextStudentId: 1000,
   nextGuardianId: 1000,
   nextEnrolmentId: 1000,
@@ -75,6 +78,7 @@ export function resetMockDb(): void {
   db.enrolments = sampleStudentData.enrolments.map((x) => ({ ...x }))
   db.history = sampleStudentData.history.map((x) => ({ ...x }))
   db.photos = new Map([[2, samplePhoto()]])
+  db.tripTaps = []
   db.nextStudentId = 1000
   db.nextGuardianId = 1000
   db.nextEnrolmentId = 1000

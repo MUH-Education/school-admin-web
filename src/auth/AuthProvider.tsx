@@ -1,10 +1,30 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { api, getToken, setToken, setUnauthorizedHandler } from '@/api/client'
+import { ApiError } from '@/api/errors'
 import { AuthContext, type AuthState } from './AuthContext'
+import { clearSavedUser, getSavedUser, saveUser } from './savedUser'
 import type { AuthUser, LoginResponse } from './types'
 
 const ME_KEY = ['auth', 'me']
+
+/**
+ * GET /auth/me. With no network, the last answer is used (the token is still checked by the server
+ * on the first call that has network). Any other failure, for example 401, is a real failure.
+ */
+async function loadMe(): Promise<AuthUser> {
+  try {
+    const user = await api<AuthUser>('GET', '/auth/me')
+    void saveUser(user)
+    return user
+  } catch (error) {
+    if (error instanceof ApiError && error.code === 'NETWORK') {
+      const saved = await getSavedUser()
+      if (saved) return saved
+    }
+    throw error
+  }
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient()
@@ -13,13 +33,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const me = useQuery({
     queryKey: ME_KEY,
-    queryFn: () => api<AuthUser>('GET', '/auth/me'),
+    queryFn: loadMe,
     enabled: token !== null,
     retry: false,
     staleTime: Infinity,
+    // The phone app must open with no network, so the question is asked also when offline.
+    networkMode: 'always',
   })
 
   const clearSession = useCallback(() => {
+    void clearSavedUser()
     setToken(null)
     setTokenState(null)
     queryClient.clear()
@@ -37,6 +60,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setToken(response.token)
       setTokenState(response.token)
       queryClient.setQueryData(ME_KEY, response.user)
+      void saveUser(response.user)
     },
     [queryClient],
   )

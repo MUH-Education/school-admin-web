@@ -10,6 +10,7 @@ import {
   formatLoad,
   formatLongDate,
   formatTime,
+  isoWithOffset,
   maskPhone,
 } from './format'
 
@@ -74,5 +75,14 @@ describe('bus screen times', () => {
   })
   it('writes the day with its weekday', () => {
     expect(formatWeekdayDate('2026-10-07')).toBe('Wednesday 7 October 2026')
+  })
+})
+
+describe('isoWithOffset', () => {
+  it('writes the phone time with the Indian offset, on any laptop', () => {
+    expect(isoWithOffset(new Date('2026-10-07T02:12:10Z'))).toBe('2026-10-07T07:42:10+05:30')
+  })
+  it('moves to the next day after 18:30 UTC', () => {
+    expect(isoWithOffset(new Date('2026-10-07T19:00:00Z'))).toBe('2026-10-08T00:30:00+05:30')
   })
 })

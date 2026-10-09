@@ -1,10 +1,9 @@
-import { createBrowserRouter, Outlet, type RouteObject } from 'react-router'
+import { createBrowserRouter, Navigate, Outlet, type RouteObject } from 'react-router'
 import type { Permission } from '@/auth/types'
-import { AdminShell } from './AdminShell'
 import { CannotOpenPage, RequireLogin, RequirePermission } from './guards'
 import { Landing } from './Landing'
 import { NotFoundPage } from './NotFoundPage'
-import { Placeholder, TripPlaceholder } from './Placeholder'
+import { Placeholder } from './Placeholder'
 import { Root } from './Root'
 
 /** A page that needs a permission and is built in a later phase. */
@@ -41,15 +40,53 @@ export const routes: RouteObject[] = [
         children: [
           { index: true, element: <Landing /> },
           {
-            path: 'trip/*',
-            element: (
-              <RequirePermission permission="TRIPS_RECORD">
-                <TripPlaceholder />
-              </RequirePermission>
-            ),
+            path: 'trip',
+            lazy: async () => {
+              const { TripLayout } = await import('@/attendant/pages/TripLayout')
+              return {
+                Component: () => (
+                  <RequirePermission permission="TRIPS_RECORD">
+                    <TripLayout />
+                  </RequirePermission>
+                ),
+              }
+            },
+            children: [
+              {
+                index: true,
+                lazy: async () => ({
+                  Component: (await import('@/attendant/pages/TodayPage')).TodayPage,
+                }),
+              },
+              {
+                path: 'pickup',
+                lazy: async () => ({
+                  Component: (await import('@/attendant/pages/PickupPage')).PickupPage,
+                }),
+              },
+              {
+                path: 'school',
+                lazy: async () => ({
+                  Component: (await import('@/attendant/pages/SchoolPage')).SchoolPage,
+                }),
+              },
+              {
+                path: 'evening',
+                lazy: async () => ({
+                  Component: (await import('@/attendant/pages/EveningPage')).EveningPage,
+                }),
+              },
+              {
+                path: 'drop',
+                lazy: async () => ({
+                  Component: (await import('@/attendant/pages/DropPage')).DropPage,
+                }),
+              },
+              { path: '*', element: <Navigate to="/trip" replace /> },
+            ],
           },
           {
-            Component: AdminShell,
+            lazy: async () => ({ Component: (await import('./AdminShell')).AdminShell }),
             children: [
               {
                 path: 'bus-status',

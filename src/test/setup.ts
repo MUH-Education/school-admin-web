@@ -1,12 +1,30 @@
 import '@testing-library/jest-dom/vitest'
+import 'fake-indexeddb/auto'
 import { cleanup } from '@testing-library/react'
+import { resetLocalState } from '@/attendant/localState'
+import { resetPhoneDb } from '@/attendant/phoneDb'
+import { i18n } from '@/i18n'
 import { resetMockDb } from '@/mocks/db'
 import { server } from '@/mocks/server'
 
+// There is no service worker in tests. The phone pages ask for one, so give them a quiet stand-in.
+vi.mock('virtual:pwa-register/react', () => ({
+  useRegisterSW: () => ({
+    needRefresh: [false, () => {}],
+    offlineReady: [false, () => {}],
+    updateServiceWorker: async () => {},
+  }),
+}))
+
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
-afterEach(() => {
+afterEach(async () => {
   cleanup()
+  vi.useRealTimers()
+  vi.restoreAllMocks()
   localStorage.clear()
+  await i18n.changeLanguage('en')
+  await resetPhoneDb()
+  resetLocalState()
   resetMockDb()
   server.resetHandlers()
 })

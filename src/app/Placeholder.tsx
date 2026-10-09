@@ -9,13 +9,3 @@ export function Placeholder({ title, phase }: { title: string; phase: number }) 
     </>
   )
 }
-
-/** The attendant's phone pages. Built in phase 5. */
-export function TripPlaceholder() {
-  return (
-    <main className="p-6">
-      <h1 className="text-[30px] leading-[1.1] font-bold">Trip</h1>
-      <p className="mt-2 text-ink-soft">Coming in phase 5.</p>
-    </main>
-  )
-}

@@ -1,10 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { lazy, Suspense, useState } from 'react'
+import { lazy, Suspense, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { Navigate, useLocation } from 'react-router'
 import { z } from 'zod'
 import { api } from '@/api/client'
 import { landingPath } from '@/app/landingPath'
+import { useDefaultLanguage } from '@/i18n'
+import { LanguageButton } from '@/i18n/LanguageButton'
 import { normalizePhone } from '@/lib/phone'
 import { Button } from '@/ui/Button'
 import { Field } from '@/ui/Field'
@@ -20,18 +23,12 @@ import { ApiError } from '@/api/errors'
 const SampleLogins =
   import.meta.env.VITE_API_MODE === 'mock' ? lazy(() => import('./SampleLogins')) : null
 
-const phoneSchema = z.object({
-  phone: z
-    .string()
-    .refine((value) => normalizePhone(value) !== null, 'Enter a 10-digit mobile number.'),
-})
-const codeSchema = z.object({
-  otp: z.string().regex(/^\d{6}$/, 'Enter the 6-digit code.'),
-})
-type PhoneForm = z.infer<typeof phoneSchema>
-type CodeForm = z.infer<typeof codeSchema>
+type PhoneForm = { phone: string }
+type CodeForm = { otp: string }
 
 export function LoginPage() {
+  const { t, i18n } = useTranslation()
+  useDefaultLanguage('en')
   const { user, login } = useAuth()
   const location = useLocation()
   const [phone, setPhone] = useState<string | null>(null)
@@ -51,7 +48,7 @@ export function LoginPage() {
       startWait(answer.resendAfterSeconds)
       return true
     } catch (error) {
-      setMessage(loginErrorMessage(error))
+      setMessage(loginErrorMessage(error, t))
       if (error instanceof ApiError && error.code === 'OTP_TOO_MANY_REQUESTS') {
         startWait(error.retryAfterSeconds ?? 60)
       }
@@ -60,11 +57,19 @@ export function LoginPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[420px] flex-col bg-paper">
-      <div className="flex flex-col gap-1.5 bg-ink px-6 pt-12 pb-9 text-white">
-        <div className="text-[15px] font-medium text-dust-light">MUH Jain Global School</div>
-        <h1 className="text-[34px] leading-tight font-bold">School admin</h1>
-        <p className="text-[17px] text-side-text">Log in with your mobile number</p>
+    <div
+      lang={i18n.language}
+      className={`mx-auto flex min-h-screen w-full max-w-[420px] flex-col bg-paper ${i18n.language === 'hi' ? 'font-hindi' : ''}`}
+    >
+      <div className="flex flex-col gap-11 bg-ink px-6 pt-5 pb-9 text-white">
+        <div className="flex justify-end">
+          <LanguageButton />
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <div className="text-[15px] font-medium text-dust-light">{t('login.org')}</div>
+          <h1 className="text-[34px] leading-[1.2] font-bold">{t('login.title')}</h1>
+          <p className="text-[17px] text-side-text">{t('login.subtitle')}</p>
+        </div>
       </div>
 
       <div className="flex flex-1 flex-col px-6 pt-8 pb-6">
@@ -89,6 +94,7 @@ export function LoginPage() {
             {wait > 0 && phone === null ? ` (${wait} s)` : ''}
           </p>
         )}
+        <p className="mt-6 text-[15.5px] text-ink-soft">{t('login.once')}</p>
         {SampleLogins && (
           <Suspense fallback={null}>
             <SampleLogins onLogin={login} />
@@ -106,6 +112,16 @@ function PhoneStep({
   wait: number
   onSend: (phone: string) => Promise<boolean>
 }) {
+  const { t } = useTranslation()
+  const phoneSchema = useMemo(
+    () =>
+      z.object({
+        phone: z
+          .string()
+          .refine((value) => normalizePhone(value) !== null, t('login.errors.phone')),
+      }),
+    [t],
+  )
   const {
     register,
     handleSubmit,
@@ -118,13 +134,23 @@ function PhoneStep({
       onSubmit={handleSubmit(async ({ phone }) => {
         await onSend(phone)
       })}
-      className="flex flex-col gap-5"
+      className="flex flex-col gap-[22px]"
     >
-      <Field label="Mobile number" error={errors.phone?.message}>
-        <PhoneInput placeholder="98123 45678" {...register('phone')} />
+      <Field large label={t('login.mobile')} error={errors.phone?.message}>
+        <PhoneInput
+          placeholder="98123 45678"
+          className="min-h-14 text-[19px]"
+          {...register('phone')}
+        />
       </Field>
-      <Button type="submit" saving={isSubmitting} disabled={wait > 0} className="min-h-14 text-lg">
-        Send code
+      <Button
+        type="submit"
+        saving={isSubmitting}
+        savingLabel={t('common.sending')}
+        disabled={wait > 0}
+        className="min-h-[60px] text-[20px]"
+      >
+        {t('login.sendCode')}
       </Button>
     </form>
   )
@@ -140,6 +166,11 @@ interface CodeStepProps {
 }
 
 function CodeStep({ phone, wait, onChangeNumber, onResend, onLogin, onMessage }: CodeStepProps) {
+  const { t } = useTranslation()
+  const codeSchema = useMemo(
+    () => z.object({ otp: z.string().regex(/^\d{6}$/, t('login.errors.code')) }),
+    [t],
+  )
   const {
     register,
     handleSubmit,
@@ -152,27 +183,30 @@ function CodeStep({ phone, wait, onChangeNumber, onResend, onLogin, onMessage }:
     try {
       onLogin(await api<LoginResponse>('POST', '/auth/otp/verify', { phone, otp }))
     } catch (error) {
-      onMessage(loginErrorMessage(error))
+      onMessage(loginErrorMessage(error, t))
       if (error instanceof ApiError && error.code === 'OTP_LOCKED') reset({ otp: '' })
     }
   }
 
   return (
-    <form noValidate onSubmit={handleSubmit(submit)} className="flex flex-col gap-5">
-      <p className="text-ink-soft">
-        If this number is registered, a code was sent on WhatsApp or SMS.
-      </p>
-      <Field label="6-digit code" error={errors.otp?.message}>
+    <form noValidate onSubmit={handleSubmit(submit)} className="flex flex-col gap-[22px]">
+      <p className="text-ink-soft">{t('login.codeSent')}</p>
+      <Field large label={t('login.code')} error={errors.otp?.message}>
         <TextInput
           inputMode="numeric"
           autoComplete="one-time-code"
           maxLength={6}
-          className="font-mono tracking-[0.3em]"
+          className="min-h-14 font-mono text-[19px] tracking-[0.3em]"
           {...register('otp')}
         />
       </Field>
-      <Button type="submit" saving={isSubmitting} className="min-h-14 text-lg">
-        Log in
+      <Button
+        type="submit"
+        saving={isSubmitting}
+        savingLabel={t('common.sending')}
+        className="min-h-[60px] text-[20px]"
+      >
+        {t('login.logIn')}
       </Button>
       <div className="flex flex-wrap justify-between gap-3 text-[14px]">
         <button
@@ -181,14 +215,14 @@ function CodeStep({ phone, wait, onChangeNumber, onResend, onLogin, onMessage }:
           onClick={() => void onResend()}
           className="cursor-pointer text-canal underline disabled:cursor-not-allowed disabled:text-ink-soft disabled:no-underline"
         >
-          {wait > 0 ? `Send the code again (${wait} s)` : 'Send the code again'}
+          {wait > 0 ? t('login.resendWait', { seconds: wait }) : t('login.resend')}
         </button>
         <button
           type="button"
           onClick={onChangeNumber}
           className="cursor-pointer text-canal underline"
         >
-          Change number
+          {t('login.changeNumber')}
         </button>
       </div>
     </form>

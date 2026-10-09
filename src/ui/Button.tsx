@@ -5,11 +5,14 @@ interface ButtonProps extends ComponentProps<'button'> {
   variant?: ButtonVariant
   /** Shows "Saving…" and turns the button off. */
   saving?: boolean
+  /** The words while saving. The phone app passes Hindi words. */
+  savingLabel?: string
 }
 
 export function Button({
   variant = 'primary',
   saving = false,
+  savingLabel = 'Saving…',
   type = 'button',
   disabled,
   className = '',
@@ -24,7 +27,7 @@ export function Button({
       className={`${buttonClass(variant)} ${className}`}
       {...rest}
     >
-      {saving ? 'Saving…' : children}
+      {saving ? savingLabel : children}
     </button>
   )
 }

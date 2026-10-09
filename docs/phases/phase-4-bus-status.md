@@ -66,7 +66,7 @@ Pages:
 
 Finish:
 
-- [ ] 4.13 Playwright flow: open Bus status as the owner, see 9 routes, open Route 4, see 19 children.
+- [x] 4.13 Playwright flow: open Bus status as the owner, see 9 routes, open Route 4, see 19 children.
 - [ ] 4.14 **Switch to the real backend** (needs backend Phase 4).
 
 ## Tests that must pass

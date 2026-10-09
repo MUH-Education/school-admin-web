@@ -63,8 +63,8 @@ Vehicles and staff:
 
 Routes and load:
 
-- [ ] 2.15 API hooks for routes, load board, settings.
-- [ ] 2.16 `RoutesPage`: tiles, settings row, route list with `SeatMeter`.
+- [x] 2.15 API hooks for routes, load board, settings.
+- [x] 2.16 `RoutesPage`: tiles, settings row, route list with `SeatMeter`.
 - [ ] 2.17 Selected route panel: name, vehicle, stops editor, the six numbers.
 - [ ] 2.18 Add route, delete route.
 - [ ] 2.19 `loadBoardInsights(rows)` pure function and the bottom box.

@@ -1,12 +1,14 @@
 import '@testing-library/jest-dom/vitest'
 import { cleanup } from '@testing-library/react'
+import { i18n } from '@/i18n'
 import { resetMockDb } from '@/mocks/db'
 import { server } from '@/mocks/server'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
-afterEach(() => {
+afterEach(async () => {
   cleanup()
   localStorage.clear()
+  await i18n.changeLanguage('en')
   resetMockDb()
   server.resetHandlers()
 })

@@ -2,6 +2,7 @@ import { act, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { http, HttpResponse } from 'msw'
 import { getToken } from '@/api/client'
+import { i18n } from '@/i18n'
 import { server } from '@/mocks/server'
 import { renderApp, saveLogin, sampleUserIds } from '@/test/utils'
 
@@ -121,5 +122,42 @@ describe('login page', () => {
     saveLogin(sampleUserIds.admissions)
     const { router } = renderApp('/login')
     await waitFor(() => expect(router.state.location.pathname).toBe('/routes'))
+  })
+})
+
+describe('login page language', () => {
+  it('starts in English with a हिंदी button; one press switches and remembers', async () => {
+    const { unmount } = renderApp('/login')
+    expect(await screen.findByLabelText('Mobile number')).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: 'Change language: हिंदी' }))
+    expect(await screen.findByLabelText('मोबाइल नंबर')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'कोड भेजें' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'भाषा बदलें: English' })).toHaveTextContent('English')
+    expect(localStorage.getItem('lang')).toBe('hi')
+
+    // The phone opens the page again: the choice is still Hindi.
+    unmount()
+    renderApp('/login')
+    expect(await screen.findByLabelText('मोबाइल नंबर')).toBeInTheDocument()
+  })
+
+  it('shows the field and server messages in Hindi', async () => {
+    localStorage.setItem('lang', 'hi')
+    await i18n.changeLanguage('hi')
+    renderApp('/login')
+    await userEvent.type(await screen.findByLabelText('मोबाइल नंबर'), '12345')
+    await userEvent.click(screen.getByRole('button', { name: 'कोड भेजें' }))
+    expect(await screen.findByText('10 अंकों का मोबाइल नंबर लिखें।')).toBeInTheDocument()
+
+    await userEvent.clear(screen.getByLabelText('मोबाइल नंबर'))
+    await userEvent.type(screen.getByLabelText('मोबाइल नंबर'), '98123 40005')
+    await userEvent.click(screen.getByRole('button', { name: 'कोड भेजें' }))
+    await userEvent.type(await screen.findByLabelText('6 अंकों का कोड'), '111111')
+    await userEvent.click(screen.getByRole('button', { name: 'लॉगिन करें' }))
+    expect(
+      await screen.findByText(
+        'कोड गलत है या पुराना हो गया है। दोबारा कोशिश करें या नया कोड मँगाएँ।',
+      ),
+    ).toBeInTheDocument()
   })
 })

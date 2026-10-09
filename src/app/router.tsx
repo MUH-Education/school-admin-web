@@ -1,27 +1,8 @@
 import { createBrowserRouter, Navigate, Outlet, type RouteObject } from 'react-router'
-import type { Permission } from '@/auth/types'
 import { CannotOpenPage, RequireLogin, RequirePermission } from './guards'
 import { Landing } from './Landing'
 import { NotFoundPage } from './NotFoundPage'
-import { Placeholder } from './Placeholder'
 import { Root } from './Root'
-
-/** A page that needs a permission and is built in a later phase. */
-function placeholder(
-  path: string,
-  title: string,
-  permission: Permission,
-  phase: number,
-): RouteObject {
-  return {
-    path,
-    element: (
-      <RequirePermission permission={permission}>
-        <Placeholder title={title} phase={phase} />
-      </RequirePermission>
-    ),
-  }
-}
 
 export const routes: RouteObject[] = [
   {
@@ -262,7 +243,19 @@ export const routes: RouteObject[] = [
                   }
                 },
               },
-              placeholder('analytics', 'Analytics', 'ANALYTICS_VIEW', 9),
+              {
+                path: 'analytics',
+                lazy: async () => {
+                  const { AnalyticsPage } = await import('@/features/analytics/pages/AnalyticsPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="ANALYTICS_VIEW">
+                        <AnalyticsPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
               {
                 path: 'users',
                 lazy: async () => {

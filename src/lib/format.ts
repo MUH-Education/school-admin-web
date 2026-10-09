@@ -159,3 +159,16 @@ export function isoWithOffset(now: Date = new Date()): string {
   const get = (type: string) => parts.find((p) => p.type === type)?.value ?? '00'
   return `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}:${get('second')}+05:30`
 }
+
+/** formatMonth('2026-09') → "Sep" ; formatMonth('2026-09', 'long') → "September". Month names do not move with the laptop's zone. */
+export function formatMonth(month: string, style: 'short' | 'long' = 'short'): string {
+  const [year = '1970', number = '01'] = month.split('-')
+  return new Intl.DateTimeFormat('en-GB', { month: style, timeZone: 'UTC' })
+    .format(new Date(Date.UTC(Number(year), Number(number) - 1, 1)))
+    .replace('Sept', 'Sep')
+}
+
+/** plural(1, 'student') → "1 student" ; plural(2, 'student') → "2 students" */
+export function plural(count: number, word: string): string {
+  return `${count} ${word}${count === 1 ? '' : 's'}`
+}

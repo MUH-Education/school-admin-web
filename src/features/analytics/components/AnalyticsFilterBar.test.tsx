@@ -102,6 +102,6 @@ describe('Analytics filters', () => {
     // The six filters and the page go; the sort stays.
     await waitFor(() => expect(router.state.location.search).toBe('?sort=name&dir=asc'))
     expect(screen.queryByRole('button', { name: 'Clear filters' })).not.toBeInTheDocument()
-    expect(screen.getByText("Showing all 37 students.")).toBeInTheDocument()
+    expect(screen.getByText('Showing all 37 students.')).toBeInTheDocument()
   })
 })

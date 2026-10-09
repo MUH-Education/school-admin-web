@@ -44,8 +44,8 @@ The owner picks filters and sees tiles, four charts and a list of students with 
 - [x] 9.4 `BarColumns` (grouped and single), with axis and grid (used by charts 1 and 3).
 - [x] 9.5 `StackedBar` (chart 2).
 - [x] 9.6 `BarList` (chart 4).
-- [ ] 9.7 API hooks with "keep previous data while loading" (behaviour 3).
-- [ ] 9.8 Tiles and the four chart panels (behaviour 4 to 9).
+- [x] 9.7 API hooks with "keep previous data while loading" (behaviour 3).
+- [x] 9.8 Tiles and the four chart panels (behaviour 4 to 9).
 - [ ] 9.9 The table with sorting and paging (behaviour 10).
 - [ ] 9.10 The download (behaviour 11).
 - [ ] 9.11 If backend question C4 ("student average graph") was answered and the backend added an endpoint, add that chart here.

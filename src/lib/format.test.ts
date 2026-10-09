@@ -13,6 +13,8 @@ import {
   isoWithOffset,
   nextSessionLabel,
   maskPhone,
+  formatMonth,
+  plural,
 } from './format'
 
 describe('formatInr', () => {
@@ -93,5 +95,20 @@ describe('nextSessionLabel', () => {
     expect(nextSessionLabel(new Date('2026-10-07T02:12:10Z'))).toBe('2027–28')
     expect(nextSessionLabel(new Date('2027-02-10T02:12:10Z'))).toBe('2027–28')
     expect(nextSessionLabel(new Date('2027-04-02T02:12:10Z'))).toBe('2028–29')
+  })
+})
+
+describe('formatMonth and plural', () => {
+  it('writes the month in short or long form', () => {
+    expect(formatMonth('2026-04')).toBe('Apr')
+    expect(formatMonth('2026-09')).toBe('Sep')
+    expect(formatMonth('2026-10', 'long')).toBe('October')
+    expect(formatMonth('2027-01', 'long')).toBe('January')
+  })
+
+  it('counts one and many', () => {
+    expect(plural(1, 'student')).toBe('1 student')
+    expect(plural(0, 'student')).toBe('0 students')
+    expect(plural(76, 'village')).toBe('76 villages')
   })
 })

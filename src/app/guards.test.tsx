@@ -50,10 +50,4 @@ describe('guards and landing', () => {
     expect(await screen.findByRole('heading', { name: 'Users and roles' })).toBeInTheDocument()
     expect(screen.queryByLabelText('Mobile number')).not.toBeInTheDocument()
   })
-
-  it('shows placeholder pages with the phase number', async () => {
-    saveLogin(sampleUserIds.owner)
-    renderApp('/analytics')
-    expect(await screen.findByText('Coming in phase 9.')).toBeInTheDocument()
-  })
 })

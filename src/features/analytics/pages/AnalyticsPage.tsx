@@ -1,4 +1,5 @@
 import {
+  useAnalyticsStudents,
   useAnalyticsSummary,
   useFeeCollectionByMonth,
   usePaymentByOccupation,
@@ -9,6 +10,7 @@ import { AnalyticsFilterBar } from '../components/AnalyticsFilterBar'
 import { ClassPanel } from '../components/ClassPanel'
 import { FeeCollectionPanel } from '../components/FeeCollectionPanel'
 import { OccupationPanel } from '../components/OccupationPanel'
+import { StudentsListSection } from '../components/StudentsListSection'
 import { SummaryTiles } from '../components/SummaryTiles'
 import { VillagePanel } from '../components/VillagePanel'
 import { useAnalyticsFilters } from '../useAnalyticsFilters'
@@ -27,6 +29,7 @@ export function AnalyticsPage() {
   const occupations = usePaymentByOccupation(filters)
   const classes = useStudentsByClass(filters)
   const villages = useStudentsByVillage(filters)
+  const students = useAnalyticsStudents(filters, controls.table)
 
   const noStudents = summary.data?.students === 0
 
@@ -55,6 +58,14 @@ export function AnalyticsPage() {
         <ClassPanel query={classes} noStudents={noStudents} />
         <VillagePanel query={villages} noStudents={noStudents} />
       </div>
+      <StudentsListSection
+        query={students}
+        table={controls.table}
+        sortBy={controls.sortBy}
+        setPage={controls.setPage}
+        anyFilter={controls.anyFilter}
+        clear={controls.clear}
+      />
     </>
   )
 }

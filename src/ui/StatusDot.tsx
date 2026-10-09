@@ -23,6 +23,7 @@ export function StatusDot({
   large = false,
   inkText = false,
   plain = false,
+  inheritSize = false,
 }: {
   tone: StatusTone
   children: string
@@ -32,11 +33,13 @@ export function StatusDot({
   inkText?: boolean
   /** Normal weight words, as in the Fee column of the Students design. */
   plain?: boolean
+  /** The words take the size of the row around them (the Analytics list is 13.5px). */
+  inheritSize?: boolean
 }) {
   const style = tones[tone]
   return (
     <span
-      className={`inline-flex items-center ${plain ? '' : 'font-semibold'} ${large ? 'gap-2 text-[15px]' : 'gap-[7px] text-[13px]'} ${inkText ? 'text-ink' : style.text}`}
+      className={`inline-flex items-center ${plain ? '' : 'font-semibold'} ${large ? 'gap-2 text-[15px]' : inheritSize ? 'gap-[7px]' : 'gap-[7px] text-[13px]'} ${inkText ? 'text-ink' : style.text}`}
     >
       <span
         aria-hidden="true"

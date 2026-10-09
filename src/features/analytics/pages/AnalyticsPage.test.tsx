@@ -128,7 +128,7 @@ describe('Analytics page', () => {
     await openAnalytics('/analytics?village=Kanheri&feeStatus=DEFAULTED')
     await loaded()
     server.events.removeAllListeners()
-    expect(new Set(urls.map((u) => u.pathname)).size).toBe(5)
+    expect(new Set(urls.map((u) => u.pathname)).size).toBe(6)
     for (const url of urls) {
       expect(url.searchParams.get('village')).toBe('Kanheri')
       expect(url.searchParams.get('feeStatus')).toBe('DEFAULTED')

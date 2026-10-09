@@ -7,6 +7,13 @@ export interface Column<Row> {
   mono?: boolean
   /** Hidden header text for a column with only buttons. */
   headerHidden?: boolean
+  /** Right-aligned header and cells, for money. Only in the `grid` layout. */
+  align?: 'right'
+  /**
+   * Makes the column name a button that sorts. `direction` is the order now (null: the table is
+   * sorted by another column). The header says it for screen readers with `aria-sort`.
+   */
+  sort?: { direction: 'asc' | 'desc' | null; onSort: () => void }
 }
 
 /** A roomy layout like the Enquiry list design: fixed and flexible columns in a CSS grid. */
@@ -17,6 +24,8 @@ export interface GridLayout {
   minWidth: number
   /** CSS padding of the header row and of a body row. Without it: 14px above and below, 18px at the sides. */
   padding?: { header: string; row: string }
+  /** The text size class of the rows. Default `text-[14px]`; the Analytics list uses `text-[13.5px]`. */
+  textSize?: string
 }
 
 interface DataTableProps<Row> {
@@ -93,7 +102,7 @@ function GridTable<Row>({
     <div className="overflow-x-auto border border-rule bg-panel">
       <table
         role="table"
-        className="block w-full text-left text-[14px]"
+        className={`block w-full text-left ${grid.textSize ?? 'text-[14px]'}`}
         style={{ minWidth: grid.minWidth }}
       >
         <caption className="sr-only">{caption}</caption>
@@ -108,10 +117,13 @@ function GridTable<Row>({
                 key={column.header}
                 role="columnheader"
                 scope="col"
-                className="block text-left font-mono text-[11px] font-normal tracking-[0.08em] text-ink-soft uppercase"
+                aria-sort={ariaSort(column)}
+                className={`block font-mono text-[11px] font-normal tracking-[0.08em] text-ink-soft uppercase ${column.align === 'right' ? 'text-right' : 'text-left'}`}
               >
                 {column.headerHidden ? (
                   <span className="sr-only">{column.header}</span>
+                ) : column.sort ? (
+                  <SortButton column={column} sort={column.sort} />
                 ) : (
                   column.header
                 )}
@@ -131,7 +143,7 @@ function GridTable<Row>({
                 <td
                   key={column.header}
                   role="cell"
-                  className={`block ${column.mono ? 'font-mono text-[12.5px] text-ink-soft' : ''}`}
+                  className={`block ${column.align === 'right' ? 'text-right' : ''} ${column.mono ? 'font-mono text-[12.5px] text-ink-soft' : ''}`}
                 >
                   {column.cell(row)}
                 </td>
@@ -141,5 +153,32 @@ function GridTable<Row>({
         </tbody>
       </table>
     </div>
+  )
+}
+
+function ariaSort<Row>(column: Column<Row>): 'ascending' | 'descending' | 'none' | undefined {
+  if (!column.sort) return undefined
+  if (column.sort.direction === 'asc') return 'ascending'
+  if (column.sort.direction === 'desc') return 'descending'
+  return 'none'
+}
+
+/** The column name as a button. The arrow shows the order of the column that is sorted now. */
+function SortButton<Row>({
+  column,
+  sort,
+}: {
+  column: Column<Row>
+  sort: NonNullable<Column<Row>['sort']>
+}) {
+  return (
+    <button
+      type="button"
+      onClick={sort.onSort}
+      className={`cursor-pointer uppercase hover:text-ink hover:underline ${sort.direction ? 'text-ink' : ''}`}
+    >
+      {column.header}
+      {sort.direction && <span aria-hidden="true"> {sort.direction === 'asc' ? '↑' : '↓'}</span>}
+    </button>
   )
 }

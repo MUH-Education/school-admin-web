@@ -9,7 +9,7 @@ import type {
   ChildEvent,
   EventStatus,
 } from '@/features/busStatus/types'
-import { formatClock } from '@/lib/format'
+import { formatDayClock } from '@/lib/format'
 import {
   classNames,
   eveningParts,
@@ -29,14 +29,6 @@ const NUMBER_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven
 /** "07:42" on a day → ISO text in Indian time. */
 function at(hhmm: string): string {
   return `${MOCK_TODAY}T${hhmm}:00+05:30`
-}
-
-/** "15:20" → "3:20 pm"; "07:50" → "7:50". The morning has no am or pm, as in the designs. */
-export function clockText(hhmm: string): string {
-  const hour = Number(hhmm.slice(0, 2))
-  if (hour < 12) return formatClock(hhmm)
-  const shown = hour > 12 ? hour - 12 : hour
-  return `${shown}:${hhmm.slice(3)} pm`
 }
 
 /** Without `?phase=` the server picks by the time of day. In the mock it is 7:48 am: morning. */
@@ -262,7 +254,7 @@ export function attentionItems(phase: BusPhase): AttentionItem[] {
         routeId: route.routeId,
         kind: 'NO_TAPS',
         title: `${route.name} has no taps yet`,
-        message: `The first stop, ${first.name}, was due at ${clockText(first.due)}. That is ${minutesText(route.lateMinutes)} ago. Attendant: ${route.attendant}.`,
+        message: `The first stop, ${first.name}, was due at ${formatDayClock(first.due)}. That is ${minutesText(route.lateMinutes)} ago. Attendant: ${route.attendant}.`,
       })
     }
     if (route.state === 'LATE') {
@@ -273,7 +265,7 @@ export function attentionItems(phase: BusPhase): AttentionItem[] {
         kind: 'LATE',
         title: `${route.name} is running ${minutesText(route.lateMinutes)} late`,
         message: lateStop
-          ? `${lateStop.name} was due at ${clockText(lateStop.due)} and was tapped at ${clockText(lateStop.tappedAt ?? '')}. ${NUMBER_WORDS[left] ?? left} stops are still left.`
+          ? `${lateStop.name} was due at ${formatDayClock(lateStop.due)} and was tapped at ${formatDayClock(lateStop.tappedAt ?? '')}. ${NUMBER_WORDS[left] ?? left} stops are still left.`
           : `${NUMBER_WORDS[left] ?? left} stops are still left.`,
       })
     }

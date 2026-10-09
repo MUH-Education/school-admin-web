@@ -1,6 +1,9 @@
 import {
   daysFromToday,
   formatClock,
+  formatDayClock,
+  formatTimeAmPm,
+  formatWeekdayDate,
   formatDate,
   formatDayMonth,
   formatInr,
@@ -55,5 +58,21 @@ describe('more date helpers', () => {
   it('formats a stop time', () => {
     expect(formatClock('07:25')).toBe('7:25')
     expect(formatClock('16:05')).toBe('16:05')
+  })
+})
+
+describe('bus screen times', () => {
+  it('shows a stop time with pm only in the afternoon', () => {
+    expect(formatDayClock('07:25')).toBe('7:25')
+    expect(formatDayClock('12:05')).toBe('12:05 pm')
+    expect(formatDayClock('15:20')).toBe('3:20 pm')
+  })
+  it('shows the time of an answer in Indian time with am or pm', () => {
+    expect(formatTimeAmPm('2026-10-07T07:48:00+05:30')).toBe('7:48 am')
+    expect(formatTimeAmPm('2026-10-07T02:18:00.000Z')).toBe('7:48 am')
+    expect(formatTimeAmPm('2026-10-07T15:32:00+05:30')).toBe('3:32 pm')
+  })
+  it('writes the day with its weekday', () => {
+    expect(formatWeekdayDate('2026-10-07')).toBe('Wednesday 7 October 2026')
   })
 })

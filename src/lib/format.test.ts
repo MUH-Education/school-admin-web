@@ -11,6 +11,7 @@ import {
   formatLongDate,
   formatTime,
   isoWithOffset,
+  nextSessionLabel,
   maskPhone,
 } from './format'
 
@@ -84,5 +85,13 @@ describe('isoWithOffset', () => {
   })
   it('moves to the next day after 18:30 UTC', () => {
     expect(isoWithOffset(new Date('2026-10-07T19:00:00Z'))).toBe('2026-10-08T00:30:00+05:30')
+  })
+})
+
+describe('nextSessionLabel', () => {
+  it('is the year after the current school year', () => {
+    expect(nextSessionLabel(new Date('2026-10-07T02:12:10Z'))).toBe('2027–28')
+    expect(nextSessionLabel(new Date('2027-02-10T02:12:10Z'))).toBe('2027–28')
+    expect(nextSessionLabel(new Date('2027-04-02T02:12:10Z'))).toBe('2028–29')
   })
 })

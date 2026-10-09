@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { usePermissions } from '@/auth/usePermissions'
 import { useRoutes } from '@/features/routes/api'
 import { sessionLabel } from '@/lib/format'
@@ -12,6 +13,7 @@ import { Pagination } from '@/ui/Pagination'
 import { Select } from '@/ui/Select'
 import { TextInput } from '@/ui/TextInput'
 import { useStudents } from '../api'
+import { ImportDialog } from '../components/ImportDialog'
 import { StudentsTable } from '../components/StudentsTable'
 import { classNames } from '../types'
 import { useStudentFilters } from './useStudentFilters'
@@ -22,6 +24,7 @@ export function StudentsPage() {
   const { filters } = controls
   const students = useStudents(filters)
   const routes = useRoutes()
+  const [importing, setImporting] = useState(false)
 
   const page = students.data
   const summary = page && (
@@ -43,6 +46,11 @@ export function StudentsPage() {
         description="Find a student, then open them to change anything: photo, parents' numbers, bus route or class."
         action={
           <div className="flex flex-wrap gap-2.5">
+            {can('STUDENTS_EDIT') && (
+              <Button variant="secondary" onClick={() => setImporting(true)}>
+                Import from a sheet
+              </Button>
+            )}
             {can('ADMISSIONS_CREATE') && (
               <LinkButton to="/admissions/new">New admission</LinkButton>
             )}
@@ -153,6 +161,7 @@ export function StudentsPage() {
           )
         )}
       </section>
+      <ImportDialog open={importing} onClose={() => setImporting(false)} />
     </>
   )
 }

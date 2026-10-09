@@ -53,7 +53,7 @@ describe('guards and landing', () => {
 
   it('shows placeholder pages with the phase number', async () => {
     saveLogin(sampleUserIds.owner)
-    renderApp('/students')
-    expect(await screen.findByText('Coming in phase 3.')).toBeInTheDocument()
+    renderApp('/enquiries')
+    expect(await screen.findByText('Coming in phase 7.')).toBeInTheDocument()
   })
 })

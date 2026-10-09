@@ -77,7 +77,7 @@ Shared components:
 Students list:
 
 - [x] 3.6 API hooks; `StudentsPage` with URL filters, debounce, paging (behaviour 1 to 4).
-- [ ] 3.7 Import dialog (behaviour 21).
+- [x] 3.7 Import dialog (behaviour 21).
 
 One student:
 

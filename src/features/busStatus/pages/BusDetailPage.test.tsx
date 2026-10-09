@@ -103,13 +103,57 @@ describe('One bus: Route 4 at 7:48', () => {
     expect(mohit[4]).toHaveTextContent('—')
     expect(mohit[5]).toHaveTextContent('—')
     expect(mohit[6]).toHaveTextContent('—')
-    // The SMS column is empty until web phase 6.
-    expect(mohit[7]).toBeEmptyDOMElement()
+    expect(mohit[7]).toHaveTextContent('Sent 7:26')
     // "Absent" in red, "Waiting" in grey.
     expect(within(cells('Pooja')[3] as HTMLElement).getByText('Absent')).toHaveClass('text-bad')
     expect(within(cells('Yash')[3] as HTMLElement).getByText('Waiting')).toHaveClass(
       'text-ink-soft',
     )
+  })
+
+  it('oneBusShowsSmsStateForClass3Class9Class11', async () => {
+    await openBus()
+    const table = screen.getByRole('table')
+    const sms = (name: string) => {
+      const row = within(table)
+        .getAllByRole('row')
+        .find((r) => within(r).queryByText(name)) as HTMLElement
+      return within(row).getAllByRole('cell')[7] as HTMLElement
+    }
+    // The 19 lines of BusDetail.dc.html.
+    expect(sms('Aryan')).toHaveTextContent('Sent 7:42') // Class 3
+    expect(sms('Mohit')).toHaveTextContent('Sent 7:26')
+    expect(sms('Tanvi')).toHaveTextContent('Sent 7:43')
+    expect(sms('Kirti')).toHaveTextContent('None for this event (Class 9)')
+    expect(sms('Deepak')).toHaveTextContent('None (Class 11)')
+    expect(sms('Siya')).toHaveTextContent('None (Class 11)')
+    // Absent and waiting children have no SMS yet: a dash.
+    expect(sms('Pooja')).toHaveTextContent('—')
+    expect(sms('Rohit')).toHaveTextContent('—')
+    expect(sms('Aman')).toHaveTextContent('—')
+    // Soft grey, 12.5px, like the design.
+    expect(sms('Aryan')).toHaveClass('text-ink-soft', 'text-[12.5px]')
+    expect(
+      within(table)
+        .getAllByRole('cell')
+        .filter((c) => /^Sent \d/.test(c.textContent ?? '')),
+    ).toHaveLength(8)
+  })
+
+  it('explains the class rule under the table', async () => {
+    await openBus()
+    expect(
+      screen.getByText(
+        'SMS follows the class rule. Nursery to Class 8: all four messages. Class 9 and 10: only "reached school" and "boarded evening bus". Class 11 and 12: no bus SMS.',
+      ),
+    ).toHaveClass('text-[12.5px]', 'text-ink-soft', 'max-w-[760px]')
+  })
+
+  it('shows a failed SMS in red', async () => {
+    await openBus('/bus-status/routes/1')
+    const failed = screen.getByText('Failed')
+    expect(failed).toHaveClass('text-bad')
+    expect(failed.closest('[role="row"]')).toHaveTextContent('4 B')
   })
 
   it('shows the evening part of the day when the address says EVENING', async () => {

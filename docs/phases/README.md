@@ -13,8 +13,8 @@ Change the Status column as you go: **Not started** → **In progress** → **Do
 | 2 | [Vehicles, staff, routes](phase-2-vehicles-staff-routes.md) | Vehicles and staff, One vehicle, Routes and load | 2 | M | Done |
 | 3 | [Students and admission](phase-3-students-admission.md) | Students, One student, New admission | 3 | L | Done |
 | 4 | [Bus status](phase-4-bus-status.md) | Bus status, One bus | 4 | M | Done |
-| 5 | [Attendant app](phase-5-attendant-app.md) | The five phone pages, offline, installable | 4 | L | In progress |
-| 6 | [Messages](phase-6-messages.md) | Messages, SMS column on One bus | 5 | S | Not started |
+| 5 | [Attendant app](phase-5-attendant-app.md) | The five phone pages, offline, installable | 4 | L | Done |
+| 6 | [Messages](phase-6-messages.md) | Messages, SMS column on One bus | 5 | S | In progress |
 | 7 | [Enquiries](phase-7-enquiries.md) | Enquiry list, Add an enquiry, One enquiry | 6 | M | Not started |
 | 8 | [Fees](phase-8-fees.md) | Fees in admission and on the student page, Fee setup | 7 | M | Not started |
 | 9 | [Analytics](phase-9-analytics.md) | Analytics | 8 | M | Not started |

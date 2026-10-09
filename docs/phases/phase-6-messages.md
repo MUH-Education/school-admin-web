@@ -39,12 +39,12 @@ The office can see every SMS that was sent to parents, find one parent's message
 
 ## Tasks
 
-- [ ] 6.1 Types: `Message`, `MessageStatus`, `MessageSummary`.
-- [ ] 6.2 Mock data: the morning's messages for the fixed day, with a few `FAILED` and the Class 9 and Class 11 cases.
-- [ ] 6.3 Mock handlers with filters and paging.
-- [ ] 6.4 API hooks.
-- [ ] 6.5 `MessagesPage` (behaviour 1 to 8).
-- [ ] 6.6 SMS column on `BusDetailPage` (behaviour 9).
+- [x] 6.1 Types: `Message`, `MessageStatus`, `MessageSummary`.
+- [x] 6.2 Mock data: the morning's messages for the fixed day, with a few `FAILED` and the Class 9 and Class 11 cases.
+- [x] 6.3 Mock handlers with filters and paging.
+- [x] 6.4 API hooks.
+- [x] 6.5 `MessagesPage` (behaviour 1 to 8).
+- [x] 6.6 SMS column on `BusDetailPage` (behaviour 9).
 - [ ] 6.7 **Switch to the real backend** (needs backend Phase 5).
 
 ## Tests that must pass

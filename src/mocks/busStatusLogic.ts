@@ -1,5 +1,6 @@
 import type {
   AttentionItem,
+  BusChildEvents,
   BusChildRow,
   BusDetailAnswer,
   BusPhase,
@@ -21,6 +22,7 @@ import {
   type SpecStop,
 } from './data/busStatus'
 import { db } from './db'
+import { childSms } from './messageRules'
 import { holderOn, staffById } from './fleetLogic'
 import { MOCK_NOW, MOCK_TODAY } from './now'
 
@@ -130,6 +132,9 @@ export function routeStatus(routeId: number, phase: BusPhase): BusStatusRoute | 
 
 // ---- Children of one route ----
 
+/** A child before the SMS state is added. */
+export type ChildRowBase = Omit<BusChildRow, 'sms'>
+
 const doneEvent = (hhmm: string): ChildEvent => ({ status: 'DONE', at: at(hhmm) })
 const plain = (status: EventStatus): ChildEvent => ({ status, at: null })
 
@@ -140,7 +145,7 @@ function childName(index: number): string {
 }
 
 /** The 19 children of Route 4 as drawn, with the four events for any phase. */
-function route4Rows(route: BusStatusRoute): BusChildRow[] {
+function route4Rows(route: BusStatusRoute): ChildRowBase[] {
   if (route.phase !== 'EVENING') {
     return route4Children.map((child, index) => ({
       studentId: 400 + index,
@@ -165,16 +170,16 @@ function route4Rows(route: BusStatusRoute): BusChildRow[] {
  * Children for the routes that have no drawing. Stops that are done hold the boarded and the
  * absent children; the other stops hold the ones still waiting. Numbers match the route.
  */
-function generatedRows(route: BusStatusRoute): BusChildRow[] {
+function generatedRows(route: BusStatusRoute): ChildRowBase[] {
   const evening = route.phase === 'EVENING'
   const doneStops = route.stops.filter((s) => s.state === 'DONE')
   const openStops = route.stops.filter((s) => s.state !== 'DONE')
   const waiting = route.total - route.boarded - route.absent
-  const rows: BusChildRow[] = []
+  const rows: ChildRowBase[] = []
   const add = (stop: BusStop, kind: 'BOARDED' | 'ABSENT' | 'WAITING') => {
     const index = rows.length
     const school = route.state === 'REACHED_SCHOOL' ? route.school.reachedAt : null
-    let events: BusChildRow['events']
+    let events: BusChildEvents
     if (!evening) {
       events = {
         boardedMorning:
@@ -228,7 +233,11 @@ export function detailAnswer(routeId: number, phase: BusPhase): BusDetailAnswer 
   const route = routeStatus(routeId, phase)
   if (!route) return null
   const vehicle = db.vehicles.find((v) => v.name === route.vehicle)
-  const children = routeId === 4 ? route4Rows(route) : generatedRows(route)
+  const base = routeId === 4 ? route4Rows(route) : generatedRows(route)
+  const children: BusChildRow[] = base.map((child) => ({
+    ...child,
+    sms: childSms(child.studentId, child.className, child.events),
+  }))
   return {
     date: MOCK_TODAY,
     asOf: asOf(phase),

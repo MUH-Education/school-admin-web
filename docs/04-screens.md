@@ -183,7 +183,7 @@ Two steps on one page. Details in `docs/05-auth-permissions.md`.
 
 ## 2. One bus — `/bus-status/routes/:routeId`
 
-`GET /bus-status/routes/{routeId}?date=` gives everything: route state, stops, each child with the four events. The "SMS to parent" column is filled in web phase 6.
+`GET /bus-status/routes/{routeId}?date=` gives everything: route state, stops, each child with the four events. Each child also has `sms` (the SMS state of the newest event). The "SMS to parent" column shows it in one short line: "Sent 7:42", "None for this event (Class 9)", "None (Class 11)", "Failed" in red, or a dash. The class rule note sits under the table.
 
 ## M2 to M7. Attendant app — `/trip/...`
 

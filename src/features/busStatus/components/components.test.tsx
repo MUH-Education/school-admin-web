@@ -6,6 +6,8 @@ import type { AttentionItem } from '../types'
 import { AttentionBox } from './AttentionBox'
 import { BusRouteRow } from './BusRouteRow'
 import { PhaseSwitch } from './PhaseSwitch'
+import { SmsCell } from './SmsCell'
+import type { ChildSms, ChildSmsState } from '@/features/messages/types'
 
 function inRouter(element: React.ReactElement) {
   const router = createMemoryRouter([{ path: '*', element }])
@@ -130,5 +132,38 @@ describe('PhaseSwitch', () => {
     for (const button of screen.getAllByRole('button')) {
       expect(button).toHaveAttribute('aria-pressed', 'false')
     }
+  })
+})
+
+describe('SmsCell', () => {
+  const none = (state: ChildSmsState): ChildSms => ({ state, sentAt: null })
+
+  it('says what was sent, when', () => {
+    render(<SmsCell className="5 A" sms={{ state: 'SENT', sentAt: '2026-10-07T07:26:00+05:30' }} />)
+    expect(screen.getByText('Sent 7:26')).toBeInTheDocument()
+  })
+
+  it('says pm for an afternoon message', () => {
+    render(<SmsCell className="5 A" sms={{ state: 'SENT', sentAt: '2026-10-07T15:10:00+05:30' }} />)
+    expect(screen.getByText('Sent 3:10 pm')).toBeInTheDocument()
+  })
+
+  it('names the class in the two class-rule lines', () => {
+    const { rerender } = render(<SmsCell className="9 A" sms={none('NONE_THIS_EVENT')} />)
+    expect(screen.getByText('None for this event (Class 9)')).toBeInTheDocument()
+    rerender(<SmsCell className="11 B" sms={none('NO_SMS_CLASS')} />)
+    expect(screen.getByText('None (Class 11)')).toBeInTheDocument()
+  })
+
+  it('shows Failed in red, Waiting and Test only in words, and a dash for none', () => {
+    const { rerender } = render(<SmsCell className="5 A" sms={none('FAILED')} />)
+    expect(screen.getByText('Failed')).toHaveClass('text-bad')
+    rerender(<SmsCell className="5 A" sms={none('QUEUED')} />)
+    expect(screen.getByText('Waiting')).toBeInTheDocument()
+    rerender(<SmsCell className="5 A" sms={none('TEST_ONLY')} />)
+    expect(screen.getByText('Test only, not sent')).toBeInTheDocument()
+    rerender(<SmsCell className="5 A" sms={none('NONE')} />)
+    expect(screen.getByText('—')).toBeInTheDocument()
+    expect(screen.getByText('No SMS yet')).toHaveClass('sr-only')
   })
 })

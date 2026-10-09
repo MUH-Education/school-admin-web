@@ -1,10 +1,14 @@
 import { Link } from 'react-router'
+import { usePermissions } from '@/auth/usePermissions'
+import { feeStatusTone } from '@/features/fees/labels'
+import { feeStatusLabels } from '@/features/fees/types'
 import { DataTable, type Column } from '@/ui/DataTable'
+import { StatusDot } from '@/ui/StatusDot'
 import { classAndSection } from '../labels'
 import type { StudentListRow } from '../types'
 import { StudentPhoto } from './StudentPhoto'
 
-const columns: Column<StudentListRow>[] = [
+const firstColumns: Column<StudentListRow>[] = [
   {
     header: 'Photo',
     headerHidden: true,
@@ -36,21 +40,41 @@ const columns: Column<StudentListRow>[] = [
       ),
   },
   { header: 'Parent phone', cell: (s) => s.parentPhone ?? '', mono: true },
-  {
-    header: 'Open',
-    headerHidden: true,
-    cell: (s) => (
-      <Link
-        to={`/students/${s.id}`}
-        aria-label={`Open ${s.name}`}
-        className="font-semibold text-canal underline"
-      >
-        Open
-      </Link>
-    ),
-  },
 ]
 
+/** The worst fee status of the year: a square and words. A dash: the child has no fee plan. */
+const feeColumn: Column<StudentListRow> = {
+  header: 'Fee',
+  cell: (s) =>
+    s.feeStatus ? (
+      <StatusDot tone={feeStatusTone[s.feeStatus]} plain>
+        {feeStatusLabels[s.feeStatus]}
+      </StatusDot>
+    ) : (
+      <span className="text-ink-soft">
+        <span aria-hidden="true">–</span>
+        <span className="sr-only">No fee plan</span>
+      </span>
+    ),
+}
+
+const openColumn: Column<StudentListRow> = {
+  header: 'Open',
+  headerHidden: true,
+  cell: (s) => (
+    <Link
+      to={`/students/${s.id}`}
+      aria-label={`Open ${s.name}`}
+      className="font-semibold text-canal underline"
+    >
+      Open
+    </Link>
+  ),
+}
+
 export function StudentsTable({ rows }: { rows: StudentListRow[] }) {
+  // The Fee column is for people who may see fees. The server also leaves the status out for the others.
+  const showFee = usePermissions().can('FEES_VIEW')
+  const columns = showFee ? [...firstColumns, feeColumn, openColumn] : [...firstColumns, openColumn]
   return <DataTable caption="Students" columns={columns} rows={rows} getRowKey={(row) => row.id} />
 }

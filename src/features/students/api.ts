@@ -1,5 +1,6 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api, apiBlob, apiUpload } from '@/api/client'
+import { useRefreshFees } from '@/features/fees/api'
 import type {
   Guardian,
   GuardianCreateBody,
@@ -140,12 +141,14 @@ export function useRemoveGuardian(studentId: number) {
   })
 }
 
+/** A bus change also changes the fees: the server adds the bus dues. So the fees box is read again. */
 export function useChangeTransport(studentId: number) {
   const refresh = useRefreshStudents()
+  const refreshFees = useRefreshFees()
   return useMutation({
     mutationFn: (body: TransportBody) =>
       api<TransportSaved>('PUT', `/students/${studentId}/transport`, body),
-    onSuccess: refresh,
+    onSuccess: () => Promise.all([refresh(), refreshFees()]),
   })
 }
 

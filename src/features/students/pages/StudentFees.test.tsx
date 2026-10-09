@@ -324,3 +324,32 @@ describe('One student: Correct a wrong payment', () => {
     expect(sent).toBe(0)
   })
 })
+
+describe('One student: a bus change and the fees', () => {
+  it('busChangeRefreshesFees: after the bus starts, the fees box shows the bus fee at once', async () => {
+    await openStudent(ISHAAN)
+    const fees = within(await box())
+    expect(await fees.findByText('Still to pay')).toBeInTheDocument()
+    expect(fees.getByText('Still to pay').nextSibling).toHaveTextContent('₹7,500')
+    expect(fees.queryByText('Bus fee for the year')).not.toBeInTheDocument()
+
+    const transport = within(screen.getByRole('region', { name: 'Transport' }))
+    await userEvent.click(transport.getByRole('button', { name: 'Change' }))
+    const form = within(await transport.findByRole('form', { name: 'Change the bus' }))
+    await userEvent.selectOptions(form.getByLabelText('Route'), 'Route 4')
+    await userEvent.selectOptions(form.getByLabelText('Stop'), 'Jakhal · 7:40')
+    const date = form.getByLabelText('Start from')
+    await userEvent.clear(date)
+    await userEvent.type(date, '2030-11-02')
+    const fee = form.getByLabelText('Bus fee for the rest of this year (₹)')
+    await userEvent.clear(fee)
+    await userEvent.type(fee, '4000')
+    await userEvent.click(form.getByRole('button', { name: 'Save change' }))
+    expect(await screen.findByText('Bus change saved')).toBeInTheDocument()
+
+    await waitFor(() =>
+      expect(fees.getByText('Bus fee for the year').nextSibling).toHaveTextContent('₹4,000'),
+    )
+    expect(fees.getByText('Still to pay').nextSibling).toHaveTextContent('₹11,500')
+  })
+})

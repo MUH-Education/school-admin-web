@@ -276,6 +276,19 @@ export const routes: RouteObject[] = [
                   }
                 },
               },
+              {
+                path: 'settings/fees',
+                lazy: async () => {
+                  const { FeeSetupPage } = await import('@/features/fees/pages/FeeSetupPage')
+                  return {
+                    Component: () => (
+                      <RequirePermission permission="SETTINGS_EDIT">
+                        <FeeSetupPage />
+                      </RequirePermission>
+                    ),
+                  }
+                },
+              },
               { path: 'cannot-open', Component: CannotOpenPage },
               { path: '*', Component: NotFoundPage },
             ],

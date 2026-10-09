@@ -96,7 +96,7 @@ New admission:
 
 Finish:
 
-- [ ] 3.17 Playwright flow: admit a child with no bus; open the child; start the bus from a later date; add a phone number.
+- [x] 3.17 Playwright flow: admit a child with no bus; open the child; start the bus from a later date; add a phone number.
 - [ ] 3.18 **Switch to the real backend** (needs backend Phase 3). Also switch the child counts on Routes and load.
 
 ## Tests that must pass

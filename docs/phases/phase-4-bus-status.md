@@ -53,9 +53,9 @@ Components:
 
 - [x] 4.4 `StopStrip` with tests for every stop state.
 - [x] 4.5 `routeStateLabel(state, lateMinutes, time)` pure function (behaviour 10).
-- [ ] 4.6 `BusRouteRow`.
-- [ ] 4.7 `AttentionBox`.
-- [ ] 4.8 Phase switch (segmented buttons with `aria-pressed`).
+- [x] 4.6 `BusRouteRow`.
+- [x] 4.7 `AttentionBox`.
+- [x] 4.8 Phase switch (segmented buttons with `aria-pressed`).
 
 Pages:
 

@@ -1,5 +1,5 @@
 import type { StatusTone } from '@/ui/StatusDot'
-import type { RouteState } from './types'
+import type { BusPhase, RouteState } from './types'
 
 export interface StateLabel {
   text: string
@@ -33,3 +33,10 @@ export function routeStateLabel(
       return { text: 'All children home', tone: 'good' }
   }
 }
+
+/** The three choices of the switch, and the words used in headings. */
+export const phaseChoices: { value: BusPhase; label: string }[] = [
+  { value: 'MORNING', label: 'Morning pickup' },
+  { value: 'AT_SCHOOL', label: 'At school' },
+  { value: 'EVENING', label: 'Evening drop' },
+]

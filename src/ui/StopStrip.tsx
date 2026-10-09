@@ -42,7 +42,7 @@ function Square({
  */
 export function StopStrip({ stops, school, noTaps = false }: StopStripProps) {
   return (
-    <ol aria-label="Stops" className="m-0 flex min-w-0 list-none items-start p-0">
+    <ol aria-label="Stops" className="m-0 flex min-w-0 flex-1 list-none items-start p-0">
       {stops.map((stop, index) => {
         const following = stops[index + 1]
         const lineIsBlue =

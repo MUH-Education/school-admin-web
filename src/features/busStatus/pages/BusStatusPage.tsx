@@ -44,6 +44,7 @@ export function BusStatusPage() {
     <PageHeader
       label={status.data ? `Transport · ${formatWeekdayDate(status.data.date)}` : 'Transport'}
       title="Bus status"
+      descriptionWidth={560}
       description="Where every bus is right now. The position comes from the attendant's taps at each stop."
       action={
         <div className="flex flex-col items-start gap-2">

@@ -27,7 +27,8 @@ describe('One bus: Route 4 at 7:48', () => {
     ).toBeInTheDocument()
     expect(screen.getByText('On the way to Kanheri')).toHaveClass('text-canal')
     expect(screen.getByText('Last tap: Jakhal, 7:42 am')).toBeInTheDocument()
-    expect(screen.getByText('Live · updated 7:48 am')).toBeInTheDocument()
+    // The design has no "Live" line on this page while all is well.
+    expect(screen.queryByText(/Live · updated/)).not.toBeInTheDocument()
     const crumbs = screen.getByRole('navigation', { name: 'Breadcrumb' })
     expect(within(crumbs).getByRole('link', { name: 'Bus status' })).toHaveAttribute(
       'href',
@@ -116,7 +117,6 @@ describe('One bus: Route 4 at 7:48', () => {
     expect(
       screen.getByText('Small van · Attendant: Balwan · Evening drop, Wednesday 7 October 2026'),
     ).toBeInTheDocument()
-    expect(screen.getByText('Live · updated 3:32 pm')).toBeInTheDocument()
     // The way back keeps the phase.
     expect(
       within(screen.getByRole('navigation', { name: 'Breadcrumb' })).getByRole('link', {

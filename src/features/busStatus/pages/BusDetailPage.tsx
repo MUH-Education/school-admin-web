@@ -97,7 +97,8 @@ function OneBus({ routeId }: { routeId: number }) {
                 Last tap: {lastTap.name}, {formatTimeAmPm(`${date}T${lastTap.tappedAt}:00+05:30`)}
               </div>
             )}
-            <LiveNote asOf={asOf} failed={bus.isError} />
+            {/* The design has no "Live" line here. It shows only when an update has failed. */}
+            {bus.isError && <LiveNote asOf={asOf} failed />}
           </div>
         }
       />

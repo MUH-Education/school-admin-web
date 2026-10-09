@@ -47,7 +47,7 @@ export function TransportBox({ student, canEdit, editing, onEdit, onClose }: Pro
   return (
     <Panel
       aria-label="Transport"
-      className={`flex flex-col gap-[18px] px-6 pt-[22px] pb-6 ${editing ? 'border-2 border-canal' : ''}`}
+      className={`flex flex-col gap-[18px] px-6 pt-[22px] pb-6 ${editing ? 'border-2! border-canal!' : ''}`}
     >
       <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
         <div className="flex min-w-0 flex-col gap-1">
@@ -251,7 +251,7 @@ function TransportFormBody({
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(200px,100%),1fr))] gap-x-5 gap-y-4">
         {usesBus && (
           <>
-            <Field label="Route" error={errors.routeId?.message}>
+            <Field compact label="Route" error={errors.routeId?.message}>
               <Select
                 {...register('routeId', {
                   // A stop of the old route is not a stop of the new one.
@@ -266,7 +266,7 @@ function TransportFormBody({
                 ))}
               </Select>
             </Field>
-            <Field label="Stop" error={errors.stopId?.message}>
+            <Field compact label="Stop" error={errors.stopId?.message}>
               <Select {...register('stopId')}>
                 <option value="">{route ? 'Pick a stop' : 'Pick a route first'}</option>
                 {(route?.stops ?? []).map((stop) => (
@@ -278,7 +278,11 @@ function TransportFormBody({
             </Field>
           </>
         )}
-        <Field label={usesBus ? 'Start from' : 'From which date'} error={errors.fromDate?.message}>
+        <Field
+          compact
+          label={usesBus ? 'Start from' : 'From which date'}
+          error={errors.fromDate?.message}
+        >
           <DateInput {...register('fromDate')} />
         </Field>
         {usesBus && (

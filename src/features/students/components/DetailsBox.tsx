@@ -181,7 +181,7 @@ function DetailsForm({ student, onClose }: { student: Student; onClose: () => vo
   }
 
   return (
-    <Panel aria-label="Student details" className="border-2 border-canal px-6 pt-[22px] pb-6">
+    <Panel aria-label="Student details" className="border-2! border-canal! px-6 pt-[22px] pb-6">
       <form
         noValidate
         aria-label="Edit student details"
@@ -190,13 +190,13 @@ function DetailsForm({ student, onClose }: { student: Student; onClose: () => vo
       >
         {heading}
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] gap-x-5 gap-y-4">
-          <Field label="Student name" error={errors.name?.message}>
+          <Field compact label="Student name" error={errors.name?.message}>
             <TextInput {...register('name')} />
           </Field>
-          <Field label="Date of birth" error={errors.dateOfBirth?.message}>
+          <Field compact label="Date of birth" error={errors.dateOfBirth?.message}>
             <DateInput {...register('dateOfBirth')} />
           </Field>
-          <Field label="Class" error={errors.className?.message}>
+          <Field compact label="Class" error={errors.className?.message}>
             <Select {...register('className')}>
               {classNames.map((name) => (
                 <option key={name} value={name}>
@@ -205,7 +205,7 @@ function DetailsForm({ student, onClose }: { student: Student; onClose: () => vo
               ))}
             </Select>
           </Field>
-          <Field label="Section" error={errors.section?.message}>
+          <Field compact label="Section" error={errors.section?.message}>
             <Select {...register('section')}>
               <option value="">No section</option>
               {sections.map((section) => (
@@ -215,13 +215,13 @@ function DetailsForm({ student, onClose }: { student: Student; onClose: () => vo
               ))}
             </Select>
           </Field>
-          <Field label="Village or locality" error={errors.village?.message}>
+          <Field compact label="Village or locality" error={errors.village?.message}>
             <TextInput {...register('village')} />
           </Field>
-          <Field label="Address" error={errors.address?.message}>
+          <Field compact label="Address" error={errors.address?.message}>
             <TextInput {...register('address')} />
           </Field>
-          <Field label="Father's occupation" error={errors.fatherOccupation?.message}>
+          <Field compact label="Father's occupation" error={errors.fatherOccupation?.message}>
             <Select {...register('fatherOccupation')}>
               <option value="">Not given</option>
               {occupations.map((code) => (
@@ -270,7 +270,7 @@ function DetailsForm({ student, onClose }: { student: Student; onClose: () => vo
           </p>
           <div className="flex flex-wrap items-end gap-x-4 gap-y-3">
             <div className="w-full max-w-[220px]">
-              <Field label="Last day at school">
+              <Field compact label="Last day at school">
                 <DateInput value={leftOn} onChange={(event) => setLeftOn(event.target.value)} />
               </Field>
             </div>

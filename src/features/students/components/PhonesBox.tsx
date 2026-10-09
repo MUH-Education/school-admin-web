@@ -155,10 +155,10 @@ function AddPhoneForm({ student, onDone }: { student: Student; onDone: () => voi
       onCancel={onDone}
     >
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(200px,100%),1fr))] gap-x-5 gap-y-4">
-        <Field label="Name" error={errors.name?.message}>
+        <Field compact label="Name" error={errors.name?.message}>
           <TextInput {...register('name')} />
         </Field>
-        <Field label="Relation to the child" error={errors.relation?.message}>
+        <Field compact label="Relation to the child" error={errors.relation?.message}>
           <Select {...register('relation')}>
             <option value="">Pick the relation</option>
             {relations.map((relation) => (
@@ -168,7 +168,7 @@ function AddPhoneForm({ student, onDone }: { student: Student; onDone: () => voi
             ))}
           </Select>
         </Field>
-        <Field label="Phone number" error={errors.phone?.message}>
+        <Field compact label="Phone number" error={errors.phone?.message}>
           <PhoneInput className="font-mono" {...register('phone')} />
         </Field>
       </div>
@@ -276,10 +276,10 @@ function EditPhoneForm({ student, guardian, canRemove, onDone }: EditProps) {
         }
       >
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(200px,100%),1fr))] gap-x-5 gap-y-4">
-          <Field label="Name" error={errors.name?.message}>
+          <Field compact label="Name" error={errors.name?.message}>
             <TextInput {...register('name')} />
           </Field>
-          <Field label="Relation to the child" error={errors.relation?.message}>
+          <Field compact label="Relation to the child" error={errors.relation?.message}>
             <Select {...register('relation')}>
               {relations.map((relation) => (
                 <option key={relation} value={relation}>

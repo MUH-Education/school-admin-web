@@ -115,3 +115,16 @@ describe('Routes and load: the three numbers', () => {
     expect(screen.queryByText('Numbers saved')).not.toBeInTheDocument()
   })
 })
+
+describe('Routes and load: bottom box', () => {
+  it('says what the page is telling you, from the sample numbers', async () => {
+    await openRoutes()
+    const box = await screen.findByLabelText('What the board is telling you')
+    expect(
+      within(box).getByRole('heading', { name: 'What this page is telling you' }),
+    ).toBeInTheDocument()
+    expect(within(box).getByText('105 children')).toBeInTheDocument()
+    expect(box).toHaveTextContent('So the problem is too few seats')
+    expect(box).toHaveTextContent('yearly loss of ₹8,67,900')
+  })
+})

@@ -67,7 +67,7 @@ Routes and load:
 - [x] 2.16 `RoutesPage`: tiles, settings row, route list with `SeatMeter`.
 - [x] 2.17 Selected route panel: name, vehicle, stops editor, the six numbers.
 - [x] 2.18 Add route, delete route.
-- [ ] 2.19 `loadBoardInsights(rows)` pure function and the bottom box.
+- [x] 2.19 `loadBoardInsights(rows)` pure function and the bottom box.
 
 Finish:
 

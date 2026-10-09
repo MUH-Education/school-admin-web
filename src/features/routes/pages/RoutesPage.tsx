@@ -11,6 +11,7 @@ import { useLoadBoard, useRoute, useSettings } from '../api'
 import { AddRouteDialog } from '../components/AddRouteDialog'
 import { DeleteRoute } from '../components/DeleteRoute'
 import { FleetTiles } from '../components/FleetTiles'
+import { InsightsBox } from '../components/InsightsBox'
 import { RouteList } from '../components/RouteList'
 import { RoutePanel } from '../components/RoutePanel'
 import { SettingsRow } from '../components/SettingsRow'
@@ -96,6 +97,7 @@ export function RoutesPage() {
           onDeleted={() => select(null)}
         />
       </div>
+      <InsightsBox rows={board.data} />
       {addDialog}
     </>
   )

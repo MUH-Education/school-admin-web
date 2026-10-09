@@ -143,3 +143,75 @@ describe('One vehicle: people box', () => {
     expect(within(box).getByRole('button', { name: 'Add a person' })).toBeInTheDocument()
   })
 })
+
+describe('Add a vehicle and remove a vehicle', () => {
+  it('adds a vehicle with its papers, then opens its page with the people box', async () => {
+    saveLogin(sampleUserIds.owner)
+    renderApp('/vehicles/new')
+    await screen.findByRole('heading', { level: 1, name: 'Add a vehicle' })
+    expect(screen.queryByLabelText('People on this vehicle')).not.toBeInTheDocument()
+
+    await userEvent.type(screen.getByLabelText('Name used in school *'), 'Van 10')
+    await userEvent.type(screen.getByLabelText('Registration number *'), 'HR 23 XX 1110')
+    await userEvent.type(screen.getByLabelText('Seats *'), '14')
+    await userEvent.type(screen.getByLabelText('Cost per month, all-in (₹) *'), '30300')
+    await userEvent.type(screen.getByLabelText('Fitness certificate'), '2027-03-31')
+    await userEvent.type(screen.getByLabelText('Insurance'), '2027-06-15')
+    await userEvent.type(screen.getByLabelText('Permit'), '2028-01-20')
+    await userEvent.type(screen.getByLabelText('Pollution certificate'), '2027-02-09')
+    await userEvent.click(screen.getByRole('button', { name: 'Save vehicle' }))
+
+    expect(await screen.findByText('Vehicle added')).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { level: 1, name: 'Van 10' })).toBeInTheDocument()
+    expect(await screen.findByLabelText('People on this vehicle')).toBeInTheDocument()
+    expect(screen.getByLabelText('Insurance')).toHaveValue('2027-06-15')
+  })
+
+  it('asks for the missing fields on a new vehicle', async () => {
+    saveLogin(sampleUserIds.owner)
+    renderApp('/vehicles/new')
+    await screen.findByRole('heading', { level: 1, name: 'Add a vehicle' })
+    await userEvent.click(screen.getByRole('button', { name: 'Save vehicle' }))
+    expect(await screen.findByText('Enter the name used in school.')).toBeInTheDocument()
+    expect(screen.getByText('Enter the cost per month.')).toBeInTheDocument()
+    expect(screen.getAllByText('Enter a date.')).toHaveLength(4)
+  })
+
+  it('does not remove a vehicle that runs a route and shows the server message', async () => {
+    await openVan4()
+    await userEvent.click(screen.getByRole('button', { name: 'Remove this vehicle' }))
+    await userEvent.click(
+      within(screen.getByRole('dialog')).getByRole('button', { name: 'Remove' }),
+    )
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Van 4 runs Route 4. Give that route another vehicle first.',
+    )
+    expect(screen.getByRole('heading', { level: 1, name: 'Van 4' })).toBeInTheDocument()
+  })
+
+  it('removes a vehicle that has no route and goes back to the list', async () => {
+    saveLogin(sampleUserIds.owner)
+    await api('POST', '/vehicles', {
+      name: 'Van 10',
+      registrationNo: 'HR 23 XX 1110',
+      vehicleType: 'SMALL_VAN',
+      seats: 14,
+      monthlyCost: 30300,
+      ownedBy: 'SCHOOL',
+    })
+    const list = await api<Vehicle[]>('GET', '/vehicles')
+    const van10 = list.find((v) => v.name === 'Van 10')
+    renderApp(`/vehicles/${van10?.id}`)
+    await screen.findByRole('heading', { level: 1, name: 'Van 10' })
+    await userEvent.click(screen.getByRole('button', { name: 'Remove this vehicle' }))
+    await userEvent.click(
+      within(screen.getByRole('dialog')).getByRole('button', { name: 'Remove' }),
+    )
+    expect(await screen.findByText('Vehicle removed')).toBeInTheDocument()
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Vehicles and staff' }),
+    ).toBeInTheDocument()
+    const table = await screen.findByRole('table', { name: 'Vehicles' })
+    expect(within(table).queryByText('Van 10')).not.toBeInTheDocument()
+  })
+})

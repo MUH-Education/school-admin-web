@@ -9,6 +9,7 @@ import { PageHeader } from '@/ui/PageHeader'
 import { usePermissions } from '@/auth/usePermissions'
 import { useVehicle } from '../api'
 import { HistoryBox } from '../components/HistoryBox'
+import { RemoveVehicle } from '../components/RemoveVehicle'
 import { PeopleBox } from '../components/PeopleBox'
 import { PapersCell } from '../components/PapersCell'
 import { VehicleForm } from '../components/VehicleForm'
@@ -107,7 +108,11 @@ function ExistingVehicle({ id }: { id: number }) {
       />
       <div className="flex flex-wrap items-start gap-6">
         <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-6">
-          <VehicleForm key={v.id} vehicle={v} />
+          <VehicleForm
+            key={v.id}
+            vehicle={v}
+            extraAction={<RemoveVehicle id={v.id} name={v.name} />}
+          />
         </div>
         <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-6">
           <PeopleBox vehicle={v} canEdit={can('VEHICLES_EDIT')} />

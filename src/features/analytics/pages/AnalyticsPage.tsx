@@ -53,6 +53,7 @@ export function AnalyticsPage() {
         title="Analytics"
         description="Choose filters. Every graph and the list at the bottom follow the same filters. Nothing is typed here. The data comes from the admission form and fee payments."
         descriptionWidth={620}
+        descriptionClass="leading-[1.4]"
         action={
           <Button
             variant="outline"

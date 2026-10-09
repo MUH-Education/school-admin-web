@@ -9,17 +9,19 @@ interface TileProps {
   /** `bad` makes the number red, for a loss or an overload. */
   tone?: Tone
   size?: Size
+  /** Extra classes for the number, for example `leading-[1.4]` (the Analytics design keeps the page line height). */
+  valueClass?: string
 }
 
 /** One number with a small label above it. Numbers use the mono font. */
-export function Tile({ label, value, tone = 'ink', size = 'large' }: TileProps) {
+export function Tile({ label, value, tone = 'ink', size = 'large', valueClass = '' }: TileProps) {
   return (
     <div
       className={`flex flex-col gap-1 bg-panel ${size === 'large' ? 'px-4 py-3.5' : 'px-3.5 py-3'}`}
     >
       <div className="font-mono text-[11px] tracking-[0.08em] text-ink-soft uppercase">{label}</div>
       <div
-        className={`font-mono font-semibold ${size === 'large' ? 'text-2xl' : 'text-[17px]'} ${tone === 'bad' ? 'text-bad' : ''}`}
+        className={`font-mono font-semibold ${size === 'large' ? 'text-2xl' : 'text-[17px]'} ${tone === 'bad' ? 'text-bad' : ''} ${valueClass}`}
       >
         {value}
       </div>

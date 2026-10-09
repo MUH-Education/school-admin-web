@@ -14,18 +14,25 @@ interface ChartPanelProps {
 
 /** A white box of Analytics.dc.html: title, small grey line, and the chart under them. */
 export function ChartPanel({ title, subtitle, legend, children }: ChartPanelProps) {
+  const heading = (
+    <div className="flex flex-col gap-0.5">
+      <h2 className="text-[15px] font-semibold">{title}</h2>
+      <div className="text-[12.5px] text-ink-soft">{subtitle}</div>
+    </div>
+  )
   return (
     <section
       aria-label={title}
       className="flex min-w-0 flex-[1_1_420px] flex-col gap-4 border border-rule bg-panel px-[22px] pt-5 pb-[22px]"
     >
-      <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2">
-        <div className="flex flex-col gap-0.5">
-          <h2 className="text-[15px] font-semibold">{title}</h2>
-          <div className="text-[12.5px] text-ink-soft">{subtitle}</div>
+      {legend ? (
+        <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2">
+          {heading}
+          {legend}
         </div>
-        {legend}
-      </div>
+      ) : (
+        heading
+      )}
       {children}
     </section>
   )

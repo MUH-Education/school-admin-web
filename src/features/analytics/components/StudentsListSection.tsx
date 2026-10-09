@@ -27,17 +27,19 @@ const grid: GridLayout = {
 function StatusCell({ status, none }: { status: FeeStatus | null; none: string }) {
   if (!status) {
     return (
-      <span className="inline-flex items-center gap-[7px]">
+      <div className="flex items-center gap-[7px]">
         <span aria-hidden="true" className="size-2 flex-none" />
         <span aria-hidden="true">—</span>
         <span className="sr-only">{none}</span>
-      </span>
+      </div>
     )
   }
   return (
-    <StatusDot tone={feeStatusTone[status]} plain inheritSize>
-      {feeStatusLabels[status]}
-    </StatusDot>
+    <div className="flex">
+      <StatusDot tone={feeStatusTone[status]} plain inheritSize>
+        {feeStatusLabels[status]}
+      </StatusDot>
+    </div>
   )
 }
 
@@ -54,13 +56,13 @@ function columnsOf({ table, sortBy }: ColumnsOptions): Column<AnalyticsStudentRo
   return [
     {
       header: 'Student',
-      cell: (r) => <span className="font-semibold">{r.name}</span>,
+      cell: (r) => <div className="font-semibold">{r.name}</div>,
       sort: sortOf('name'),
     },
     {
       header: 'Class',
       cell: (r) => (
-        <span className="font-mono text-[12.5px]">{classAndSection(r.className, r.section)}</span>
+        <div className="font-mono text-[12.5px]">{classAndSection(r.className, r.section)}</div>
       ),
       sort: sortOf('class'),
     },

@@ -3,7 +3,7 @@ import { feeStatusLabels, type FeeStatus } from '@/features/fees/types'
 import { useRoutes } from '@/features/routes/api'
 import { useStudents } from '@/features/students/api'
 import { classNames, occupationLabels, occupations } from '@/features/students/types'
-import { FilterBar, FilterField, filterInputClass } from '@/ui/FilterBar'
+import { FilterBar, FilterField } from '@/ui/FilterBar'
 import { Select } from '@/ui/Select'
 import type { AnalyticsFilters, AnalyticsSummary } from '../types'
 import type { FilterName } from '../useAnalyticsFilters'
@@ -18,6 +18,9 @@ interface AnalyticsFilterBarProps {
   /** True when the count could not be loaded. The tiles show the error and the Retry button. */
   summaryFailed?: boolean
 }
+
+/** Analytics.dc.html: 44px high, 8px and 12px padding, the page's 14px text. The `!` beats the base input class. */
+const filterInputClass = 'min-h-11! px-3! py-2! text-[14px]!'
 
 const emptyFilterBox = { students: 0, allStudents: 0 }
 

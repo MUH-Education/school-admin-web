@@ -48,7 +48,7 @@ export function StackedBar({ rows, reserveRows = 8, emptyMessage }: StackedBarPr
           <div key={row.name} className="flex flex-col gap-[5px]">
             <div className="flex flex-wrap justify-between gap-x-3 gap-y-0.5">
               <span className="text-[13px] font-medium">{row.name}</span>
-              <span className="font-mono text-xs text-ink-soft">{row.note}</span>
+              <span className="font-mono text-[12px] text-ink-soft">{row.note}</span>
             </div>
             <div title={row.title} className="flex h-3 gap-0.5 bg-paper">
               {row.parts.map((part, k) => (

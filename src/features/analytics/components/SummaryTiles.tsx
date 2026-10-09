@@ -25,8 +25,9 @@ export function SummaryTiles({ query }: { query: UseQueryResult<AnalyticsSummary
       className={`transition-opacity ${stale ? 'opacity-60' : ''}`}
     >
       <TileRow label="Summary">
-        <Tile label="Students" value={summary.students} />
+        <Tile valueClass="leading-[1.4]" label="Students" value={summary.students} />
         <Tile
+          valueClass="leading-[1.4]"
           label="Using the bus"
           value={
             <>
@@ -35,6 +36,7 @@ export function SummaryTiles({ query }: { query: UseQueryResult<AnalyticsSummary
           }
         />
         <Tile
+          valueClass="leading-[1.4]"
           label="School fee collected"
           value={
             <>
@@ -43,6 +45,7 @@ export function SummaryTiles({ query }: { query: UseQueryResult<AnalyticsSummary
           }
         />
         <Tile
+          valueClass="leading-[1.4]"
           label="Bus fee collected"
           value={
             <>
@@ -51,6 +54,7 @@ export function SummaryTiles({ query }: { query: UseQueryResult<AnalyticsSummary
           }
         />
         <Tile
+          valueClass="leading-[1.4]"
           label="Fee pending"
           tone="bad"
           value={

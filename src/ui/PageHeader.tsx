@@ -10,6 +10,8 @@ interface PageHeaderProps {
   descriptionWidth?: number
   /** Buttons on the right. */
   action?: ReactNode
+  /** Extra classes for the description, for example `leading-[1.4]` (the Analytics design keeps the page line height). */
+  descriptionClass?: string
   /** The roomy forms: 8px between the lines, a 15px description (Add an enquiry design). */
   roomy?: boolean
 }
@@ -20,6 +22,7 @@ export function PageHeader({
   title,
   description,
   descriptionWidth = 600,
+  descriptionClass = '',
   action,
   roomy = false,
 }: PageHeaderProps) {
@@ -37,7 +40,7 @@ export function PageHeader({
         <h1 className="text-[30px] leading-[1.1] font-bold tracking-[-0.02em]">{title}</h1>
         {description && (
           <p
-            className={`text-ink-soft ${roomy ? 'text-[15px]' : 'text-sm'}`}
+            className={`text-ink-soft ${roomy ? 'text-[15px]' : 'text-sm'} ${descriptionClass}`}
             style={{ maxWidth: descriptionWidth }}
           >
             {description}

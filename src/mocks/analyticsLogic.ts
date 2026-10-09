@@ -8,7 +8,12 @@ import type {
   SortDirection,
   VillageCount,
 } from '@/features/analytics/types'
-import { feeStatusLabels, type FeeHead, type FeeStatus, type StudentFees } from '@/features/fees/types'
+import {
+  feeStatusLabels,
+  type FeeHead,
+  type FeeStatus,
+  type StudentFees,
+} from '@/features/fees/types'
 import { classAndSection } from '@/features/students/labels'
 import { classNames, occupationLabels, type Occupation } from '@/features/students/types'
 import { db } from './db'

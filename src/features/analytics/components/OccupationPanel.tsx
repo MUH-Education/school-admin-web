@@ -1,6 +1,6 @@
 import type { UseQueryResult } from '@tanstack/react-query'
 import { feeStatusLabels } from '@/features/fees/types'
-import { occupationLabels } from '@/features/students/types'
+import { occupationLabels, occupations } from '@/features/students/types'
 import { plural } from '@/lib/format'
 import { ChartLegend } from '@/ui/ChartLegend'
 import { stackedMinHeight } from '@/ui/chartMath'
@@ -30,9 +30,10 @@ export function OccupationPanel({
         />
       }
     >
-      <PanelBody query={query} minHeight={stackedMinHeight(8)}>
+      <PanelBody query={query} minHeight={stackedMinHeight(occupations.length)}>
         {(list) => (
           <StackedBar
+            reserveRows={occupations.length}
             emptyMessage={
               list.length > 0 ? undefined : noStudents ? NO_MATCH : 'No student has a fee plan yet'
             }

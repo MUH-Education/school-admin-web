@@ -55,7 +55,7 @@ export async function api<T>(method: Method, path: string, body?: unknown): Prom
       (json: ApiErrorBody) => json,
       () => null,
     )
-    if (response.status === 401 && !path.startsWith('/auth/')) onUnauthorized()
+    if (response.status === 401 && !path.startsWith('/auth/otp/')) onUnauthorized()
     throw ApiError.fromBody(response.status, errorBody)
   }
 

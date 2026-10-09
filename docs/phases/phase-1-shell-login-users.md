@@ -44,41 +44,41 @@ This phase also builds most of the shared components. Later phases reuse them.
 
 Mock first:
 
-- [ ] 1.1 Types for auth and users (`User`, `Role`, `Permission`, `LoginResponse`).
-- [ ] 1.2 Mock data: the five sample users from `docs/06-api-and-mocks.md`, and the role table.
-- [ ] 1.3 Mock handlers for the nine calls above, with the rules: code `000000`, role checks, the three business errors.
+- [x] 1.1 Types for auth and users (`User`, `Role`, `Permission`, `LoginResponse`).
+- [x] 1.2 Mock data: the five sample users from `docs/06-api-and-mocks.md`, and the role table.
+- [x] 1.3 Mock handlers for the nine calls above, with the rules: code `000000`, role checks, the three business errors.
 
 Shared components (`src/ui/`), each with a small test:
 
-- [ ] 1.4 `Button`, `LinkButton` (all variants and the "Saving…" state).
-- [ ] 1.5 `Field`, `TextInput`, `PhoneInput`, `Select`.
-- [ ] 1.6 `Panel`, `PageHeader`, `Breadcrumb`.
-- [ ] 1.7 `DataTable`, `StatusDot`.
-- [ ] 1.8 `LoadingBlock`, `ErrorState`, `EmptyState`.
-- [ ] 1.9 `Dialog`, `ConfirmDialog`, `Toast` (with focus kept inside an open dialog and Escape to close).
+- [x] 1.4 `Button`, `LinkButton` (all variants and the "Saving…" state).
+- [x] 1.5 `Field`, `TextInput`, `PhoneInput`, `Select`.
+- [x] 1.6 `Panel`, `PageHeader`, `Breadcrumb`.
+- [x] 1.7 `DataTable`, `StatusDot`.
+- [x] 1.8 `LoadingBlock`, `ErrorState`, `EmptyState`.
+- [x] 1.9 `Dialog`, `ConfirmDialog`, `Toast` (with focus kept inside an open dialog and Escape to close).
 
 Auth:
 
-- [ ] 1.10 Token storage, `AuthProvider`, `useAuth()`, `usePermissions().can()`.
-- [ ] 1.11 `LoginPage` with both steps, the countdown, the four error messages, and the "Sample logins" list in mock mode.
-- [ ] 1.12 `RequireLogin`, `RequirePermission`, the "cannot open" page, the landing rule.
-- [ ] 1.13 401 handling in the client: log out, remember the URL, return after login.
+- [x] 1.10 Token storage, `AuthProvider`, `useAuth()`, `usePermissions().can()`.
+- [x] 1.11 `LoginPage` with both steps, the countdown, the four error messages, and the "Sample logins" list in mock mode.
+- [x] 1.12 `RequireLogin`, `RequirePermission`, the "cannot open" page, the landing rule.
+- [x] 1.13 401 handling in the client: log out, remember the URL, return after login.
 
 Shell:
 
-- [ ] 1.14 `Sidebar` and `AdminShell` exactly as in the designs, with the menu-by-permission table from `docs/05-auth-permissions.md`. The sidebar moves above the content on a narrow screen.
-- [ ] 1.15 All admin routes exist in the router with their permission and a placeholder page ("Coming in phase N").
+- [x] 1.14 `Sidebar` and `AdminShell` exactly as in the designs, with the menu-by-permission table from `docs/05-auth-permissions.md`. The sidebar moves above the content on a narrow screen.
+- [x] 1.15 All admin routes exist in the router with their permission and a placeholder page ("Coming in phase N").
 
 Users and roles:
 
-- [ ] 1.16 Role table from `GET /roles` (Full, View, dash) as in the design.
-- [ ] 1.17 "The menu each person sees" block.
-- [ ] 1.18 Users table from `GET /users`.
-- [ ] 1.19 Add user dialog and edit user dialog (behaviour 8 to 10).
+- [x] 1.16 Role table from `GET /roles` (Full, View, dash) as in the design.
+- [x] 1.17 "The menu each person sees" block.
+- [x] 1.18 Users table from `GET /users`.
+- [x] 1.19 Add user dialog and edit user dialog (behaviour 8 to 10).
 
 Finish:
 
-- [ ] 1.20 Playwright flow: log in as the owner, add a user with phone and role, see them in the table, log out.
+- [x] 1.20 Playwright flow: log in as the owner, add a user with phone and role, see them in the table, log out.
 - [ ] 1.21 **Switch to the real backend** (needs backend Phase 1 done). Follow "Switching a screen to the real backend" in `docs/06-api-and-mocks.md`. Write what you find under "Differences found".
 
 ## Tests that must pass

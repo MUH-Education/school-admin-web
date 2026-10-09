@@ -103,8 +103,20 @@ export function hasLogin(staffId: number): boolean {
   return db.users.some((u) => u.staffId === staffId && u.active)
 }
 
+/** The latest change that has not ended yet. A change booked for next week shows at once. */
+function currentOrNextHolder(vehicleId: number, duty: Duty): MockAssignment | undefined {
+  return db.assignments
+    .filter(
+      (a) =>
+        a.vehicleId === vehicleId &&
+        a.duty === duty &&
+        (a.toDate === null || a.toDate >= MOCK_TODAY),
+    )
+    .sort((a, b) => b.fromDate.localeCompare(a.fromDate) || b.id - a.id)[0]
+}
+
 function toPerson(vehicleId: number, duty: Duty): VehiclePerson | null {
-  const holder = holderOn(vehicleId, duty, MOCK_TODAY)
+  const holder = currentOrNextHolder(vehicleId, duty)
   const person = holder && staffById(holder.staffId)
   if (!holder || !person) return null
   const temporaryEnd = holder.temporary ? holder.toDate : null
@@ -118,6 +130,7 @@ function toPerson(vehicleId: number, duty: Duty): VehiclePerson | null {
     fromDate: holder.fromDate,
     toDate: temporaryEnd,
     thenBack: (back && staffById(back.staffId)?.name) ?? null,
+    upcoming: holder.fromDate > MOCK_TODAY,
     hasLogin: hasLogin(person.id),
   }
 }

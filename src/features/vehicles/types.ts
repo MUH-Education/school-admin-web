@@ -51,6 +51,8 @@ export interface VehiclePerson {
   toDate: string | null
   /** The person who comes back after `toDate`. */
   thenBack: string | null
+  /** True when `fromDate` is still ahead: a change that is booked but has not started. */
+  upcoming: boolean
   hasLogin: boolean
 }
 

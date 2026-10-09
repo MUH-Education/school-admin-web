@@ -48,18 +48,20 @@ interface Props {
   open: boolean
   /** Missing: the dialog adds a person. Given: it edits this person. */
   person?: Staff
+  /** The work chosen first when adding. */
+  defaultType?: Duty
   onClose: () => void
 }
 
-export function PersonDialog({ open, person, onClose }: Props) {
+export function PersonDialog({ open, person, defaultType, onClose }: Props) {
   return (
     <Dialog open={open} title={person ? 'Edit person' : 'Add a person'} onClose={onClose}>
-      <PersonForm person={person} onClose={onClose} />
+      <PersonForm person={person} defaultType={defaultType} onClose={onClose} />
     </Dialog>
   )
 }
 
-function PersonForm({ person, onClose }: Omit<Props, 'open'>) {
+function PersonForm({ person, defaultType, onClose }: Omit<Props, 'open'>) {
   const toast = useToast()
   const create = useCreateStaff()
   const update = useUpdateStaff()
@@ -77,7 +79,7 @@ function PersonForm({ person, onClose }: Omit<Props, 'open'>) {
     resolver: zodResolver(schema),
     defaultValues: {
       name: person?.name ?? '',
-      type: person?.type ?? 'DRIVER',
+      type: person?.type ?? defaultType ?? 'DRIVER',
       phone: person?.phone ?? '',
       licenceNo: person?.licenceNo ?? '',
       licenceValidTill: person?.licenceValidTill ?? '',

@@ -6,7 +6,10 @@ import { ErrorState } from '@/ui/ErrorState'
 import { LinkButton } from '@/ui/LinkButton'
 import { LoadingBlock } from '@/ui/LoadingBlock'
 import { PageHeader } from '@/ui/PageHeader'
+import { usePermissions } from '@/auth/usePermissions'
 import { useVehicle } from '../api'
+import { HistoryBox } from '../components/HistoryBox'
+import { PeopleBox } from '../components/PeopleBox'
 import { PapersCell } from '../components/PapersCell'
 import { VehicleForm } from '../components/VehicleForm'
 import { vehicleTypeLabels } from '../labels'
@@ -37,6 +40,7 @@ function NewVehicle() {
 }
 
 function ExistingVehicle({ id }: { id: number }) {
+  const { can } = usePermissions()
   const vehicle = useVehicle(id)
   const crumb = (name: string) => (
     <Breadcrumb items={[{ label: 'Vehicles and staff', to: '/vehicles' }, { label: name }]} />
@@ -104,6 +108,10 @@ function ExistingVehicle({ id }: { id: number }) {
       <div className="flex flex-wrap items-start gap-6">
         <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-6">
           <VehicleForm key={v.id} vehicle={v} />
+        </div>
+        <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-6">
+          <PeopleBox vehicle={v} canEdit={can('VEHICLES_EDIT')} />
+          <HistoryBox vehicleId={v.id} />
         </div>
       </div>
     </>

@@ -64,6 +64,11 @@ function indiaToday(now: Date): string {
   return new Intl.DateTimeFormat('en-CA', { timeZone: ZONE }).format(now)
 }
 
+/** Today's date in India as ISO text, for example 2026-10-07. */
+export function todayIso(now: Date = new Date()): string {
+  return indiaToday(now)
+}
+
 /** Days from today to an ISO date. daysFromToday('2026-10-28') on 7 Oct 2026 → 21 */
 export function daysFromToday(iso: string, now: Date = new Date()): number {
   const day = 24 * 60 * 60 * 1000

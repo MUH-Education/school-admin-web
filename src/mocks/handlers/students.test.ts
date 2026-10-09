@@ -144,7 +144,7 @@ describe('mock students', () => {
       usesBus: true,
       routeId: 9,
       stopId: route9.stops[0]?.id,
-      fromDate: '2026-11-02',
+      fromDate: '2030-11-02',
       busFee: 4000,
     })
     expect(answer.saved).toBe(true)
@@ -154,7 +154,7 @@ describe('mock students', () => {
     })
     const ishaan = await api<Student>('GET', `/students/${ISHAAN}`)
     expect(ishaan.transport.usesBus).toBe(false)
-    expect(ishaan.upcomingTransport).toMatchObject({ route: 'Route 9', since: '2026-11-02' })
+    expect(ishaan.upcomingTransport).toMatchObject({ route: 'Route 9', since: '2030-11-02' })
     const history = await api<TransportEnrolment[]>('GET', `/students/${ISHAAN}/transport`)
     expect(history).toHaveLength(2)
     const after = (await api<LoadBoardRow[]>('GET', '/routes/load-board')).find(
@@ -202,9 +202,9 @@ describe('mock students', () => {
 
   it('stops the bus with only a date', async () => {
     loginAs(OFFICE_ADMIN)
-    await api('PUT', `/students/${ARYAN}/transport`, { usesBus: false, fromDate: '2026-12-01' })
+    await api('PUT', `/students/${ARYAN}/transport`, { usesBus: false, fromDate: '2030-12-01' })
     const aryan = await api<Student>('GET', `/students/${ARYAN}`)
-    expect(aryan.upcomingTransport).toMatchObject({ usesBus: false, since: '2026-12-01' })
+    expect(aryan.upcomingTransport).toMatchObject({ usesBus: false, since: '2030-12-01' })
   })
 
   it('changes details and writes the change history, newest first', async () => {

@@ -19,7 +19,6 @@ import { formatDate } from '@/lib/format'
 import type { MockStudent } from '../data/students'
 import { db } from '../db'
 import { authorize, errorResponse, wait } from '../http'
-import { MOCK_TODAY } from '../now'
 import {
   addHistory,
   childrenOnRoute,
@@ -28,6 +27,7 @@ import {
   guardiansOf,
   nextAdmissionNo,
   startEnrolment,
+  today,
   stopById,
   studentById,
   tenDigits,
@@ -188,7 +188,7 @@ export const studentHandlers = [
           gender: gender === 'GIRL' ? 'GIRL' : 'BOY',
           className: className as MockStudent['className'],
           section: section || null,
-          admissionDate: MOCK_TODAY,
+          admissionDate: today(),
           village: village ?? '',
           address: null,
           fatherOccupation: null,
@@ -210,7 +210,7 @@ export const studentHandlers = [
           usesBus: false,
           routeId: null,
           stopId: null,
-          fromDate: MOCK_TODAY,
+          fromDate: today(),
           toDate: null,
           busFee: null,
         })

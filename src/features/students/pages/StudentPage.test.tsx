@@ -444,7 +444,7 @@ describe('One student: transport', () => {
       'Route 9 is already full. It has 45 children on 26 seats. Ishaan will be number 46.',
     )
     await userEvent.selectOptions(within(form).getByLabelText('Stop'), 'Lahli · 6:55')
-    await setDate(form, 'Start from', '2026-11-02')
+    await setDate(form, 'Start from', '2030-11-02')
     const fee = within(form).getByLabelText('Bus fee for the rest of this year (₹)')
     expect(fee).toHaveValue('8,800')
     await userEvent.clear(fee)
@@ -462,7 +462,7 @@ describe('One student: transport', () => {
     await waitFor(() =>
       expect(box()).toHaveTextContent('The change was saved. Route 9 has 46 children on 26 seats.'),
     )
-    expect(box()).toHaveTextContent('From 2 November 2026: Route 9, Lahli.')
+    expect(box()).toHaveTextContent('From 2 November 2030: Route 9, Lahli.')
     expect(box()).toHaveTextContent('Now: does not use the bus')
     expect(within(box()).queryByRole('form')).not.toBeInTheDocument()
   })
@@ -476,12 +476,12 @@ describe('One student: transport', () => {
     expect(within(form).queryByLabelText('Stop')).not.toBeInTheDocument()
     expect(within(form).queryByLabelText(/Bus fee/)).not.toBeInTheDocument()
     expect(within(form).queryByRole('status')).not.toBeInTheDocument()
-    await setDate(form, 'From which date', '2026-12-01')
+    await setDate(form, 'From which date', '2030-12-01')
     expect(form).toHaveTextContent("From 1 December, Aryan is taken off the attendant's list.")
 
     await userEvent.click(within(form).getByRole('button', { name: 'Save change' }))
     await waitFor(() =>
-      expect(box()).toHaveTextContent('From 1 December 2026: does not use the bus.'),
+      expect(box()).toHaveTextContent('From 1 December 2030: does not use the bus.'),
     )
     expect(box()).toHaveTextContent('Now: Route 4, Jakhal')
     // No warning for a child who leaves the bus.

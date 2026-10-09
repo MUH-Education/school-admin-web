@@ -3,7 +3,6 @@ import type { AdmissionRequest, AdmissionResult } from '@/features/admissions/ty
 import { classNames, occupations } from '@/features/students/types'
 import { db } from '../db'
 import { authorize, errorResponse, wait } from '../http'
-import { MOCK_TODAY } from '../now'
 import {
   addHistory,
   childrenOnRoute,
@@ -12,6 +11,7 @@ import {
   startEnrolment,
   studentById,
   tenDigits,
+  today,
 } from '../studentLogic'
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
@@ -72,7 +72,7 @@ export const admissionHandlers = [
 
     const id = db.nextStudentId++
     const admissionNo = nextAdmissionNo()
-    const admissionDate = body.admissionDate || MOCK_TODAY
+    const admissionDate = body.admissionDate || today()
     db.students.push({
       id,
       admissionNo,

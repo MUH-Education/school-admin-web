@@ -17,3 +17,8 @@ if (typeof URL.createObjectURL !== 'function') {
   URL.createObjectURL = () => 'blob:test-photo'
   URL.revokeObjectURL = () => {}
 }
+
+// jsdom cannot scroll. A page that scrolls to its first mistake only needs the call to exist.
+if (typeof Element.prototype.scrollIntoView !== 'function') {
+  Element.prototype.scrollIntoView = () => {}
+}

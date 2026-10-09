@@ -5,10 +5,18 @@ import type {
   TransportEnrolment,
   TransportNow,
 } from '@/features/students/types'
-import { formatDate } from '@/lib/format'
+import { formatDate, todayIso } from '@/lib/format'
 import type { MockEnrolment, MockGuardian, MockStudent } from './data/students'
 import { db } from './db'
-import { MOCK_NOW, MOCK_TODAY } from './now'
+import { MOCK_TODAY } from './now'
+
+/**
+ * The student mock follows the real clock. The forms of the web app also default to the real date,
+ * so a child admitted today must be on the bus today, not "from a later date".
+ */
+export function today(): string {
+  return todayIso()
+}
 
 /** 9812345340 → 98XXX XX340. The server never sends the whole number. */
 export function maskStudentPhone(phone: string): string {
@@ -71,7 +79,7 @@ function toNow(e: MockEnrolment | undefined): TransportNow {
     route: e?.usesBus ? (place?.route.name ?? null) : null,
     stopId: e?.usesBus ? (e.stopId ?? null) : null,
     stop: e?.usesBus ? (place?.stop.name ?? null) : null,
-    since: e?.fromDate ?? MOCK_TODAY,
+    since: e?.fromDate ?? today(),
     busFee: e?.usesBus ? e.busFee : null,
   }
 }
@@ -88,7 +96,7 @@ export function toGuardian(g: MockGuardian): Guardian {
 
 export function toStudent(s: MockStudent): Student {
   const upcoming = enrolmentsOf(s.id)
-    .filter((e) => e.fromDate > MOCK_TODAY)
+    .filter((e) => e.fromDate > today())
     .at(-1)
   return {
     id: s.id,
@@ -106,14 +114,14 @@ export function toStudent(s: MockStudent): Student {
     active: s.active,
     leftOn: s.leftOn,
     guardians: guardiansOf(s.id).map(toGuardian),
-    transport: toNow(enrolmentOn(s.id, MOCK_TODAY)),
+    transport: toNow(enrolmentOn(s.id, today())),
     upcomingTransport: upcoming ? toNow(upcoming) : null,
   }
 }
 
 export function toListRow(s: MockStudent): StudentListRow {
   // The row shows where the child rides today, or the booked change when nothing runs yet.
-  const now = toNow(enrolmentOn(s.id, MOCK_TODAY) ?? enrolmentsOf(s.id).at(-1))
+  const now = toNow(enrolmentOn(s.id, today()) ?? enrolmentsOf(s.id).at(-1))
   const first = guardiansOf(s.id)[0]
   return {
     id: s.id,
@@ -149,7 +157,7 @@ export function addHistory(studentId: number, text: string, by: string): void {
   db.history.push({
     id: db.nextHistoryId++,
     studentId,
-    at: MOCK_NOW.toISOString(),
+    at: new Date().toISOString(),
     text,
     by,
   })

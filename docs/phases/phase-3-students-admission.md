@@ -90,9 +90,9 @@ One student:
 
 New admission:
 
-- [ ] 3.14 The form, parts 1 to 3, with its Zod schema (behaviour 14, 15).
-- [ ] 3.15 Brother or sister search (behaviour 16).
-- [ ] 3.16 Route-full warning, save, errors, success, leave guard (behaviour 17 to 20).
+- [x] 3.14 The form, parts 1 to 3, with its Zod schema (behaviour 14, 15).
+- [x] 3.15 Brother or sister search (behaviour 16).
+- [x] 3.16 Route-full warning, save, errors, success, leave guard (behaviour 17 to 20).
 
 Finish:
 

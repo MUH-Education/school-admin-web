@@ -8,7 +8,7 @@ import {
   type PaymentBody,
 } from '@/features/fees/types'
 import { classNames } from '@/features/students/types'
-import { formatInr } from '@/lib/format'
+import { formatInr, todayIso } from '@/lib/format'
 import type { MockPayment } from '../data/fees'
 import { db } from '../db'
 import {
@@ -141,7 +141,8 @@ export const feeHandlers = [
     if (!isMoney(body.schoolAmount)) fields.schoolAmount = 'Enter a whole amount, or 0.'
     if (!isMoney(body.busAmount)) fields.busAmount = 'Enter a whole amount, or 0.'
     if (!ISO_DATE.test(body.paidOn ?? '')) fields.paidOn = 'Enter the date.'
-    else if (body.paidOn > feeToday) fields.paidOn = 'The date is in the future.'
+    else if (body.paidOn > (feeToday > todayIso() ? feeToday : todayIso()))
+      fields.paidOn = 'The date is in the future.'
     if (!payModes.includes(body.mode)) fields.mode = 'Pick how it was paid.'
     if (Object.keys(fields).length > 0) return validation(fields)
     if (body.schoolAmount + body.busAmount === 0) {

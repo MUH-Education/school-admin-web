@@ -602,7 +602,12 @@ describe('One student: view-only roles', () => {
       expect(within(main).queryByRole('button', { name })).not.toBeInTheDocument()
     }
     expect(within(main).queryByRole('button', { name: /^Edit / })).not.toBeInTheDocument()
-    expect(within(main).queryAllByRole('button')).toHaveLength(0)
+    // "Record a payment" belongs to the fees (FEES_EDIT, which the admissions desk has); it does not edit the student.
+    expect(
+      within(main)
+        .queryAllByRole('button')
+        .filter((button) => button.textContent !== 'Record a payment'),
+    ).toHaveLength(0)
     expect(within(main).queryByLabelText('Photo file')).not.toBeInTheDocument()
     expect(within(main).queryByRole('textbox')).not.toBeInTheDocument()
     expect(within(main).queryByRole('combobox')).not.toBeInTheDocument()

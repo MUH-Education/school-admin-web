@@ -72,9 +72,9 @@ Do not start this phase before the owner has answered backend question C2 (does 
 - [x] 8.4 API hooks.
 - [x] 8.5 `feePreview()` pure function with tests (behaviour 6, 8).
 - [x] 8.6 Admission part 4 and the Fee summary box; extend the Zod schema and the request (behaviour 1 to 7).
-- [ ] 8.7 "Fees this year" box (behaviour 9, 12, 14).
-- [ ] 8.8 Record a payment dialog (behaviour 10, 11).
-- [ ] 8.9 Correct a payment, owner only (behaviour 13).
+- [x] 8.7 "Fees this year" box (behaviour 9, 12, 14).
+- [x] 8.8 Record a payment dialog (behaviour 10, 11).
+- [x] 8.9 Correct a payment, owner only (behaviour 13).
 - [ ] 8.10 "Fee" column on Students (behaviour 15).
 - [ ] 8.11 Fee setup page and its menu item for the owner (behaviour 16).
 - [ ] 8.12 Refresh fees after a bus change (behaviour 17).

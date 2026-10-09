@@ -9,6 +9,7 @@ import { LinkButton } from '@/ui/LinkButton'
 import { LoadingBlock } from '@/ui/LoadingBlock'
 import { PageHeader } from '@/ui/PageHeader'
 import { useStudent } from '../api'
+import { FeesBox } from '../components/FeesBox'
 import { DetailsBox } from '../components/DetailsBox'
 import { HistoryBox } from '../components/HistoryBox'
 import { PhonesBox } from '../components/PhonesBox'
@@ -30,7 +31,9 @@ export type Editing =
 
 function OneStudent({ id }: { id: number }) {
   const [editing, setEditing] = useState<Editing>(null)
-  const canEdit = usePermissions().can('STUDENTS_EDIT')
+  const { can } = usePermissions()
+  const canEdit = can('STUDENTS_EDIT')
+  const canSeeFees = can('FEES_VIEW')
   const student = useStudent(id)
   const crumb = (name: string) => (
     <Breadcrumb items={[{ label: 'Students', to: '/students' }, { label: name }]} />
@@ -88,6 +91,13 @@ function OneStudent({ id }: { id: number }) {
             onEdit={() => setEditing({ box: 'transport' })}
             onClose={() => setEditing(null)}
           />
+          {canSeeFees && (
+            <FeesBox
+              studentId={s.id}
+              canRecord={can('FEES_EDIT')}
+              canCorrect={can('FEES_CORRECT')}
+            />
+          )}
           <HistoryBox studentId={s.id} />
         </div>
       </div>

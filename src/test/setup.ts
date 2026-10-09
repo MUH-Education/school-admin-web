@@ -1,5 +1,8 @@
 import '@testing-library/jest-dom/vitest'
+import 'fake-indexeddb/auto'
 import { cleanup } from '@testing-library/react'
+import { resetLocalState } from '@/attendant/localState'
+import { resetPhoneDb } from '@/attendant/phoneDb'
 import { i18n } from '@/i18n'
 import { resetMockDb } from '@/mocks/db'
 import { server } from '@/mocks/server'
@@ -9,6 +12,8 @@ afterEach(async () => {
   cleanup()
   localStorage.clear()
   await i18n.changeLanguage('en')
+  await resetPhoneDb()
+  resetLocalState()
   resetMockDb()
   server.resetHandlers()
 })

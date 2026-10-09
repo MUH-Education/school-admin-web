@@ -52,11 +52,11 @@ Foundations:
 
 Offline core (pure TypeScript, no React, fully unit-tested):
 
-- [ ] 5.5 `tapStore`: IndexedDB stores `manifest`, `tapQueue`, `tapProblems` with `idb`.
-- [ ] 5.6 `addTap(...)`: builds the tap with the phone's time, replaces an unsent tap for the same child and event, writes it.
-- [ ] 5.7 `viewState(manifest, queue)`: the pure function that gives each child's shown answer and the counts.
-- [ ] 5.8 `syncOnce()`: the loop of `docs/07-attendant-offline.md`. One run at a time.
-- [ ] 5.9 `useSync()`: starts `syncOnce` on a new tap, on `online`, on app focus, and every 20 seconds while taps wait. Gives `{ waiting, problems, online }` to the UI.
+- [x] 5.5 `tapStore`: IndexedDB stores `manifest`, `tapQueue`, `tapProblems` with `idb`.
+- [x] 5.6 `addTap(...)`: builds the tap with the phone's time, replaces an unsent tap for the same child and event, writes it.
+- [x] 5.7 `viewState(manifest, queue)`: the pure function that gives each child's shown answer and the counts.
+- [x] 5.8 `syncOnce()`: the loop of `docs/07-attendant-offline.md`. One run at a time.
+- [x] 5.9 `useSync()`: starts `syncOnce` on a new tap, on `online`, on app focus, and every 20 seconds while taps wait. Gives `{ waiting, problems, online }` to the UI.
 
 Shell and shared parts:
 

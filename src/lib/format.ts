@@ -137,3 +137,19 @@ export function sessionLabel(now: Date = new Date()): string {
   const start = month >= 4 ? year : year - 1
   return `${start}–${String(start + 1).slice(-2)}`
 }
+
+/** isoWithOffset(new Date('2026-10-07T02:12:10Z')) → 2026-10-07T07:42:10+05:30. The time a tap is stamped with. */
+export function isoWithOffset(now: Date = new Date()): string {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hourCycle: 'h23',
+    timeZone: ZONE,
+  }).formatToParts(now)
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? '00'
+  return `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}:${get('second')}+05:30`
+}
